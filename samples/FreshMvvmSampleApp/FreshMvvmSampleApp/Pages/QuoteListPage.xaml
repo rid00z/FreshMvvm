@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="FreshMvvmSampleApp.QuoteListPage">
+	<BasePage.Content>
+		<ListView ItemsSource="{Binding Quotes}" SelectedItem="{Binding SelectedQuote}"  >
+			<ListView.ItemTemplate>
+				<DataTemplate>
+					<TextCell Text="{Binding Total}" Detail="{Binding CustomerName}"></TextCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+	</BasePage.Content>
+</BasePage>
