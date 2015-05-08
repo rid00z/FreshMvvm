@@ -1,9 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using FreshMvvm;
+using PropertyChanged;
 
 namespace FreshMvvmSampleApp
 {
+    [ImplementPropertyChanged]
     public class QuoteListPageModel : FreshBasePageModel
     {
         IDatabaseService _databaseService;
@@ -18,6 +20,17 @@ namespace FreshMvvmSampleApp
         public override void Init (object initData)
         {
             Quotes = new ObservableCollection<Quote> (_databaseService.GetQuotes ());
+        }
+
+        protected override void ViewIsAppearing (object sender, System.EventArgs e)
+        {
+            CoreMethods.DisplayAlert ("Page is appearing", "", "Ok");
+            base.ViewIsAppearing (sender, e);
+        }
+
+        protected override void ViewIsDisappearing (object sender, System.EventArgs e)
+        {
+            base.ViewIsDisappearing (sender, e);
         }
 
         public override void ReverseInit (object value)

@@ -169,6 +169,78 @@ PageModel
 Init
 PropertyChanged 
 
+#### Sample PageModel
+
+	[ImplementPropertyChanged] // Use Fody for Property Changed Notifications
+    public class QuoteListPageModel : FreshBasePageModel
+    {
+        IDatabaseService _databaseService;
+
+        //These are automatically filled via Constructor Injection IOC
+        public QuoteListPageModel (IDatabaseService databaseService) 
+        {
+            _databaseService = databaseService;
+        }
+
+        public ObservableCollection<Quote> Quotes { get; set; }
+
+        public override void Init (object initData)
+        {
+            Quotes = new ObservableCollection<Quote> (_databaseService.GetQuotes ());
+        }
+
+        //The Framework support standard functions list appeaing and disappearing
+        protected override void ViewIsAppearing (object sender, System.EventArgs e)
+        {
+            CoreMethods.DisplayAlert ("Page is appearing", "", "Ok");
+            base.ViewIsAppearing (sender, e);
+        }
+
+        protected override void ViewIsDisappearing (object sender, System.EventArgs e)
+        {
+            base.ViewIsDisappearing (sender, e);
+        }
+
+        //This is called when a pushed Page returns to this Page
+        public override void ReverseInit (object value)
+        {
+            var newContact = value as Quote;
+            if (!Quotes.Contains (newContact)) {
+                Quotes.Add (newContact);
+            }
+        }
+
+        public Command AddQuote {
+            get {
+                return new Command (async () => {
+                    //Push A Page Model
+                    await CoreMethods.PushPageModel<QuotePageModel> ();
+                });
+            }
+        }
+
+        Quote _selectedQuote;
+
+        public Quote SelectedQuote {
+            get {
+                return _selectedQuote;
+            }
+            set {
+                _selectedQuote = value;
+                if (value != null)
+                    QuoteSelected.Execute (value);
+            }
+        }
+
+        public Command<Quote> QuoteSelected {
+            get {
+                return new Command<Quote> (async (quote) => {
+                    await CoreMethods.PushPageModel<QuotePageModel> (quote);
+                });
+            }
+        }
+    }
+
 ## Setup Guide
 
 Please watch this video/read this post to get started. 
