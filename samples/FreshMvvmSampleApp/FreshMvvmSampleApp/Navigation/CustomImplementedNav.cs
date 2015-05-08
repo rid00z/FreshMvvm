@@ -53,7 +53,7 @@ namespace FreshMvvmSampleApp
 					_tabbedNavigationPage.CurrentPage = _quotesPage;
 					break;
 				case "Modal Demo":
-                    var modalPage = new NavigationPage(FreshPageModelResolver.ResolvePageModel<ModalPageModel>());
+                    var modalPage = FreshPageModelResolver.ResolvePageModel<ModalPageModel>();
 					await PushPage(modalPage, null, true);
 					break;
 				default:
