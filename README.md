@@ -9,6 +9,18 @@ FreshMvvm is a super light Mvvm Framework designed specifically for Xamarin.Form
 * Designed to be easy to learn and develop (great when your not ready for RxUI)
 * Uses a Convention over Configuration 
 
+### Features
+
+* PageModel to PageModel Navigation
+* Automatic wiring of BindingContext
+* Automatic wiring of Page events (eg appearing)
+* Basic methods (with values) on PageModel (init, reverseinit)
+* PageModel Constructor Injection 
+* Basic methods available in Model, like Alert
+* Built in Navigation types for SimpleNavigation, Tabbed and MasterDetail 
+
+*Note* Different to standard naming conventions, FreshMvvm uses Page and PageModel instead of View and ViewModel, this is inline with Xamarin.Forms using Pages
+
 ### Quick Start Guide
 
 TODO: Quick Start Guide
@@ -103,7 +115,7 @@ To obtain a service use Resolve:
 
 When PageModels are pushed services that are in the IOC container can be pushed into the Constructor. 
 
-FreshIOC.Container.Register<IDatabaseService, DatabaseService> ();
+	FreshIOC.Container.Register<IDatabaseService, DatabaseService> ();
 
 ### PageModel Important Methods
 
