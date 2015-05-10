@@ -15,6 +15,7 @@ FreshMvvm is a super light Mvvm Framework designed specifically for Xamarin.Form
 * Automatic wiring of BindingContext
 * Automatic wiring of Page events (eg appearing)
 * Basic methods (with values) on PageModel (init, reverseinit)
+* Built in IOC Container
 * PageModel Constructor Injection 
 * Basic methods available in Model, like Alert
 * Built in Navigation types for SimpleNavigation, Tabbed and MasterDetail 
