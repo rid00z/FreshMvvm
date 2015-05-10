@@ -7,9 +7,10 @@
     <ProjectGuid>{ACBA1111-2C39-4126-B60A-51EE9D0C734B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>FreshMvvm</RootNamespace>
-    <AssemblyName>XamConsulting.FreshMvvm</AssemblyName>
+    <AssemblyName>FreshMvvm</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
+    <ReleaseVersion>0.0.02</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
