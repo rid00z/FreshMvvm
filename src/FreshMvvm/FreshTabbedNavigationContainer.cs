@@ -21,6 +21,7 @@ namespace FreshMvvm
             var page = FreshPageModelResolver.ResolvePageModel<T> (data);
             var navigationContainer = CreateContainerPage (page);
             navigationContainer.Title = title;
+            navigationContainer.Icon = icon;
             Children.Add (navigationContainer);
             return navigationContainer;
         }
