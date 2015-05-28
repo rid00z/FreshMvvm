@@ -9,9 +9,10 @@ namespace FreshMvvm
         Page _currentPage;
         FreshBasePageModel _pageModel;
 
-        public PageModelCoreMethods (Page currentPage)
+        public PageModelCoreMethods (Page currentPage, FreshBasePageModel pageModel)
         {
             _currentPage = currentPage;
+            _pageModel = pageModel;
         }
 
         public async Task DisplayAlert (string title, string message, string cancel)
@@ -55,8 +56,8 @@ namespace FreshMvvm
 
         public async Task PopPageModel (object data, bool modal = false)
         {
-            if (_pageModel != null && data != null) {
-                _pageModel.ReverseInit (data);
+            if (_pageModel != null && _pageModel.PreviousPageModel != null && data != null) {
+                _pageModel.PreviousPageModel.ReverseInit (data);
             }
             await PopPageModel (modal);
         }
