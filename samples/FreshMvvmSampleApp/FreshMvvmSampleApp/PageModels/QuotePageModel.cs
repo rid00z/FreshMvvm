@@ -27,7 +27,7 @@ namespace FreshMvvmSampleApp
             get {
                 return new Command (async () => {
                     _databaseService.UpdateQuote (Quote);
-                    await CoreMethods.PopPageModel ();
+                    await CoreMethods.PopPageModel (Quote);
                 });
             }
         }
