@@ -31,8 +31,7 @@ namespace FreshMvvm
             pageModel.WireEvents (page);
             pageModel.CurrentPage = page;
             pageModel.Init (data);
-            pageModel.CoreMethods = new PageModelCoreMethods (page);
-            page.BindingContext = pageModel;
+            pageModel.CoreMethods = new PageModelCoreMethods (page, pageModel);
 
             return page;
         }
