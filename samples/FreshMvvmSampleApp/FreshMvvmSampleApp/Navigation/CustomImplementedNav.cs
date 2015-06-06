@@ -24,8 +24,8 @@ namespace FreshMvvmSampleApp
 		void SetupTabbedPage()
 		{
 			_tabbedNavigationPage = new FreshTabbedNavigationContainer ();
-			_contactsPage = _tabbedNavigationPage.AddTab<ContactListPageModel> ("Contacts", null);
-			_quotesPage = _tabbedNavigationPage.AddTab<QuoteListPageModel> ("Quotes", null);
+			_contactsPage = _tabbedNavigationPage.AddTab<ContactListPageModel> ("Contacts", "contacts.png");
+			_quotesPage = _tabbedNavigationPage.AddTab<QuoteListPageModel> ("Quotes", "document.png");
 			this.Detail = _tabbedNavigationPage;
 		}
 

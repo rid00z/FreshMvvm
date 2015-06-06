@@ -33,8 +33,8 @@ namespace FreshMvvmSampleApp
         public void LoadTabbedNav ()
         {
             var tabbedNavigation = new FreshTabbedNavigationContainer ();
-            tabbedNavigation.AddTab<ContactListPageModel> ("Contacts", null);
-            tabbedNavigation.AddTab<QuoteListPageModel> ("Quotes", null);
+            tabbedNavigation.AddTab<ContactListPageModel> ("Contacts", "contacts.png", null);
+            tabbedNavigation.AddTab<QuoteListPageModel> ("Quotes", "document.png", null);
             MainPage = tabbedNavigation;
         }
 
