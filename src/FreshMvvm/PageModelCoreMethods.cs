@@ -9,10 +9,10 @@ namespace FreshMvvm
         Page _currentPage;
         FreshBasePageModel _pageModel;
 
-        public PageModelCoreMethods (Page currentPage, FreshBasePageModel pageModel)
+		public PageModelCoreMethods (Page currentPage, FreshBasePageModel pageModel)
         {
             _currentPage = currentPage;
-            _pageModel = pageModel;
+			_pageModel = pageModel;
         }
 
         public async Task DisplayAlert (string title, string message, string cancel)
@@ -66,6 +66,16 @@ namespace FreshMvvm
         {
             return PushPageModel<T> (null);
         }
+
+		public void BatchBegin()
+		{
+			_currentPage.BatchBegin ();
+		}
+
+		public void BatchCommit()
+		{
+			_currentPage.BatchCommit ();
+		}
     }
 }
 

@@ -6,9 +6,9 @@ namespace FreshMvvm
 {
     public interface IFreshNavigationService
     {
-        Task PushPage (Page page, FreshBasePageModel model, bool modal = false);
+		Task PushPage (Page page, FreshBasePageModel model, bool modal = false, bool animate = true);
 
-        Task PopPage (bool modal = false);
+		Task PopPage (bool modal = false, bool animate = true);
     }
 }
 

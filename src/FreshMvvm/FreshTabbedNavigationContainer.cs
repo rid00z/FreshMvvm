@@ -32,7 +32,7 @@ namespace FreshMvvm
             return new NavigationPage (page);
         }
 
-        public async System.Threading.Tasks.Task PushPage (Xamarin.Forms.Page page, FreshBasePageModel model, bool modal = false)
+		public async System.Threading.Tasks.Task PushPage (Xamarin.Forms.Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
         {
             if (modal)
                 await this.CurrentPage.Navigation.PushModalAsync (CreateContainerPage (page));
@@ -40,12 +40,12 @@ namespace FreshMvvm
                 await this.CurrentPage.Navigation.PushAsync (page);
         }
 
-        public async System.Threading.Tasks.Task PopPage (bool modal = false)
+		public async System.Threading.Tasks.Task PopPage (bool modal = false, bool animate = true)
         {
             if (modal)
-                await this.CurrentPage.Navigation.PopModalAsync ();
+                await this.CurrentPage.Navigation.PopModalAsync (animate);
             else
-                await this.CurrentPage.Navigation.PopAsync ();
+                await this.CurrentPage.Navigation.PopAsync (animate);
         }
 
     }

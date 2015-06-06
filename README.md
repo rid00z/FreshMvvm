@@ -6,8 +6,21 @@ FreshMvvm is a super light Mvvm Framework designed specifically for Xamarin.Form
 
 * It's super light and super simple
 * It's specifically designed for Xamarin.Forms
-* Designed to be easy to learn and develop (great when your not ready for RxUI)
+* Designed to be easy to learn and develop (great when you are not ready for RxUI)
 * Uses a Convention over Configuration 
+
+### Features
+
+* PageModel to PageModel Navigation
+* Automatic wiring of BindingContext
+* Automatic wiring of Page events (eg. appearing)
+* Basic methods (with values) on PageModel (init, reverseinit)
+* Built in IOC Container
+* PageModel Constructor Injection 
+* Basic methods available in Model, like Alert
+* Built in Navigation types for SimpleNavigation, Tabbed and MasterDetail 
+
+> *Note* Different to standard naming conventions, FreshMvvm uses Page and PageModel instead of View and ViewModel, this is inline with Xamarin.Forms using Pages
 
 ### Quick Start Guide
 
@@ -25,7 +38,8 @@ It was never a plan to create a framework but after presenting my Mvvm solution 
 
 This Framework, while simple, is also powerful and uses a Convention over Configuration style. 
 
-*Note* Different to standard naming conventions, FreshMvvm uses Page and PageModel instead of View and ViewModel, this is inline with Xamarin.Forms using Pages
+> *Note* Different to standard naming conventions, FreshMvvm uses Page and PageModel instead of View and ViewModel, this is inline with Xamarin.Forms using Pages.
+
 * A Page must have a corresponding PageModel, with naming important so a QuotePageModel must have a QuotePage
 The BindingContext on the page will be automatically set with the Model
 * A PageModel can have a Init method that takes a object
@@ -43,11 +57,13 @@ So to Navigate between PageModels use:
 
 The engine for Navigation in FreshMvvm is done via a simple interface, with methods for Push and Pop. Essentially these methods can control the Navigation of the application in any way they like.
 
-	public interface IFreshNavigationService
-    {
-        Task PushPage(Page page, FreshBasePageModel model, bool modal = false);
-        Task PopPage(bool modal = false);
-    }  
+```
+public interface IFreshNavigationService
+{
+    Task PushPage(Page page, FreshBasePageModel model, bool modal = false);
+    Task PopPage(bool modal = false);
+}
+```
 
 Within the PushPage and PopPage you can do any type of navigation that you like, this can from a simple navigation to a advanced nested navigation. 
 
@@ -55,24 +71,30 @@ The Framework contains some built in Navigation containers for the different typ
 
 ###### Basic Navigation - Built In
 
-	var page = FreshBasePageModel.ResolvePageModel<MainMenuPageModel> ();
-	var basicNavContainer = new FreshNavigationContainer (page);
-	MainPage = basicNavContainer;
+```
+var page = FreshBasePageModel.ResolvePageModel<MainMenuPageModel> ();
+var basicNavContainer = new FreshNavigationContainer (page);
+MainPage = basicNavContainer;
+```
 
 ###### Master Detail - Built In
 
-	var masterDetailNav = new FreshMasterDetailNavigationContainer ();
-	masterDetailNav.Init ("Menu");
-	masterDetailNav.AddPage<ContactListPageModel> ("Contacts", null);
-	masterDetailNav.AddPage<QuoteListPageModel> ("Pages", null);
-	MainPage = masterDetailNav;
+```
+var masterDetailNav = new FreshMasterDetailNavigationContainer ();
+masterDetailNav.Init ("Menu");
+masterDetailNav.AddPage<ContactListPageModel> ("Contacts", null);
+masterDetailNav.AddPage<QuoteListPageModel> ("Pages", null);
+MainPage = masterDetailNav;
+```
 
 ###### Tabbed Navigation - Built In
 
-	var tabbedNavigation = new FreshTabbedNavigationContainer ();
-	tabbedNavigation.AddTab<ContactListPageModel> ("Contacts", null);
-	tabbedNavigation.AddTab<QuoteListPageModel> ("Pages", null);
-	MainPage = tabbedNavigation;
+```
+var tabbedNavigation = new FreshTabbedNavigationContainer ();
+tabbedNavigation.AddTab<ContactListPageModel> ("Contacts", null);
+tabbedNavigation.AddTab<QuoteListPageModel> ("Pages", null);
+MainPage = tabbedNavigation;
+```
 
 ###### Implementing Custom Navigation
 
@@ -91,11 +113,11 @@ So that you don't need to include your own IOC container, FreshMvvm comes with a
 
 To Register services in the container use Register: 
 
-	FreshIOC.Container.Register<IDatabaseService, DatabaseService> ();
+    FreshIOC.Container.Register<IDatabaseService, DatabaseService> ();
 
 To obtain a service use Resolve:
 
-	FreshIOC.Container.Resolve<IDatabaseService> ();
+    FreshIOC.Container.Resolve<IDatabaseService> ();
 
 *This is also what drives constructor injection. 
 
@@ -103,50 +125,52 @@ To obtain a service use Resolve:
 
 When PageModels are pushed services that are in the IOC container can be pushed into the Constructor. 
 
-FreshIOC.Container.Register<IDatabaseService, DatabaseService> ();
+    FreshIOC.Container.Register<IDatabaseService, DatabaseService> ();
 
 ### PageModel Important Methods
 
-	/// <summary>
-	/// The previous page model, that's automatically filled, on push
-	/// </summary>
-	public FreshBasePageModel PreviousPageModel { get; set; }
+```
+/// <summary>
+/// The previous page model, that's automatically filled, on push
+/// </summary>
+public FreshBasePageModel PreviousPageModel { get; set; }
 
-	/// <summary>
-	/// A reference to the current page, that's automatically filled, on push
-	/// </summary>
-    public Page CurrentPage { get; set; }
+/// <summary>
+/// A reference to the current page, that's automatically filled, on push
+/// </summary>
+public Page CurrentPage { get; set; }
 
-    /// <summary>
-    /// Core methods are basic built in methods for the App including Pushing, Pop and Alert
-    /// </summary>
-	public IPageModelCoreMethods CoreMethods { get; set; }    
+/// <summary>
+/// Core methods are basic built in methods for the App including Pushing, Pop and Alert
+/// </summary>
+public IPageModelCoreMethods CoreMethods { get; set; }    
 
-	/// <summary>
-	/// This method is called when a page is Pop'd, it also allows for data to be returned.
-	/// </summary>
-	/// <param name="returndData">This data that's returned from </param>
-	public virtual void ReverseInit(object returndData) { }
+/// <summary>
+/// This method is called when a page is Pop'd, it also allows for data to be returned.
+/// </summary>
+/// <param name="returndData">This data that's returned from </param>
+public virtual void ReverseInit(object returndData) { }
 
-	/// <summary>
-	/// This method is called when the PageModel is loaded, the initData is the data that's sent from pagemodel before
-	/// </summary>
-	/// <param name="initData">Data that's sent to this PageModel from the pusher</param>
-	public virtual void Init(object initData) { }
+/// <summary>
+/// This method is called when the PageModel is loaded, the initData is the data that's sent from pagemodel before
+/// </summary>
+/// <param name="initData">Data that's sent to this PageModel from the pusher</param>
+public virtual void Init(object initData) { }
 
-	/// <summary>
-	/// This method is called when the view is disappearing. 
-	/// </summary>
-	protected virtual void ViewIsDisappearing (object sender, EventArgs e)
-    {
-    }
+/// <summary>
+/// This method is called when the view is disappearing. 
+/// </summary>
+protected virtual void ViewIsDisappearing (object sender, EventArgs e)
+{
+}
 
-	/// <summary>
-	/// This methods is called when the View is appearing
-	/// </summary>
-    protected virtual void ViewIsAppearing (object sender, EventArgs e)
-    {
-    }
+/// <summary>
+/// This methods is called when the View is appearing
+/// </summary>
+protected virtual void ViewIsAppearing (object sender, EventArgs e)
+{
+}
+```
 
 ### The CoreMethods
 
@@ -171,75 +195,77 @@ PropertyChanged
 
 #### Sample PageModel
 
-	[ImplementPropertyChanged] // Use Fody for Property Changed Notifications
-    public class QuoteListPageModel : FreshBasePageModel
-    {
-        IDatabaseService _databaseService;
+```
+[ImplementPropertyChanged] // Use Fody for Property Changed Notifications
+public class QuoteListPageModel : FreshBasePageModel
+{
+	IDatabaseService _databaseService;
+	
+	//These are automatically filled via Constructor Injection IOC
+	public QuoteListPageModel (IDatabaseService databaseService) 
+	{
+	    _databaseService = databaseService;
+	}
+	
+	public ObservableCollection<Quote> Quotes { get; set; }
+	
+	public override void Init (object initData)
+	{
+	    Quotes = new ObservableCollection<Quote> (_databaseService.GetQuotes ());
+	}
+	
+	//The Framework support standard functions list appeaing and disappearing
+	protected override void ViewIsAppearing (object sender, System.EventArgs e)
+	{
+	    CoreMethods.DisplayAlert ("Page is appearing", "", "Ok");
+	    base.ViewIsAppearing (sender, e);
+	}
+	
+	protected override void ViewIsDisappearing (object sender, System.EventArgs e)
+	{
+	    base.ViewIsDisappearing (sender, e);
+	}
 
-        //These are automatically filled via Constructor Injection IOC
-        public QuoteListPageModel (IDatabaseService databaseService) 
-        {
-            _databaseService = databaseService;
-        }
+	//This is called when a pushed Page returns to this Page
+	public override void ReverseInit (object value)
+	{
+	    var newContact = value as Quote;
+	    if (!Quotes.Contains (newContact)) {
+	        Quotes.Add (newContact);
+	    }
+	}
 
-        public ObservableCollection<Quote> Quotes { get; set; }
+	public Command AddQuote {
+	    get {
+	        return new Command (async () => {
+	            //Push A Page Model
+	            await CoreMethods.PushPageModel<QuotePageModel> ();
+	        });
+	    }
+	}
 
-        public override void Init (object initData)
-        {
-            Quotes = new ObservableCollection<Quote> (_databaseService.GetQuotes ());
-        }
+	Quote _selectedQuote;
 
-        //The Framework support standard functions list appeaing and disappearing
-        protected override void ViewIsAppearing (object sender, System.EventArgs e)
-        {
-            CoreMethods.DisplayAlert ("Page is appearing", "", "Ok");
-            base.ViewIsAppearing (sender, e);
-        }
+	public Quote SelectedQuote {
+	    get {
+	        return _selectedQuote;
+	    }
+	    set {
+	        _selectedQuote = value;
+	        if (value != null)
+	            QuoteSelected.Execute (value);
+	    }
+	}
 
-        protected override void ViewIsDisappearing (object sender, System.EventArgs e)
-        {
-            base.ViewIsDisappearing (sender, e);
-        }
-
-        //This is called when a pushed Page returns to this Page
-        public override void ReverseInit (object value)
-        {
-            var newContact = value as Quote;
-            if (!Quotes.Contains (newContact)) {
-                Quotes.Add (newContact);
-            }
-        }
-
-        public Command AddQuote {
-            get {
-                return new Command (async () => {
-                    //Push A Page Model
-                    await CoreMethods.PushPageModel<QuotePageModel> ();
-                });
-            }
-        }
-
-        Quote _selectedQuote;
-
-        public Quote SelectedQuote {
-            get {
-                return _selectedQuote;
-            }
-            set {
-                _selectedQuote = value;
-                if (value != null)
-                    QuoteSelected.Execute (value);
-            }
-        }
-
-        public Command<Quote> QuoteSelected {
-            get {
-                return new Command<Quote> (async (quote) => {
-                    await CoreMethods.PushPageModel<QuotePageModel> (quote);
-                });
-            }
-        }
-    }
+	public Command<Quote> QuoteSelected {
+	    get {
+	        return new Command<Quote> (async (quote) => {
+	            await CoreMethods.PushPageModel<QuotePageModel> (quote);
+	        });
+	    }
+	}
+}
+```
 
 ## Setup Guide
 

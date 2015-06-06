@@ -68,15 +68,15 @@ namespace FreshMvvmSampleApp
 			Master = new NavigationPage(_menuPage) { Title = "Menu" };
 		}
 
-		public virtual async Task PushPage (Xamarin.Forms.Page page, FreshBasePageModel model, bool modal = false)
+        public virtual async Task PushPage (Xamarin.Forms.Page page, FreshBasePageModel model, bool modal = false, bool animated = true)
 		{
 			if (modal)
-				await Navigation.PushModalAsync (new NavigationPage(page));
+                await Navigation.PushModalAsync (new NavigationPage(page), animated);
 			else
-				await ((NavigationPage)_tabbedNavigationPage.CurrentPage).PushAsync (page); 
+                await ((NavigationPage)_tabbedNavigationPage.CurrentPage).PushAsync (page, animated); 
 		}
 
-		public virtual async Task PopPage (bool modal = false)
+        public virtual async Task PopPage (bool modal = false, bool animate = true)
 		{
 			if (modal)
 				await Navigation.PopModalAsync ();

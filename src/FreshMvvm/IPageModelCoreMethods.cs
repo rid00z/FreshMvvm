@@ -18,6 +18,10 @@ namespace FreshMvvm
         Task PopPageModel (object data, bool modal = false);
 
         Task PushPageModel<T> () where T : FreshBasePageModel;
+
+		void BatchBegin();
+
+		void BatchCommit();
     }
 }
 

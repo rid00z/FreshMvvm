@@ -29,7 +29,7 @@ namespace FreshMvvmSampleApp
             get { 
                 return new Command (() => {
                     _dataService.UpdateContact (Contact);
-                    CoreMethods.PopPageModel ();
+                    CoreMethods.PopPageModel (Contact);
                 }
                 );
             }

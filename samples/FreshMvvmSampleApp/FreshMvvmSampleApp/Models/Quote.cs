@@ -9,6 +9,7 @@ namespace FreshMvvmSampleApp
         public Quote ()
         {
         }
+        public int Id { get; set; }
 
         public string CustomerName { get; set; }
 

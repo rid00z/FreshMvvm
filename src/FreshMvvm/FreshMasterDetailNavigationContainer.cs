@@ -6,7 +6,7 @@ using System.Collections.ObjectModel;
 
 namespace FreshMvvm
 {
-    public class FreshMasterDetailNavigationContainer : Xamarin.Forms.MasterDetailPage, IFreshNavigationService
+	public class FreshMasterDetailNavigationContainer : Xamarin.Forms.MasterDetailPage, IFreshNavigationService
     {
         Dictionary<string, Page> _pages = new Dictionary<string, Page> ();
         ContentPage _menuPage;
@@ -63,21 +63,21 @@ namespace FreshMvvm
             Master = new NavigationPage (_menuPage) { Title = "Menu" };
         }
 
-        public virtual async Task PushPage (Xamarin.Forms.Page page, FreshBasePageModel model, bool modal = false)
-        {
-            if (modal)
-                await Navigation.PushModalAsync (new NavigationPage (page));
-            else
-                await (Detail as NavigationPage).PushAsync (page); //TODO: make this better
-        }
+        public async Task PushPage (Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
+             {
+			if (modal)
+				await Navigation.PushModalAsync (new NavigationPage (page));
+			else
+				await (Detail as NavigationPage).PushAsync (page, animate); //TODO: make this better
+		}
 
-        public virtual async Task PopPage (bool modal = false)
-        {
-            if (modal)
-                await Navigation.PopModalAsync ();
-            else
-                await (Detail as NavigationPage).PopAsync (); //TODO: make this better
-        }
+		public async Task PopPage (bool modal = false, bool animate = true)
+		{
+			if (modal)
+				await Navigation.PopModalAsync (animate);
+			else
+				await (Detail as NavigationPage).PopAsync (animate); //TODO: make this better
+		}
     }
 }
 
