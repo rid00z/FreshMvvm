@@ -36,6 +36,11 @@ namespace FreshMvvm
             else
 				await Navigation.PopAsync (animate);
         }
+
+        public async Task PopToRoot (bool animate = true)
+        {
+            await Navigation.PopToRootAsync (animate); 
+        }
     }
 }
 

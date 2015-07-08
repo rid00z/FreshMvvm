@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace FreshMvvm
 {
@@ -48,6 +49,10 @@ namespace FreshMvvm
                 await this.CurrentPage.Navigation.PopAsync (animate);
         }
 
+        public async Task PopToRoot (bool animate = true)
+        {
+            await this.CurrentPage.Navigation.PopToRootAsync (animate);
+        }
     }
 }
 
