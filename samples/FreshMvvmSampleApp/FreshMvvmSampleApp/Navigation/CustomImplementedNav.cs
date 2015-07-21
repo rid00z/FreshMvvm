@@ -9,7 +9,7 @@ namespace FreshMvvmSampleApp
 	/// <summary>
 	/// This is a sample custom implemented Navigation. It combines a MasterDetail and a TabbedPage.
 	/// </summary>
-	public class CustomImplementedNav : Xamarin.Forms.MasterDetailPage, IFreshNavigationService
+    public class CustomImplementedNav : Xamarin.Forms.MasterDetailPage, IFreshNavigationService
 	{
 		FreshTabbedNavigationContainer _tabbedNavigationPage;
 		Page _contactsPage, _quotesPage;
@@ -83,6 +83,11 @@ namespace FreshMvvmSampleApp
 			else
 				await ((NavigationPage)_tabbedNavigationPage.CurrentPage).PopAsync (); 
 		}
+
+        public virtual async Task PopToRoot (bool animate = true)
+        {
+            await ((NavigationPage)_tabbedNavigationPage.CurrentPage).PopToRootAsync (animate);
+        }
 	}
 }
 
