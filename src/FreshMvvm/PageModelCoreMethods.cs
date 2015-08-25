@@ -49,7 +49,7 @@ namespace FreshMvvm
 
         public Task PushPageModel(Type pageModelType, object data, bool modal = false)
         {
-            var pageModel = FreshIOC.Container.Resolve(pageModelType.GetType()) as FreshBasePageModel;
+            var pageModel = FreshIOC.Container.Resolve(pageModelType) as FreshBasePageModel;
 
             return PushPageModel(pageModel, data, modal);
         }
