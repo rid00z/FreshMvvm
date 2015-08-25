@@ -39,7 +39,24 @@ namespace FreshMvvm
         {
             T pageModel = FreshIOC.Container.Resolve<T> ();
 
-            var page = FreshPageModelResolver.ResolvePageModel<T> (data, pageModel);
+            await PushPageModel(pageModel, data, modal);
+        }
+
+        public Task PushPageModel(Type pageModelType)
+        {
+            return PushPageModel(pageModelType, null);
+        }
+
+        public Task PushPageModel(Type pageModelType, object data, bool modal = false)
+        {
+            var pageModel = FreshIOC.Container.Resolve(pageModelType.GetType()) as FreshBasePageModel;
+
+            return PushPageModel(pageModel, data, modal);
+        }
+
+        async Task PushPageModel(FreshBasePageModel pageModel, object data, bool modal = false)
+        {
+            var page = FreshPageModelResolver.ResolvePageModel(data, pageModel);
 
             pageModel.PreviousPageModel = _pageModel;
 
