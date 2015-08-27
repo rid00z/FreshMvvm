@@ -123,6 +123,8 @@
     <BundleResource Include="Resources\Icon-Small-40%403x.png" />
     <BundleResource Include="Resources\contacts.png" />
     <BundleResource Include="Resources\document.png" />
+    <BundleResource Include="Resources\Menu%402x.png" />
+    <BundleResource Include="Resources\Menu.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />

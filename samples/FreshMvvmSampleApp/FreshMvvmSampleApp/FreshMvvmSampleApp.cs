@@ -24,7 +24,7 @@ namespace FreshMvvmSampleApp
         public void LoadMasterDetail ()
         {
             var masterDetailNav = new FreshMasterDetailNavigationContainer ();
-            masterDetailNav.Init ("Menu");
+            masterDetailNav.Init ("Menu", "Menu.png");
             masterDetailNav.AddPage<ContactListPageModel> ("Contacts", null);
             masterDetailNav.AddPage<QuoteListPageModel> ("Quotes", null);
             MainPage = masterDetailNav;
