@@ -12,6 +12,9 @@ namespace FreshMvvm
         ContentPage _menuPage;
         ObservableCollection<string> _pageNames = new ObservableCollection<string> ();
 
+        protected Dictionary<string, Page> Pages { get { return _pages; } }
+        protected ObservableCollection<string> PageNames { get { return _pageNames; } }
+
         public FreshMasterDetailNavigationContainer ()
         {			
         }
