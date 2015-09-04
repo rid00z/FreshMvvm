@@ -12,13 +12,16 @@ namespace FreshMvvm
         ContentPage _menuPage;
         ObservableCollection<string> _pageNames = new ObservableCollection<string> ();
 
+        protected Dictionary<string, Page> Pages { get { return _pages; } }
+        protected ObservableCollection<string> PageNames { get { return _pageNames; } }
+
         public FreshMasterDetailNavigationContainer ()
         {			
         }
 
-        public void Init (string menuTitle)
+        public void Init (string menuTitle, string menuIcon = null)
         {
-            CreateMenuPage (menuTitle);
+            CreateMenuPage (menuTitle, menuIcon);
             RegisterNavigation ();
         }
 
@@ -42,7 +45,7 @@ namespace FreshMvvm
             return new NavigationPage (page);
         }
 
-        protected virtual void CreateMenuPage (string menuPageTitle)
+        protected virtual void CreateMenuPage (string menuPageTitle, string menuIcon = null)
         {
             _menuPage = new ContentPage ();
             _menuPage.Title = menuPageTitle;
@@ -60,7 +63,12 @@ namespace FreshMvvm
 
             _menuPage.Content = listView;
 
-            Master = new NavigationPage (_menuPage) { Title = "Menu" };
+            var navPage = new NavigationPage (_menuPage) { Title = "Menu" };
+
+            if (!string.IsNullOrEmpty (menuIcon))
+                navPage.Icon = menuIcon;
+            
+            Master = navPage;
         }
 
         public async Task PushPage (Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
