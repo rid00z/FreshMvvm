@@ -19,6 +19,10 @@ namespace FreshMvvm
 
         Task PushPageModel<T> () where T : FreshBasePageModel;
 
+        Task PushPageModel (Type pageModelType);
+
+        Task PushPageModel (Type pageModelType, object data, bool modal = false);
+
         Task PopToRoot(bool animate);
 
 		void BatchBegin();
