@@ -20,6 +20,17 @@ namespace FreshMvvm
         public static Page ResolvePageModel<T> (object data, T pageModel) where T : FreshBasePageModel
         {
             var type = pageModel.GetType ();
+            return ResolvePageModel (type, data, pageModel);
+        }
+
+        public static Page ResolvePageModel (Type type, object data) 
+        {
+            var pageModel = FreshIOC.Container.Resolve (type) as FreshBasePageModel;
+            return ResolvePageModel (type, data, pageModel);
+        }
+
+        public static Page ResolvePageModel (Type type, object data, FreshBasePageModel pageModel)
+        {
             var name = type.AssemblyQualifiedName.Replace ("Model", string.Empty);
             var pageType = Type.GetType (name);
             if (pageType == null)
