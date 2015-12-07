@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using FreshMvvm.Tests.Mocks;
-using Moq;
 using NUnit.Framework;
-using Xamarin.Forms;
 
 namespace FreshMvvm.Tests.Fixtures
 {
@@ -26,29 +21,82 @@ namespace FreshMvvm.Tests.Fixtures
 		}
 
 		[Test]
-		public async Task Test_PushPage_By_Default()
+		public async Task Test_PushPage()
 		{
-			var isDisappeared = false;
-			var isAppeared = false;
 			var mainPageViewModel = new MockFreshBasePageModel();
 			var mainPage = new MockContentPage();
 			var detailsPage = new MockContentPage();
 			var navigation = new FreshNavigationContainer(mainPage);
 
-			mainPage.Disappearing += (s, e) =>
-			{
-				isDisappeared = true;
-			};
-			detailsPage.Appearing += (s, e) =>
-			{
-				isAppeared = true;
-			};
+			await navigation.PushPage(detailsPage, mainPageViewModel);
 
-			await navigation.PushPage(detailsPage, mainPageViewModel).ContinueWith(t =>
-			{
-				Assert.IsTrue(isAppeared);
-				Assert.IsTrue(isDisappeared);
-			});
+			var page = navigation.Navigation.NavigationStack.FirstOrDefault(p => p.Id.Equals(detailsPage.Id));
+
+			Assert.IsNotNull(page);
+			Assert.AreSame(detailsPage, page);
+		}
+
+		//[Test]
+		//public async Task Test_PushPage_Modal()
+		//{
+		//	var mainPageViewModel = new MockFreshBasePageModel();
+		//	var mainPage = new MockContentPage();
+		//	var detailsPage = new MockContentPage();
+		//	var navigation = new FreshNavigationContainer(mainPage);
+
+		//	await navigation.PushPage(detailsPage, mainPageViewModel, true);
+
+		//	var page = navigation.Navigation.ModalStack.FirstOrDefault(p => p.Id.Equals(detailsPage.Id));
+
+		//	Assert.IsNotNull(page);
+		//	Assert.AreSame(detailsPage, page);
+		//}
+
+		[Test]
+		public async Task Test_PopPage()
+		{
+			var mainPageViewModel = new MockFreshBasePageModel();
+			var mainPage = new MockContentPage();
+			var detailsPage = new MockContentPage();
+			var navigation = new FreshNavigationContainer(mainPage);
+
+			await navigation.PushPage(detailsPage, mainPageViewModel);
+			await navigation.PopPage();
+
+			var page = navigation.Navigation.NavigationStack.FirstOrDefault(p => p.Id.Equals(detailsPage.Id));
+			var firstPage = navigation.Navigation.NavigationStack.FirstOrDefault();
+
+			Assert.IsNull(page);
+			Assert.IsNotNull(firstPage);
+			Assert.AreSame(mainPage, firstPage);
+		}
+
+		//[Test]
+		//public async Task Test_PopPage_Modal()
+		//{
+		//	var isPopped = false;
+		//	var mainPage = new MockContentPage();
+		//	var navigation = new FreshNavigationContainer(mainPage);
+
+		//	await navigation.PopPage(true);
+
+		//	Assert.IsTrue(isPopped);
+		//}
+
+		[Test]
+		public async Task Test_PopToRoot()
+		{
+			var mainPage = new MockContentPage();
+			var navigation = new FreshNavigationContainer(mainPage);
+
+			await navigation.PushPage(new MockContentPage(), new MockFreshBasePageModel());
+			await navigation.PushPage(new MockContentPage(), new MockFreshBasePageModel());
+			await navigation.PopToRoot();
+
+			var firstPage = navigation.Navigation.NavigationStack.FirstOrDefault();
+
+			Assert.IsNotNull(firstPage);
+			Assert.AreSame(mainPage, firstPage);
 		}
 	}
 }
