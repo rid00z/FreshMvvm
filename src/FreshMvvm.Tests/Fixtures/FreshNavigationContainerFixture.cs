@@ -36,21 +36,20 @@ namespace FreshMvvm.Tests.Fixtures
 			Assert.AreSame(detailsPage, page);
 		}
 
-		//[Test]
-		//public async Task Test_PushPage_Modal()
-		//{
-		//	var mainPageViewModel = new MockFreshBasePageModel();
-		//	var mainPage = new MockContentPage();
-		//	var detailsPage = new MockContentPage();
-		//	var navigation = new FreshNavigationContainer(mainPage);
+		[Test]
+		public async Task Test_PushPage_Modal()
+		{
+			var mainPageViewModel = new MockFreshBasePageModel();
+			var mainPage = new MockContentPage();
+			var detailsPage = new MockContentPage();
+			var navigation = new FreshNavigationContainer(mainPage);
 
-		//	await navigation.PushPage(detailsPage, mainPageViewModel, true);
+			Assert.That(navigation.Navigation.ModalStack.Count, Is.EqualTo(0));
 
-		//	var page = navigation.Navigation.ModalStack.FirstOrDefault(p => p.Id.Equals(detailsPage.Id));
+			await navigation.PushPage(detailsPage, mainPageViewModel, true);
 
-		//	Assert.IsNotNull(page);
-		//	Assert.AreSame(detailsPage, page);
-		//}
+			Assert.That(navigation.Navigation.ModalStack.Count, Is.EqualTo(1));
+		}
 
 		[Test]
 		public async Task Test_PopPage()
@@ -71,17 +70,22 @@ namespace FreshMvvm.Tests.Fixtures
 			Assert.AreSame(mainPage, firstPage);
 		}
 
-		//[Test]
-		//public async Task Test_PopPage_Modal()
-		//{
-		//	var isPopped = false;
-		//	var mainPage = new MockContentPage();
-		//	var navigation = new FreshNavigationContainer(mainPage);
+		[Test]
+		public async Task Test_PopPage_Modal()
+		{
+			var mainPageViewModel = new MockFreshBasePageModel();
+			var mainPage = new MockContentPage();
+			var detailsPage = new MockContentPage();
+			var navigation = new FreshNavigationContainer(mainPage);
 
-		//	await navigation.PopPage(true);
+			await navigation.PushPage(detailsPage, mainPageViewModel, true);
 
-		//	Assert.IsTrue(isPopped);
-		//}
+			Assert.That(navigation.Navigation.ModalStack.Count, Is.EqualTo(1));
+
+			await navigation.PopPage(true);
+
+			Assert.That(navigation.Navigation.ModalStack.Count, Is.EqualTo(0));
+		}
 
 		[Test]
 		public async Task Test_PopToRoot()
