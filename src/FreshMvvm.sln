@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		FreshMvvm.sln = FreshMvvm.sln
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreshMvvm.Tests", "FreshMvvm.Tests\FreshMvvm.Tests.csproj", "{6344C1A9-FF3B-43BB-B8AE-4F89B4BC2075}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,22 @@ Global
 		{07562A06-25AE-408C-BB01-D41718D095A1}.Release|iPhone.Build.0 = Release|iPhone
 		{07562A06-25AE-408C-BB01-D41718D095A1}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{07562A06-25AE-408C-BB01-D41718D095A1}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{6344C1A9-FF3B-43BB-B8AE-4F89B4BC2075}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
+		{6344C1A9-FF3B-43BB-B8AE-4F89B4BC2075}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
+		{6344C1A9-FF3B-43BB-B8AE-4F89B4BC2075}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
+		{6344C1A9-FF3B-43BB-B8AE-4F89B4BC2075}.AppStore|iPhone.Build.0 = Debug|Any CPU
+		{6344C1A9-FF3B-43BB-B8AE-4F89B4BC2075}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6344C1A9-FF3B-43BB-B8AE-4F89B4BC2075}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6344C1A9-FF3B-43BB-B8AE-4F89B4BC2075}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{6344C1A9-FF3B-43BB-B8AE-4F89B4BC2075}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{6344C1A9-FF3B-43BB-B8AE-4F89B4BC2075}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{6344C1A9-FF3B-43BB-B8AE-4F89B4BC2075}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{6344C1A9-FF3B-43BB-B8AE-4F89B4BC2075}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6344C1A9-FF3B-43BB-B8AE-4F89B4BC2075}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6344C1A9-FF3B-43BB-B8AE-4F89B4BC2075}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{6344C1A9-FF3B-43BB-B8AE-4F89B4BC2075}.Release|iPhone.Build.0 = Release|Any CPU
+		{6344C1A9-FF3B-43BB-B8AE-4F89B4BC2075}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{6344C1A9-FF3B-43BB-B8AE-4F89B4BC2075}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{8F8E0021-5D80-4124-98CF-118AC540A1EB}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
 		{8F8E0021-5D80-4124-98CF-118AC540A1EB}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
 		{8F8E0021-5D80-4124-98CF-118AC540A1EB}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
