@@ -16,9 +16,19 @@ namespace FreshMvvm
             }
         }
 
+        public void Register<RegisterType>(RegisterType instance, string name) where RegisterType : class
+        {
+            FreshTinyIoCContainer.Current.Register (instance, name);
+        }
+
         public void Register<RegisterType>(RegisterType instance) where RegisterType : class
         {
             FreshTinyIoCContainer.Current.Register (instance);
+        }
+
+        public ResolveType Resolve<ResolveType>(string name) where ResolveType : class
+        {
+            return FreshTinyIoCContainer.Current.Resolve<ResolveType> (name);
         }
 
         public ResolveType Resolve<ResolveType>() where ResolveType : class

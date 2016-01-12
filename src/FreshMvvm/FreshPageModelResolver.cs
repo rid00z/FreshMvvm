@@ -38,11 +38,11 @@ namespace FreshMvvm
 
             var page = (Page)FreshIOC.Container.Resolve (pageType);
 
-            page.BindingContext = pageModel;
             pageModel.WireEvents (page);
             pageModel.CurrentPage = page;
-			pageModel.CoreMethods = new PageModelCoreMethods (page, pageModel);
+            pageModel.CoreMethods = new PageModelCoreMethods (page, pageModel);
             pageModel.Init (data);
+            page.BindingContext = pageModel;
 
             return page;
         }

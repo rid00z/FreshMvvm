@@ -23,6 +23,16 @@ namespace FreshMvvm
 
         Task PushPageModel (Type pageModelType, object data, bool modal = false);
 
+        Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel[] basePageModels);
+
+        Task PushNewNavigationServiceModal (FreshTabbedNavigationContainer tabbedNavigationContainer);
+
+        Task PushNewNavigationServiceModal (FreshMasterDetailNavigationContainer masterDetailContainer);
+
+        Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel basePageModels);
+
+        Task PopModalNavigationService();
+
         Task PopToRoot(bool animate);
 
 		void BatchBegin();

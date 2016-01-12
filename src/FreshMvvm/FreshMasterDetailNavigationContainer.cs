@@ -12,11 +12,17 @@ namespace FreshMvvm
         ContentPage _menuPage;
         ObservableCollection<string> _pageNames = new ObservableCollection<string> ();
 
-        protected Dictionary<string, Page> Pages { get { return _pages; } }
+        public Dictionary<string, Page> Pages { get { return _pages; } }
         protected ObservableCollection<string> PageNames { get { return _pageNames; } }
 
-        public FreshMasterDetailNavigationContainer ()
+        public FreshMasterDetailNavigationContainer () : this(Constants.DefaultNavigationServiceName)
         {			
+        }
+
+        public FreshMasterDetailNavigationContainer (string navigationServiceName)
+        {                       
+            NavigationServiceName = navigationServiceName;   
+            RegisterNavigation ();
         }
 
         public void Init (string menuTitle, string menuIcon = null)
@@ -27,12 +33,13 @@ namespace FreshMvvm
 
         protected virtual void RegisterNavigation ()
         {
-            FreshIOC.Container.Register<IFreshNavigationService> (this);
+            FreshIOC.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
         }
 
         public virtual void AddPage<T> (string title, object data = null) where T : FreshBasePageModel
         {
             var page = FreshPageModelResolver.ResolvePageModel<T> (data);
+            page.GetModel ().CurrentNavigationServiceName = NavigationServiceName;
             var navigationContainer = CreateContainerPage (page);
             _pages.Add (title, navigationContainer);
             _pageNames.Add (title);
@@ -42,6 +49,9 @@ namespace FreshMvvm
 
         protected virtual Page CreateContainerPage (Page page)
         {
+            if (page is NavigationPage || page is MasterDetailPage || page is TabbedPage)
+                return page;
+
             return new NavigationPage (page);
         }
 
@@ -91,6 +101,8 @@ namespace FreshMvvm
         {
             await (Detail as NavigationPage).PopToRootAsync (animate);
         }
+
+        public string NavigationServiceName { get; private set; }
     }
 }
 

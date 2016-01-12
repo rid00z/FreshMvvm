@@ -6,18 +6,30 @@ namespace FreshMvvm
 {
     public class FreshNavigationContainer : Xamarin.Forms.NavigationPage, IFreshNavigationService
     {
-        public FreshNavigationContainer (Page page) : base (page)
+        public FreshNavigationContainer (Page page) 
+            : this (page, Constants.DefaultNavigationServiceName)
+        {            
+        }
+
+        public FreshNavigationContainer (Page page, string navigationPageName) 
+            : base (page)
         {
+            var pageModel = page.GetModel ();
+            pageModel.CurrentNavigationServiceName = navigationPageName;
+            NavigationServiceName = navigationPageName;
             RegisterNavigation ();
         }
 
         protected void RegisterNavigation ()
         {
-            FreshIOC.Container.Register<IFreshNavigationService> (this);
+            FreshIOC.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
         }
 
         protected virtual Page CreateContainerPage (Page page)
         {
+            if (page is NavigationPage || page is MasterDetailPage || page is TabbedPage)
+                return page;
+            
             return new NavigationPage (page);
         }
 
@@ -41,6 +53,8 @@ namespace FreshMvvm
         {
             await Navigation.PopToRootAsync (animate); 
         }
+
+        public string NavigationServiceName { get; private set; }
     }
 }
 

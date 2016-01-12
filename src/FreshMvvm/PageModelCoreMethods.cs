@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace FreshMvvm
 {
     public class PageModelCoreMethods : IPageModelCoreMethods
     {
         Page _currentPage;
-        FreshBasePageModel _pageModel;
+        FreshBasePageModel _currentPageModel;
 
 		public PageModelCoreMethods (Page currentPage, FreshBasePageModel pageModel)
         {
             _currentPage = currentPage;
-			_pageModel = pageModel;
+			_currentPageModel = pageModel;
         }
 
         public async Task DisplayAlert (string title, string message, string cancel)
@@ -58,29 +59,38 @@ namespace FreshMvvm
         {
             var page = FreshPageModelResolver.ResolvePageModel(data, pageModel);
 
-            pageModel.PreviousPageModel = _pageModel;
+            pageModel.PreviousPageModel = _currentPageModel; //This is the previous page model because it's push to a new one, and this is current
+            pageModel.CurrentNavigationServiceName = _currentPageModel.CurrentNavigationServiceName;
 
-            IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> ();
+            if (string.IsNullOrWhiteSpace(pageModel.PreviousNavigationServiceName))
+                pageModel.PreviousNavigationServiceName = _currentPageModel.PreviousNavigationServiceName;
+
+            IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (_currentPageModel.CurrentNavigationServiceName);
 
             await rootNavigation.PushPage (page, pageModel, modal);
         }
 
         public async Task PopPageModel (bool modal = false)
         {
-            IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> ();
+            string navServiceName = _currentPageModel.CurrentNavigationServiceName;
+            if (_currentPageModel.IsModalFirstChild) {
+                navServiceName = _currentPageModel.PreviousNavigationServiceName;
+            }
+
+            IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (navServiceName);
             await rootNavigation.PopPage (modal);
         }
 
         public async Task PopToRoot(bool animate)
         {
-            IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> ();
+            IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (_currentPageModel.CurrentNavigationServiceName);
             await rootNavigation.PopToRoot (animate);
         }
 
         public async Task PopPageModel (object data, bool modal = false)
         {
-            if (_pageModel != null && _pageModel.PreviousPageModel != null && data != null) {
-                _pageModel.PreviousPageModel.ReverseInit (data);
+            if (_currentPageModel != null && _currentPageModel.PreviousPageModel != null && data != null) {
+                _currentPageModel.PreviousPageModel.ReverseInit (data);
             }
             await PopPageModel (modal);
         }
@@ -88,6 +98,53 @@ namespace FreshMvvm
         public Task PushPageModel<T> () where T : FreshBasePageModel
         {
             return PushPageModel<T> (null);
+        }
+
+        public Task PushNewNavigationServiceModal (FreshTabbedNavigationContainer tabbedNavigationContainer)
+        {
+            var models = tabbedNavigationContainer.TabbedPages.Select (o => o.GetModel ());
+            return PushNewNavigationServiceModal (tabbedNavigationContainer, models.ToArray ());
+        }
+
+        public Task PushNewNavigationServiceModal (FreshMasterDetailNavigationContainer masterDetailContainer)
+        {
+            var models = masterDetailContainer.Pages.Select (o => 
+                {
+                    if (o.Value is NavigationPage)
+                        return ((NavigationPage)o.Value).CurrentPage.GetModel ();
+                    else
+                        return o.Value.GetModel();
+                });
+            
+            return PushNewNavigationServiceModal (masterDetailContainer, models.ToArray());
+        }
+
+        public Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel basePageModels)
+        {
+            return PushNewNavigationServiceModal (newNavigationService, new FreshBasePageModel[] { basePageModels });
+        }
+
+        public async Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel[] basePageModels)
+        {
+            var navPage = newNavigationService as Page;
+            if (navPage == null)
+                throw new Exception ("Navigation service is not Page");
+
+            foreach (var pageModel in basePageModels) {
+                pageModel.CurrentNavigationServiceName = newNavigationService.NavigationServiceName;
+                pageModel.PreviousNavigationServiceName = _currentPageModel.CurrentNavigationServiceName;
+                pageModel.IsModalFirstChild = true;
+            }
+
+            IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (_currentPageModel.CurrentNavigationServiceName);
+            await rootNavigation.PushPage (navPage, null, true);
+        }
+
+        public async Task PopModalNavigationService()
+        {
+            var navServiceName = _currentPageModel.PreviousNavigationServiceName;        
+            IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (navServiceName);
+            await rootNavigation.PopPage (true);
         }
 
 		public void BatchBegin()

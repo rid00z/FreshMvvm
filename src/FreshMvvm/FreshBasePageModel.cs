@@ -56,6 +56,29 @@ namespace FreshMvvm
         }
 
         /// <summary>
+        /// Is true when this model is the first of a new navigation stack
+        /// </summary>
+        internal bool IsModalFirstChild;
+
+        /// <summary>
+        /// Used when a page is shown modal and wants a new Navigation Stack
+        /// </summary>
+        internal string PreviousNavigationServiceName;
+
+        /// <summary>
+        /// Used when a page is shown modal and wants a new Navigation Stack
+        /// </summary>
+        internal string CurrentNavigationServiceName = Constants.DefaultNavigationServiceName;
+
+        /// <summary>
+        /// This means the current PageModel is shown modally and can be pop'd modally
+        /// </summary>
+        public bool IsModalAndHasPreviousNavigationStack()
+        {
+            return !string.IsNullOrWhiteSpace (PreviousNavigationServiceName) && PreviousNavigationServiceName != CurrentNavigationServiceName;
+        }
+
+        /// <summary>
         /// This method is called when the view is disappearing. 
         /// </summary>
         protected virtual void ViewIsDisappearing (object sender, EventArgs e)

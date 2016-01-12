@@ -7,19 +7,30 @@ namespace FreshMvvm
 {
     public class FreshTabbedNavigationContainer : TabbedPage, IFreshNavigationService
     {
-        public FreshTabbedNavigationContainer ()
+        List<Page> _tabs = new List<Page>();
+        public IEnumerable<Page> TabbedPages { get { return _tabs; } }
+
+        public FreshTabbedNavigationContainer () : this(Constants.DefaultNavigationServiceName)
         {				
+            
+        }
+
+        public FreshTabbedNavigationContainer(string navigationServiceName)
+        {
+            NavigationServiceName = navigationServiceName;
             RegisterNavigation ();
         }
 
         protected void RegisterNavigation ()
         {
-            FreshIOC.Container.Register<IFreshNavigationService> (this);
+            FreshIOC.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
         }
 
         public virtual Page AddTab<T> (string title, string icon, object data = null) where T : FreshBasePageModel
         {
             var page = FreshPageModelResolver.ResolvePageModel<T> (data);
+            page.GetModel ().CurrentNavigationServiceName = NavigationServiceName;
+            _tabs.Add (page);
             var navigationContainer = CreateContainerPage (page);
             navigationContainer.Title = title;
             if (!string.IsNullOrWhiteSpace(icon))
@@ -30,6 +41,9 @@ namespace FreshMvvm
 
         protected virtual Page CreateContainerPage (Page page)
         {
+            if (page is NavigationPage || page is MasterDetailPage || page is TabbedPage)
+                return page;
+            
             return new NavigationPage (page);
         }
 
@@ -53,6 +67,8 @@ namespace FreshMvvm
         {
             await this.CurrentPage.Navigation.PopToRootAsync (animate);
         }
+
+        public string NavigationServiceName { get; private set; }
     }
 }
 

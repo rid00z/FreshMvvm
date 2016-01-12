@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace FreshMvvm.Tests.Mocks
 {
-	class MockPageModelCoreMethods : IPageModelCoreMethods
+    class MockPageModelCoreMethods : IPageModelCoreMethods
 	{
 		public void BatchBegin()
 		{
@@ -64,5 +64,15 @@ namespace FreshMvvm.Tests.Mocks
 		{
 			throw new NotImplementedException();
 		}
+
+        public Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel[] basePageModels)
+        {
+            throw new NotImplementedException ();
+        }
+
+        public Task PopModalNavigationService ()
+        {
+            throw new NotImplementedException ();
+        }
 	}
 }
