@@ -84,7 +84,9 @@ namespace FreshMvvmSampleApp
 				await ((NavigationPage)_tabbedNavigationPage.CurrentPage).PopAsync (); 
 		}
 
-        public virtual async Task PopToRoot (bool animate = true)
+        public string NavigationServiceName => this.GetType().Name;
+
+	    public virtual async Task PopToRoot (bool animate = true)
         {
             await ((NavigationPage)_tabbedNavigationPage.CurrentPage).PopToRootAsync (animate);
         }

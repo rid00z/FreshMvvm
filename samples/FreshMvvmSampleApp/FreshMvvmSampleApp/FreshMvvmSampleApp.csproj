@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -11,6 +11,8 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
     <ReleaseVersion>0.0.02</ReleaseVersion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -70,8 +72,9 @@
   <Import Project="..\..\..\src\packages\Fody.1.28.3\build\Fody.targets" Condition="Exists('..\..\..\src\packages\Fody.1.28.3\build\Fody.targets')" />
   <Import Project="..\..\..\src\packages\Xamarin.Forms.2.0.0.6490\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\..\src\packages\Xamarin.Forms.2.0.0.6490\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
   <ItemGroup>
-    <Reference Include="PropertyChanged">
-      <HintPath>..\..\..\src\packages\PropertyChanged.Fody.1.49.1\Lib\portable-net4+sl4+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\PropertyChanged.dll</HintPath>
+    <Reference Include="PropertyChanged, Version=1.50.3.0, Culture=neutral, PublicKeyToken=ee3ee20bcf148ddd, processorArchitecture=MSIL">
+      <HintPath>..\packages\PropertyChanged.Fody.1.50.3\Lib\portable-net4+sl4+wp8+win8+wpa81+MonoAndroid16+MonoTouch40\PropertyChanged.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Xamarin.Forms.Core">
       <HintPath>..\..\..\src\packages\Xamarin.Forms.2.0.0.6490\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
@@ -88,11 +91,10 @@
     <None Include="FodyWeavers.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="PageModels\" />
-    <Folder Include="Pages\" />
-    <Folder Include="Navigation\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\..\..\src\FreshMvvm\FreshMvvm.csproj">
+      <Project>{acba1111-2c39-4126-b60a-51ee9d0c734b}</Project>
+      <Name>FreshMvvm</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Pages\ContactListPage.xaml">
@@ -114,14 +116,11 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\src\FreshIOC\IOC.csproj">
-      <Project>{CE6AA8F2-BD67-4051-8AE6-9FFCA9E663FE}</Project>
-      <Name>IOC</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\src\FreshMvvm\FreshMvvm.csproj">
-      <Project>{ACBA1111-2C39-4126-B60A-51EE9D0C734B}</Project>
-      <Name>FreshMvvm</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <Import Project="..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets" Condition="Exists('..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Fody.1.29.2\build\portable-net+sl+win+wpa+wp\Fody.targets'))" />
+  </Target>
 </Project>
