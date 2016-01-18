@@ -10,6 +10,9 @@
 			<Button Text="Save" Command="{Binding SaveCommand}"></Button>
 			<BoxView HeightRequest="30"></BoxView>
 			<Button Text="Test Modal" Command="{Binding TestModal}"></Button>
+			<Button Text="Test Modal with Navigation (Basic)" Command="{Binding TestModalNavigationBasic}"></Button>
+			<Button Text="Test Modal with Navigation (Tabbed)" Command="{Binding TestModalNavigationTabbed}"></Button>
+			<Button Text="Test Modal with Navigation (MasterDetail)" Command="{Binding TestModalNavigationMasterDetail}"></Button>
 		</StackLayout>
 	</local:BasePage.Content>
 </local:BasePage>

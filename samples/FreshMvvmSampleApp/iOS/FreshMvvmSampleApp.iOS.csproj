@@ -125,6 +125,7 @@
     <BundleResource Include="Resources\document.png" />
     <BundleResource Include="Resources\Menu%402x.png" />
     <BundleResource Include="Resources\Menu.png" />
+    <BundleResource Include="Resources\Home.png" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />

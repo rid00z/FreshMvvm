@@ -16,6 +16,7 @@ namespace FreshMvvmSampleApp
 
 		public CustomImplementedNav ()
 		{	
+            NavigationServiceName = "CustomImplementedNav";
 			SetupTabbedPage ();
 			CreateMenuPage ("Menu");
 			RegisterNavigation ();
@@ -31,7 +32,7 @@ namespace FreshMvvmSampleApp
 
 		protected void RegisterNavigation()
 		{
-			FreshIOC.Container.Register<IFreshNavigationService> (this);
+            FreshIOC.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
 		}
 
 		protected void CreateMenuPage(string menuPageTitle)
@@ -88,6 +89,8 @@ namespace FreshMvvmSampleApp
         {
             await ((NavigationPage)_tabbedNavigationPage.CurrentPage).PopToRootAsync (animate);
         }
+
+        public string NavigationServiceName { get; private set; }
 	}
 }
 

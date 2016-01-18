@@ -43,6 +43,26 @@ namespace FreshMvvmSampleApp
             MainPage = new CustomImplementedNav ();
         }
 
+        public void LoadMultipleNavigation()
+        {
+            var masterDetailsMultiple = new MasterDetailPage ();
+
+            var contactListPage = FreshPageModelResolver.ResolvePageModel<ContactListPageModel> ();
+            contactListPage.Title = "Contact List";
+            var masterPageArea = new FreshNavigationContainer (contactListPage, "MasterPageArea");
+            masterPageArea.Title = "Menu";
+
+            masterDetailsMultiple.Master = masterPageArea;
+
+            var quoteListPage = FreshPageModelResolver.ResolvePageModel<QuoteListPageModel> ();
+            quoteListPage.Title = "Quote List";
+            var detailPageArea = new FreshNavigationContainer (quoteListPage, "DetailPageArea");
+
+            masterDetailsMultiple.Detail = detailPageArea;
+
+            MainPage = masterDetailsMultiple;
+        }
+
         protected override void OnStart ()
         {
             // Handle when your app starts
