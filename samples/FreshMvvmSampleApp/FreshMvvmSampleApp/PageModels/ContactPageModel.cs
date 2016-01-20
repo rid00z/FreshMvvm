@@ -77,11 +77,10 @@ namespace FreshMvvmSampleApp
                     masterDetailNav.Init ("Menu", "Menu.png");
                     masterDetailNav.AddPage<ContactListPageModel> ("Contacts", null);
                     masterDetailNav.AddPage<QuoteListPageModel> ("Quotes", null);
-
                     await CoreMethods.PushNewNavigationServiceModal(masterDetailNav); 
+
                 });
             }
         }
     }
 }
-

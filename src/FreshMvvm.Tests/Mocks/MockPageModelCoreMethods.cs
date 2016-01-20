@@ -74,5 +74,20 @@ namespace FreshMvvm.Tests.Mocks
         {
             throw new NotImplementedException ();
         }
+
+        public Task PushNewNavigationServiceModal (FreshTabbedNavigationContainer tabbedNavigationContainer)
+        {
+            throw new NotImplementedException ();
+        }
+
+        public Task PushNewNavigationServiceModal (FreshMasterDetailNavigationContainer masterDetailContainer)
+        {
+            throw new NotImplementedException ();
+        }
+
+        public Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel basePageModels)
+        {
+            throw new NotImplementedException ();
+        }
 	}
 }

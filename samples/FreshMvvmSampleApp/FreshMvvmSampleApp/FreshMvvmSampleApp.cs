@@ -45,20 +45,24 @@ namespace FreshMvvmSampleApp
 
         public void LoadMultipleNavigation()
         {
-            var masterDetailsMultiple = new MasterDetailPage ();
+            var masterDetailsMultiple = new MasterDetailPage (); //generic master detail page
 
+            //we setup the first navigation container with ContactList
             var contactListPage = FreshPageModelResolver.ResolvePageModel<ContactListPageModel> ();
             contactListPage.Title = "Contact List";
+            //we setup the first navigation container with name MasterPageArea
             var masterPageArea = new FreshNavigationContainer (contactListPage, "MasterPageArea");
             masterPageArea.Title = "Menu";
 
-            masterDetailsMultiple.Master = masterPageArea;
+            masterDetailsMultiple.Master = masterPageArea; //set the first navigation container to the Master
 
+            //we setup the second navigation container with the QuoteList 
             var quoteListPage = FreshPageModelResolver.ResolvePageModel<QuoteListPageModel> ();
             quoteListPage.Title = "Quote List";
+            //we setup the second navigation container with name DetailPageArea
             var detailPageArea = new FreshNavigationContainer (quoteListPage, "DetailPageArea");
 
-            masterDetailsMultiple.Detail = detailPageArea;
+            masterDetailsMultiple.Detail = detailPageArea; //set the second navigation container to the Detail
 
             MainPage = masterDetailsMultiple;
         }
