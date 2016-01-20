@@ -25,10 +25,15 @@ FreshMvvm is a super light Mvvm Framework designed specifically for Xamarin.Form
 ### Related Videos/Quick Start Guides
 
 [FreshMvvm n=0 – Mvvm in Xamarin.Forms and Why FreshMvvm](http://www.michaelridland.com/xamarin/mvvminxamarinformsfreshmvvm/)
+
 [FreshMvvm n=1 : Your first FreshMvvm Application](http://www.michaelridland.com/xamarin/xamarinforms-mvvm-first-freshmvvm-application/)
+
 [FreshMvvm n=2 – IOC and Constructor Injection](http://www.michaelridland.com/xamarin/freshmvvm-n2-ioc-constructor-injection/)
+
 [FreshMvvm n=3: Navigation in FreshMvvm](http://www.michaelridland.com/xamarin/freshmvvm-n3-navigation-in-freshmvvm/)
+
 [Implementing custom navigation in FreshMvvm for Xamarin.Forms](http://www.michaelridland.com/xamarin/implementing-freshmvvm-mvvm-xamarin-forms/)
+
 [TDD in Xamarin Studio – Live Coding FreshMvvm](http://www.michaelridland.com/xamarin/tdd-in-xamarin-studio-live-coding-freshmvvm/)
 
 ### The Story
