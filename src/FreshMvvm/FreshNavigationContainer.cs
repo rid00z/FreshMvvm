@@ -36,14 +36,14 @@ namespace FreshMvvm
 		public virtual Task PushPage (Xamarin.Forms.Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
         {
             if (modal)
-				return Navigation.PushModalAsync (CreateContainerPage (page), animate);
+                return Navigation.PushModalAsync (CreateContainerPage (page), animate);
             return Navigation.PushAsync (page, animate);
         }
 
 		public virtual Task PopPage (bool modal = false, bool animate = true)
         {
             if (modal)
-				return Navigation.PopModalAsync (animate);
+                return Navigation.PopModalAsync (animate);
             return Navigation.PopAsync (animate);
         }
 

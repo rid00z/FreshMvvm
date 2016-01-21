@@ -83,16 +83,16 @@ namespace FreshMvvm
 
         public Task PushPage (Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
         {
-			if (modal)
+            if (modal)
                 return Navigation.PushModalAsync (new NavigationPage (page));
-			return (Detail as NavigationPage).PushAsync (page, animate); //TODO: make this better
+            return (Detail as NavigationPage).PushAsync (page, animate); //TODO: make this better
 		}
 
 		public Task PopPage (bool modal = false, bool animate = true)
 		{
             if (modal)
-				return Navigation.PopModalAsync (animate);
-			return (Detail as NavigationPage).PopAsync (animate); //TODO: make this better
+                return Navigation.PopModalAsync (animate);
+            return (Detail as NavigationPage).PopAsync (animate); //TODO: make this better
 		}
 
         public Task PopToRoot (bool animate = true)
