@@ -9,10 +9,8 @@ using System.Diagnostics;
 
 namespace FreshMvvm
 {
-    public abstract class FreshBasePageModel : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
-
+    public abstract class FreshBasePageModel : FreshNotifyPropertyChanged
+	{
         /// <summary>
         /// This event is raise when a page is Popped, this might not be raise everytime a page is Popped. 
         /// Note* this might be raised multiple times. 
@@ -53,14 +51,6 @@ namespace FreshMvvm
         /// <param name="initData">Data that's sent to this PageModel from the pusher</param>
         public virtual void Init (object initData)
         {            
-        }
-
-        protected void RaisePropertyChanged ([CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null) {
-                handler (this, new PropertyChangedEventArgs (propertyName));
-            }
         }
 
         internal void WireEvents (Page page)
