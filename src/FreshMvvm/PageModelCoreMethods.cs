@@ -16,31 +16,26 @@ namespace FreshMvvm
 			_currentPageModel = pageModel;
         }
 
-        public async Task DisplayAlert (string title, string message, string cancel)
+        public Task DisplayAlert (string title, string message, string cancel)
         {
-            if (_currentPage != null)
-                await _currentPage.DisplayAlert (title, message, cancel);
+            return _currentPage.DisplayAlert (title, message, cancel);
         }
 
-        public async Task<string> DisplayActionSheet (string title, string cancel, string destruction, params string[] buttons)
+        public Task<string> DisplayActionSheet (string title, string cancel, string destruction, params string[] buttons)
         {
-            if (_currentPage != null)
-                return await _currentPage.DisplayActionSheet (title, cancel, destruction, buttons);
-            return null;
+            return _currentPage.DisplayActionSheet (title, cancel, destruction, buttons);
         }
 
-        public async Task<bool> DisplayAlert (string title, string message, string accept, string cancel)
+        public Task<bool> DisplayAlert (string title, string message, string accept, string cancel)
         {
-            if (_currentPage != null)
-                return await _currentPage.DisplayAlert (title, message, accept, cancel);	
-            return false;
+            return _currentPage.DisplayAlert (title, message, accept, cancel);	
         }
 
-        public async Task PushPageModel<T> (object data, bool modal = false) where T : FreshBasePageModel
+        public Task PushPageModel<T> (object data, bool modal = false) where T : FreshBasePageModel
         {
             T pageModel = FreshIOC.Container.Resolve<T> ();
 
-            await PushPageModel(pageModel, data, modal);
+            return PushPageModel(pageModel, data, modal);
         }
 
         public Task PushPageModel(Type pageModelType)
@@ -55,7 +50,7 @@ namespace FreshMvvm
             return PushPageModel(pageModel, data, modal);
         }
 
-        async Task PushPageModel(FreshBasePageModel pageModel, object data, bool modal = false)
+        Task PushPageModel(FreshBasePageModel pageModel, object data, bool modal = false)
         {
             var page = FreshPageModelResolver.ResolvePageModel(data, pageModel);
 
@@ -67,10 +62,10 @@ namespace FreshMvvm
 
             IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (_currentPageModel.CurrentNavigationServiceName);
 
-            await rootNavigation.PushPage (page, pageModel, modal);
+            return rootNavigation.PushPage (page, pageModel, modal);
         }
 
-        public async Task PopPageModel (bool modal = false)
+        public Task PopPageModel (bool modal = false)
         {
             string navServiceName = _currentPageModel.CurrentNavigationServiceName;
             if (_currentPageModel.IsModalFirstChild) {
@@ -78,21 +73,21 @@ namespace FreshMvvm
             }
 
             IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (navServiceName);
-            await rootNavigation.PopPage (modal);
+            return rootNavigation.PopPage (modal);
         }
 
-        public async Task PopToRoot(bool animate)
+        public Task PopToRoot(bool animate)
         {
             IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (_currentPageModel.CurrentNavigationServiceName);
-            await rootNavigation.PopToRoot (animate);
+            return rootNavigation.PopToRoot (animate);
         }
 
-        public async Task PopPageModel (object data, bool modal = false)
+        public Task PopPageModel (object data, bool modal = false)
         {
             if (_currentPageModel != null && _currentPageModel.PreviousPageModel != null && data != null) {
                 _currentPageModel.PreviousPageModel.ReverseInit (data);
             }
-            await PopPageModel (modal);
+            return PopPageModel (modal);
         }
 
         public Task PushPageModel<T> () where T : FreshBasePageModel
@@ -124,7 +119,7 @@ namespace FreshMvvm
             return PushNewNavigationServiceModal (newNavigationService, new FreshBasePageModel[] { basePageModels });
         }
 
-        public async Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel[] basePageModels)
+        public Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel[] basePageModels)
         {
             var navPage = newNavigationService as Page;
             if (navPage == null)
@@ -137,14 +132,14 @@ namespace FreshMvvm
             }
 
             IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (_currentPageModel.CurrentNavigationServiceName);
-            await rootNavigation.PushPage (navPage, null, true);
+            return rootNavigation.PushPage (navPage, null, true);
         }
 
-        public async Task PopModalNavigationService()
+        public Task PopModalNavigationService()
         {
             var navServiceName = _currentPageModel.PreviousNavigationServiceName;        
             IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (navServiceName);
-            await rootNavigation.PopPage (true);
+            return rootNavigation.PopPage (true);
         }
 
 		public void BatchBegin()
