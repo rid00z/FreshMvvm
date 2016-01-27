@@ -31,7 +31,7 @@ namespace FreshMvvm
 
         public static Page ResolvePageModel (Type type, object data, FreshBasePageModel pageModel)
         {
-            var name = type.AssemblyQualifiedName.Replace ("Model", string.Empty);
+            var name = GetPageTypeName (type);
             var pageType = Type.GetType (name);
             if (pageType == null)
                 throw new Exception (name + " not found");
@@ -45,6 +45,13 @@ namespace FreshMvvm
             page.BindingContext = pageModel;
 
             return page;
+        }
+
+        private static string GetPageTypeName (Type pageModelType)
+        {
+            return pageModelType.AssemblyQualifiedName
+                       .Replace ("PageModel", "Page")
+                       .Replace ("ViewModel", "Page");
         }
 
     }
