@@ -22,15 +22,6 @@ FreshMvvm is a super light Mvvm Framework designed specifically for Xamarin.Form
 
 > *Note* Different to standard naming conventions, FreshMvvm uses Page and PageModel instead of View and ViewModel, this is inline with Xamarin.Forms using Pages
 
-### Related Videos/Quick Start Guides
-
-[FreshMvvm n=0 – Mvvm in Xamarin.Forms and Why FreshMvvm](http://www.michaelridland.com/xamarin/mvvminxamarinformsfreshmvvm/)
-[FreshMvvm n=1 : Your first FreshMvvm Application](http://www.michaelridland.com/xamarin/xamarinforms-mvvm-first-freshmvvm-application/)
-[FreshMvvm n=2 – IOC and Constructor Injection](http://www.michaelridland.com/xamarin/freshmvvm-n2-ioc-constructor-injection/)
-[FreshMvvm n=3: Navigation in FreshMvvm](http://www.michaelridland.com/xamarin/freshmvvm-n3-navigation-in-freshmvvm/)
-[Implementing custom navigation in FreshMvvm for Xamarin.Forms](http://www.michaelridland.com/xamarin/implementing-freshmvvm-mvvm-xamarin-forms/)
-[TDD in Xamarin Studio – Live Coding FreshMvvm](http://www.michaelridland.com/xamarin/tdd-in-xamarin-studio-live-coding-freshmvvm/)
-
 ### The Story
 
 I [(Michael Ridland)](http://www.michaelridland.com/) was part-way into a Xamarin Traditional application when Xamarin.Forms was released. I wanted to move the project onto Xamarin.Forms but on that project I was using MvvmCross. At that time MvvmCross had no support for Xamarin.Forms, so I had the option of 1) adapting MvvmCross, 2) finding an alternative or 3) rolling my own Mvvm. The best part about MvvmCross was it's two-way databinding to the native iOS/Android controls but since Xamarin.Forms already had the Databinding builtin, that wasn't useful and the size with MvvmCross was an overhead when I didn't require it. I also wasn't able to find an alternative that I could easily move to. So that I could keep it simple and flexible, I ended up rolling my own Mvvm.
@@ -359,4 +350,17 @@ And then set the IOC container in the System.
 FreshIOC.OverrideContainer(myContainer);
 ```
 
+### Related Videos/Quick Start Guides
+
+[FreshMvvm n=0 – Mvvm in Xamarin.Forms and Why FreshMvvm](http://www.michaelridland.com/xamarin/mvvminxamarinformsfreshmvvm/)
+
+[FreshMvvm n=1 : Your first FreshMvvm Application](http://www.michaelridland.com/xamarin/xamarinforms-mvvm-first-freshmvvm-application/)
+
+[FreshMvvm n=2 – IOC and Constructor Injection](http://www.michaelridland.com/xamarin/freshmvvm-n2-ioc-constructor-injection/)
+
+[FreshMvvm n=3: Navigation in FreshMvvm](http://www.michaelridland.com/xamarin/freshmvvm-n3-navigation-in-freshmvvm/)
+
+[Implementing custom navigation in FreshMvvm for Xamarin.Forms](http://www.michaelridland.com/xamarin/implementing-freshmvvm-mvvm-xamarin-forms/)
+
+[TDD in Xamarin Studio – Live Coding FreshMvvm](http://www.michaelridland.com/xamarin/tdd-in-xamarin-studio-live-coding-freshmvvm/)
 

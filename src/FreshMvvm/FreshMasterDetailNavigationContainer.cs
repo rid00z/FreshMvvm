@@ -81,25 +81,23 @@ namespace FreshMvvm
             Master = navPage;
         }
 
-        public async Task PushPage (Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
-             {
-			if (modal)
-				await Navigation.PushModalAsync (new NavigationPage (page));
-			else
-				await (Detail as NavigationPage).PushAsync (page, animate); //TODO: make this better
+        public Task PushPage (Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
+        {
+            if (modal)
+                return Navigation.PushModalAsync (new NavigationPage (page));
+            return (Detail as NavigationPage).PushAsync (page, animate); //TODO: make this better
 		}
 
-		public async Task PopPage (bool modal = false, bool animate = true)
+		public Task PopPage (bool modal = false, bool animate = true)
 		{
             if (modal)
-				await Navigation.PopModalAsync (animate);
-			else
-				await (Detail as NavigationPage).PopAsync (animate); //TODO: make this better
+                return Navigation.PopModalAsync (animate);
+            return (Detail as NavigationPage).PopAsync (animate); //TODO: make this better
 		}
 
-        public async Task PopToRoot (bool animate = true)
+        public Task PopToRoot (bool animate = true)
         {
-            await (Detail as NavigationPage).PopToRootAsync (animate);
+            return (Detail as NavigationPage).PopToRootAsync (animate);
         }
 
         public string NavigationServiceName { get; private set; }

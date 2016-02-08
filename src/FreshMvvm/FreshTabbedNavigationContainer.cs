@@ -47,25 +47,23 @@ namespace FreshMvvm
             return new NavigationPage (page);
         }
 
-		public async System.Threading.Tasks.Task PushPage (Xamarin.Forms.Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
+		public System.Threading.Tasks.Task PushPage (Xamarin.Forms.Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
         {
             if (modal)
-                await this.CurrentPage.Navigation.PushModalAsync (CreateContainerPage (page));
-            else
-                await this.CurrentPage.Navigation.PushAsync (page);
+                return this.CurrentPage.Navigation.PushModalAsync (CreateContainerPage (page));
+            return this.CurrentPage.Navigation.PushAsync (page);
         }
 
-		public async System.Threading.Tasks.Task PopPage (bool modal = false, bool animate = true)
+		public System.Threading.Tasks.Task PopPage (bool modal = false, bool animate = true)
         {
             if (modal)
-                await this.CurrentPage.Navigation.PopModalAsync (animate);
-            else
-                await this.CurrentPage.Navigation.PopAsync (animate);
+                return this.CurrentPage.Navigation.PopModalAsync (animate);
+            return this.CurrentPage.Navigation.PopAsync (animate);
         }
 
-        public async Task PopToRoot (bool animate = true)
+        public Task PopToRoot (bool animate = true)
         {
-            await this.CurrentPage.Navigation.PopToRootAsync (animate);
+            return this.CurrentPage.Navigation.PopToRootAsync (animate);
         }
 
         public string NavigationServiceName { get; private set; }
