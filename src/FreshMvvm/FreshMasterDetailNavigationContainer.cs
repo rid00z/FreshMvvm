@@ -84,7 +84,7 @@ namespace FreshMvvm
         public Task PushPage (Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
         {
             if (modal)
-                return Navigation.PushModalAsync (new NavigationPage (page));
+                return Navigation.PushModalAsync (CreateContainerPage(page));
             return (Detail as NavigationPage).PushAsync (page, animate); //TODO: make this better
 		}
 

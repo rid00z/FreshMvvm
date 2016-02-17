@@ -65,9 +65,20 @@ namespace FreshMvvm
             if (string.IsNullOrWhiteSpace(pageModel.PreviousNavigationServiceName))
                 pageModel.PreviousNavigationServiceName = _currentPageModel.PreviousNavigationServiceName;
 
-            IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (_currentPageModel.CurrentNavigationServiceName);
+            if (page is FreshMasterDetailNavigationContainer) 
+            {
+                this.PushNewNavigationServiceModal ((FreshMasterDetailNavigationContainer)page, pageModel);
+            } 
+            else if (page is FreshTabbedNavigationContainer) 
+            {
+                this.PushNewNavigationServiceModal ((FreshTabbedNavigationContainer)page, pageModel);
+            } 
+            else 
+            {
+                IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (_currentPageModel.CurrentNavigationServiceName);
 
-            await rootNavigation.PushPage (page, pageModel, modal);
+                await rootNavigation.PushPage (page, pageModel, modal);
+            }
         }
 
         public async Task PopPageModel (bool modal = false)
@@ -100,13 +111,15 @@ namespace FreshMvvm
             return PushPageModel<T> (null);
         }
 
-        public Task PushNewNavigationServiceModal (FreshTabbedNavigationContainer tabbedNavigationContainer)
+        public Task PushNewNavigationServiceModal (FreshTabbedNavigationContainer tabbedNavigationContainer, FreshBasePageModel basePageModel = null)
         {
-            var models = tabbedNavigationContainer.TabbedPages.Select (o => o.GetModel ());
+            var models = tabbedNavigationContainer.TabbedPages.Select (o => o.GetModel ()).ToList();
+            if (basePageModel != null)
+                models.Add (basePageModel);
             return PushNewNavigationServiceModal (tabbedNavigationContainer, models.ToArray ());
         }
 
-        public Task PushNewNavigationServiceModal (FreshMasterDetailNavigationContainer masterDetailContainer)
+        public Task PushNewNavigationServiceModal (FreshMasterDetailNavigationContainer masterDetailContainer, FreshBasePageModel basePageModel = null)
         {
             var models = masterDetailContainer.Pages.Select (o => 
                 {
@@ -114,7 +127,10 @@ namespace FreshMvvm
                         return ((NavigationPage)o.Value).CurrentPage.GetModel ();
                     else
                         return o.Value.GetModel();
-                });
+                }).ToList();
+
+            if (basePageModel != null)
+                models.Add (basePageModel);
             
             return PushNewNavigationServiceModal (masterDetailContainer, models.ToArray());
         }

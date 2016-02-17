@@ -3,12 +3,19 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Runtime.CompilerServices;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace FreshMvvm
 {
     public abstract class FreshBasePageModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// This property is used by the FreshBaseContentPage and allows you to set the toolbar items on the page.
+        /// </summary>
+        public ObservableCollection<ToolbarItem> ToolbarItems { get; set; }
 
         /// <summary>
         /// The previous page model, that's automatically filled, on push

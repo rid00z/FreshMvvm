@@ -25,9 +25,9 @@ namespace FreshMvvm
 
         Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel[] basePageModels);
 
-        Task PushNewNavigationServiceModal (FreshTabbedNavigationContainer tabbedNavigationContainer);
+        Task PushNewNavigationServiceModal (FreshTabbedNavigationContainer tabbedNavigationContainer, FreshBasePageModel basePageModel = null);
 
-        Task PushNewNavigationServiceModal (FreshMasterDetailNavigationContainer masterDetailContainer);
+        Task PushNewNavigationServiceModal (FreshMasterDetailNavigationContainer masterDetailContainer, FreshBasePageModel basePageModel = null);
 
         Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel basePageModels);
 
