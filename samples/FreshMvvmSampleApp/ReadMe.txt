@@ -1,0 +1,1 @@
+To open the sample projects load the main solution: FreshMvvm\src\FreshMvvm.sln 
