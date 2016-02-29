@@ -92,7 +92,7 @@ namespace FreshMvvm
 		{
             if (modal)
                 return Navigation.PopModalAsync (animate);
-            return (Detail as NavigationPage).PopAsync (animate); //TODO: make this better
+            return (Detail as NavigationPage).PopAsync (animate); //TODO: make this better            
 		}
 
         public Task PopToRoot (bool animate = true)
