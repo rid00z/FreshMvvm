@@ -11,13 +11,6 @@ namespace FreshMvvm
 {
     public abstract class FreshBasePageModel : INotifyPropertyChanged
     {
-        public FreshBasePageModel()
-        {
-            PageWasPopped += (object sender, EventArgs e) => {
-                Debug.WriteLine("Page Was Popped " + this.ToString());
-            };
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
