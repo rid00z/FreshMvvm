@@ -30,6 +30,26 @@ namespace FreshMvvm.Tests.Mocks
 			throw new NotImplementedException();
 		}
 
+        public Task PushPageModel<T, TPage>(object data, bool modal = false) where T : FreshBasePageModel where TPage : Xamarin.Forms.Page
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PushPageModel<T, TPage>() where T : FreshBasePageModel where TPage : Xamarin.Forms.Page
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PushNewNavigationServiceModal(FreshTabbedNavigationContainer tabbedNavigationContainer, FreshBasePageModel basePageModel = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PushNewNavigationServiceModal(FreshMasterDetailNavigationContainer masterDetailContainer, FreshBasePageModel basePageModel = null)
+        {
+            throw new NotImplementedException();
+        }
+
 		public Task PopPageModel(bool modal = false)
 		{
 			throw new NotImplementedException();

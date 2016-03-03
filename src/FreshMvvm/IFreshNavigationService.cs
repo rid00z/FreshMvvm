@@ -12,6 +12,8 @@ namespace FreshMvvm
 
 		Task PopPage (bool modal = false, bool animate = true);
 
+        void NotifyChildrenPageWasPopped();
+
         string NavigationServiceName { get; }
     }
 }

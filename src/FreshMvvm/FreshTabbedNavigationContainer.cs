@@ -67,6 +67,15 @@ namespace FreshMvvm
         }
 
         public string NavigationServiceName { get; private set; }
+
+        public void NotifyChildrenPageWasPopped()
+        {
+            foreach (var page in this.Children)
+            {
+                if (page is NavigationPage)
+                    ((NavigationPage)page).NotifyAllChildrenPopped();
+            }
+        }
     }
 }
 

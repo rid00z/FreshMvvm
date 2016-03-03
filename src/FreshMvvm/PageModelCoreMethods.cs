@@ -95,12 +95,18 @@ namespace FreshMvvm
         public async Task PopPageModel (bool modal = false)
         {
             string navServiceName = _currentPageModel.CurrentNavigationServiceName;
-            if (_currentPageModel.IsModalFirstChild) {
-                navServiceName = _currentPageModel.PreviousNavigationServiceName;
+            if (_currentPageModel.IsModalFirstChild)
+            {
+                await PopModalNavigationService();
             }
-
-            IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (navServiceName);
-            await rootNavigation.PopPage (modal);
+            else
+            {
+                if (modal)
+                    this._currentPageModel.RaisePageWasPopped();
+                
+                IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (navServiceName);
+                await rootNavigation.PopPage (modal);                
+            }
         }
 
         public async Task PopToRoot(bool animate)
@@ -174,6 +180,9 @@ namespace FreshMvvm
 
         public async Task PopModalNavigationService()
         {
+            var currentNavigationService = FreshIOC.Container.Resolve<IFreshNavigationService> (_currentPageModel.CurrentNavigationServiceName);
+            currentNavigationService.NotifyChildrenPageWasPopped();
+
             var navServiceName = _currentPageModel.PreviousNavigationServiceName;        
             IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (navServiceName);
             await rootNavigation.PopPage (true);

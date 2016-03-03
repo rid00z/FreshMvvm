@@ -8,7 +8,7 @@ namespace FreshMvvm
     {
         public FreshNavigationContainer (Page page) 
             : this (page, Constants.DefaultNavigationServiceName)
-        {            
+        {
         }
 
         public FreshNavigationContainer (Page page, string navigationPageName) 
@@ -53,6 +53,11 @@ namespace FreshMvvm
         }
 
         public string NavigationServiceName { get; private set; }
+
+        public void NotifyChildrenPageWasPopped()
+        {
+            this.NotifyAllChildrenPopped();
+        }
     }
 }
 

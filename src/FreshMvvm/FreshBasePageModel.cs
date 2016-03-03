@@ -5,12 +5,26 @@ using Xamarin.Forms;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace FreshMvvm
 {
     public abstract class FreshBasePageModel : INotifyPropertyChanged
     {
+        public FreshBasePageModel()
+        {
+            PageWasPopped += (object sender, EventArgs e) => {
+                Debug.WriteLine("Page Was Popped " + this.ToString());
+            };
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// This event is raise when a page is Popped, this might not be raise everytime a page is Popped. 
+        /// Note* this might be raised multiple times. 
+        /// </summary>
+        public event EventHandler PageWasPopped; 
 
         /// <summary>
         /// This property is used by the FreshBaseContentPage and allows you to set the toolbar items on the page.
@@ -45,7 +59,7 @@ namespace FreshMvvm
         /// </summary>
         /// <param name="initData">Data that's sent to this PageModel from the pusher</param>
         public virtual void Init (object initData)
-        {
+        {            
         }
 
         protected void RaisePropertyChanged ([CallerMemberName] string propertyName = null)
@@ -98,6 +112,44 @@ namespace FreshMvvm
         /// </summary>
         protected virtual void ViewIsAppearing (object sender, EventArgs e)
         {
+            if (!_alreadyAttached)
+                AttachPageWasPoppedEvent();
+        }
+
+        bool _alreadyAttached = false;
+        /// <summary>
+        /// This is used to attach the page was popped method to a NavigationPage if available
+        /// </summary>
+        void AttachPageWasPoppedEvent()
+        {
+            var navPage = (this.CurrentPage.Parent as NavigationPage);
+            if (navPage != null)
+            {
+                _alreadyAttached = true;
+                navPage.Popped += HandleNavPagePopped;
+            }
+        }
+
+        void HandleNavPagePopped(object sender, NavigationEventArgs e)
+        {
+            if (e.Page == this.CurrentPage)
+            {
+                if (PageWasPopped != null)
+                    PageWasPopped(this, EventArgs.Empty);
+
+                var navPage = (this.CurrentPage.Parent as NavigationPage);
+                if (navPage != null)
+                    navPage.Popped -= HandleNavPagePopped;
+
+                CurrentPage.Appearing -= ViewIsAppearing;
+                CurrentPage.Disappearing -= ViewIsDisappearing;
+            }
+        }
+
+        public void RaisePageWasPopped()
+        {
+            if (PageWasPopped != null)
+                PageWasPopped(this, EventArgs.Empty);
         }
     }
 }

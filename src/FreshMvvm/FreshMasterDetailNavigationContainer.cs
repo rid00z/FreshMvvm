@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace FreshMvvm
 {
@@ -101,6 +102,17 @@ namespace FreshMvvm
         }
 
         public string NavigationServiceName { get; private set; }
+
+        public void NotifyChildrenPageWasPopped()
+        {
+            if (Master is NavigationPage)
+                ((NavigationPage)Master).NotifyAllChildrenPopped();
+            foreach (var page in this.Pages.Values)
+            {
+                if (page is NavigationPage)
+                    ((NavigationPage)page).NotifyAllChildrenPopped();
+            }
+        }
     }
 }
 
