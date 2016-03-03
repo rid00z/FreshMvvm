@@ -8,7 +8,6 @@ namespace FreshMvvm
 {
     public static class PropertyChangedExtensions
     {
-
         public static void WhenAny<T, TProperty> (this T source, Action<string> action, params Expression<Func<T, TProperty>>[] properties) where T : INotifyPropertyChanged
         {
             Dictionary<string, Func<T, TProperty>> propertyNames = new Dictionary<string, Func<T, TProperty>> ();

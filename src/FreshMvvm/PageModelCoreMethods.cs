@@ -43,6 +43,13 @@ namespace FreshMvvm
             await PushPageModel(pageModel, data, modal);
         }
 
+        public async Task PushPageModel<T, TPage> (object data, bool modal = false) where T : FreshBasePageModel where TPage : Page
+        {
+            T pageModel = FreshIOC.Container.Resolve<T> ();
+            TPage page = FreshIOC.Container.Resolve<TPage> ();
+            await PushPageModelWithPage(page, pageModel, data, modal);
+        }
+
         public Task PushPageModel(Type pageModelType)
         {
             return PushPageModel(pageModelType, null);
@@ -58,7 +65,11 @@ namespace FreshMvvm
         async Task PushPageModel(FreshBasePageModel pageModel, object data, bool modal = false)
         {
             var page = FreshPageModelResolver.ResolvePageModel(data, pageModel);
+            PushPageModelWithPage(page, pageModel, data, modal);
+        }
 
+        async Task PushPageModelWithPage(Page page, FreshBasePageModel pageModel, object data, bool modal = false)
+        {
             pageModel.PreviousPageModel = _currentPageModel; //This is the previous page model because it's push to a new one, and this is current
             pageModel.CurrentNavigationServiceName = _currentPageModel.CurrentNavigationServiceName;
 
@@ -109,6 +120,11 @@ namespace FreshMvvm
         public Task PushPageModel<T> () where T : FreshBasePageModel
         {
             return PushPageModel<T> (null);
+        }
+
+        public Task PushPageModel<T, TPage> () where T : FreshBasePageModel where TPage : Page
+        {
+            return PushPageModel<T, TPage> (null);
         }
 
         public Task PushNewNavigationServiceModal (FreshTabbedNavigationContainer tabbedNavigationContainer, FreshBasePageModel basePageModel = null)

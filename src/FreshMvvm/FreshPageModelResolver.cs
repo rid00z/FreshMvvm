@@ -38,13 +38,19 @@ namespace FreshMvvm
 
             var page = (Page)FreshIOC.Container.Resolve (pageType);
 
-            pageModel.WireEvents (page);
-            pageModel.CurrentPage = page;
-            pageModel.CoreMethods = new PageModelCoreMethods (page, pageModel);
-            pageModel.Init (data);
-            page.BindingContext = pageModel;
+            BindingPageModel(data, page, pageModel);
 
             return page;
+        }
+
+        public static Page BindingPageModel(object data, Page targetPage, FreshBasePageModel pageModel)
+        {
+            pageModel.WireEvents (targetPage);
+            pageModel.CurrentPage = targetPage;
+            pageModel.CoreMethods = new PageModelCoreMethods (targetPage, pageModel);
+            pageModel.Init (data);
+            targetPage.BindingContext = pageModel;
+            return targetPage;
         }
 
         private static string GetPageTypeName (Type pageModelType)
