@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace FreshMvvm
 {
-    public abstract class FreshBasePageModel : FreshNotifyPropertyChanged
+    public abstract class FreshBasePageModel : FreshObservableObject
 	{
         /// <summary>
         /// This event is raise when a page is Popped, this might not be raise everytime a page is Popped. 
