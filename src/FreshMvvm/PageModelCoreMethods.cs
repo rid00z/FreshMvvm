@@ -46,7 +46,8 @@ namespace FreshMvvm
         public async Task PushPageModel<T, TPage> (object data, bool modal = false) where T : FreshBasePageModel where TPage : Page
         {
             T pageModel = FreshIOC.Container.Resolve<T> ();
-            TPage page = FreshIOC.Container.Resolve<TPage> ();
+			TPage page = FreshIOC.Container.Resolve<TPage>();
+			FreshPageModelResolver.BindingPageModel(data, page, pageModel);
             await PushPageModelWithPage(page, pageModel, data, modal);
         }
 
@@ -65,7 +66,7 @@ namespace FreshMvvm
         async Task PushPageModel(FreshBasePageModel pageModel, object data, bool modal = false)
         {
             var page = FreshPageModelResolver.ResolvePageModel(data, pageModel);
-            PushPageModelWithPage(page, pageModel, data, modal);
+            await PushPageModelWithPage(page, pageModel, data, modal);
         }
 
         async Task PushPageModelWithPage(Page page, FreshBasePageModel pageModel, object data, bool modal = false)
