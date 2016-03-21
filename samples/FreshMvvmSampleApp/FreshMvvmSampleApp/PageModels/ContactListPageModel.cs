@@ -25,7 +25,7 @@ namespace FreshMvvmSampleApp
 
         protected override void ViewIsAppearing (object sender, EventArgs e)
         {
-            //You can do stuff here
+            base.ViewIsAppearing(sender, e);
         }
 
         public override void ReverseInit (object value)

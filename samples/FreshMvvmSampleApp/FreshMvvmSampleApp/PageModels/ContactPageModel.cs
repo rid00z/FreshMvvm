@@ -12,6 +12,13 @@ namespace FreshMvvmSampleApp
         public ContactPageModel (IDatabaseService dataService)
         {
             _dataService = dataService;
+
+            this.WhenAny(HandleContactChanged, o => o.Contact);
+        }
+
+        void HandleContactChanged(string propertyName)
+        {
+            //handle the property changed, nice
         }
 
         public Contact Contact { get; set; }

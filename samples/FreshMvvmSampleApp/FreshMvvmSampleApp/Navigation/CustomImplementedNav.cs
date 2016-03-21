@@ -91,6 +91,17 @@ namespace FreshMvvmSampleApp
         }
 
         public string NavigationServiceName { get; private set; }
+
+        public void NotifyChildrenPageWasPopped()
+        {
+            if (Master is NavigationPage)
+                ((NavigationPage)Master).NotifyAllChildrenPopped();
+            foreach (var page in _tabbedNavigationPage.Children)
+            {
+                if (page is NavigationPage)
+                    ((NavigationPage)page).NotifyAllChildrenPopped();
+            }
+        }
 	}
 }
 
