@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace FreshMvvm
 {
@@ -13,15 +14,29 @@ namespace FreshMvvm
 
         Task PushPageModel<T> (object data, bool modal = false) where T : FreshBasePageModel;
 
+        Task PushPageModel<T, TPage> (object data, bool modal = false) where T : FreshBasePageModel where TPage : Page;
+
         Task PopPageModel (bool modal = false);
 
         Task PopPageModel (object data, bool modal = false);
 
         Task PushPageModel<T> () where T : FreshBasePageModel;
 
+        Task PushPageModel<T, TPage> () where T : FreshBasePageModel where TPage : Page;
+
         Task PushPageModel (Type pageModelType);
 
         Task PushPageModel (Type pageModelType, object data, bool modal = false);
+
+        Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel[] basePageModels);
+
+        Task PushNewNavigationServiceModal (FreshTabbedNavigationContainer tabbedNavigationContainer, FreshBasePageModel basePageModel = null);
+
+        Task PushNewNavigationServiceModal (FreshMasterDetailNavigationContainer masterDetailContainer, FreshBasePageModel basePageModel = null);
+
+        Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel basePageModels);
+
+        Task PopModalNavigationService();
 
         Task PopToRoot(bool animate);
 

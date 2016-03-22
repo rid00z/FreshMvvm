@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace FreshMvvm
 {
@@ -12,11 +13,17 @@ namespace FreshMvvm
         ContentPage _menuPage;
         ObservableCollection<string> _pageNames = new ObservableCollection<string> ();
 
-        protected Dictionary<string, Page> Pages { get { return _pages; } }
+        public Dictionary<string, Page> Pages { get { return _pages; } }
         protected ObservableCollection<string> PageNames { get { return _pageNames; } }
 
-        public FreshMasterDetailNavigationContainer ()
+        public FreshMasterDetailNavigationContainer () : this(Constants.DefaultNavigationServiceName)
         {			
+        }
+
+        public FreshMasterDetailNavigationContainer (string navigationServiceName)
+        {                       
+            NavigationServiceName = navigationServiceName;   
+            RegisterNavigation ();
         }
 
         public void Init (string menuTitle, string menuIcon = null)
@@ -27,12 +34,13 @@ namespace FreshMvvm
 
         protected virtual void RegisterNavigation ()
         {
-            FreshIOC.Container.Register<IFreshNavigationService> (this);
+            FreshIOC.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
         }
 
         public virtual void AddPage<T> (string title, object data = null) where T : FreshBasePageModel
         {
             var page = FreshPageModelResolver.ResolvePageModel<T> (data);
+            page.GetModel ().CurrentNavigationServiceName = NavigationServiceName;
             var navigationContainer = CreateContainerPage (page);
             _pages.Add (title, navigationContainer);
             _pageNames.Add (title);
@@ -42,6 +50,9 @@ namespace FreshMvvm
 
         protected virtual Page CreateContainerPage (Page page)
         {
+            if (page is NavigationPage || page is MasterDetailPage || page is TabbedPage)
+                return page;
+
             return new NavigationPage (page);
         }
 
@@ -71,25 +82,36 @@ namespace FreshMvvm
             Master = navPage;
         }
 
-        public async Task PushPage (Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
-             {
-			if (modal)
-				await Navigation.PushModalAsync (new NavigationPage (page));
-			else
-				await (Detail as NavigationPage).PushAsync (page, animate); //TODO: make this better
+        public Task PushPage (Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
+        {
+            if (modal)
+                return Navigation.PushModalAsync (CreateContainerPage(page));
+            return (Detail as NavigationPage).PushAsync (page, animate); //TODO: make this better
 		}
 
-		public async Task PopPage (bool modal = false, bool animate = true)
+		public Task PopPage (bool modal = false, bool animate = true)
 		{
             if (modal)
-				await Navigation.PopModalAsync (animate);
-			else
-				await (Detail as NavigationPage).PopAsync (animate); //TODO: make this better
+                return Navigation.PopModalAsync (animate);
+            return (Detail as NavigationPage).PopAsync (animate); //TODO: make this better            
 		}
 
-        public async Task PopToRoot (bool animate = true)
+        public Task PopToRoot (bool animate = true)
         {
-            await (Detail as NavigationPage).PopToRootAsync (animate);
+            return (Detail as NavigationPage).PopToRootAsync (animate);
+        }
+
+        public string NavigationServiceName { get; private set; }
+
+        public void NotifyChildrenPageWasPopped()
+        {
+            if (Master is NavigationPage)
+                ((NavigationPage)Master).NotifyAllChildrenPopped();
+            foreach (var page in this.Pages.Values)
+            {
+                if (page is NavigationPage)
+                    ((NavigationPage)page).NotifyAllChildrenPopped();
+            }
         }
     }
 }

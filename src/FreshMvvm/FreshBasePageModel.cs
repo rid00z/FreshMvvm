@@ -3,12 +3,26 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Runtime.CompilerServices;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace FreshMvvm
 {
     public abstract class FreshBasePageModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        /// <summary>
+        /// This event is raise when a page is Popped, this might not be raise everytime a page is Popped. 
+        /// Note* this might be raised multiple times. 
+        /// </summary>
+        public event EventHandler PageWasPopped; 
+
+        /// <summary>
+        /// This property is used by the FreshBaseContentPage and allows you to set the toolbar items on the page.
+        /// </summary>
+        public ObservableCollection<ToolbarItem> ToolbarItems { get; set; }
 
         /// <summary>
         /// The previous page model, that's automatically filled, on push
@@ -38,7 +52,7 @@ namespace FreshMvvm
         /// </summary>
         /// <param name="initData">Data that's sent to this PageModel from the pusher</param>
         public virtual void Init (object initData)
-        {
+        {            
         }
 
         protected void RaisePropertyChanged ([CallerMemberName] string propertyName = null)
@@ -56,6 +70,29 @@ namespace FreshMvvm
         }
 
         /// <summary>
+        /// Is true when this model is the first of a new navigation stack
+        /// </summary>
+        internal bool IsModalFirstChild;
+
+        /// <summary>
+        /// Used when a page is shown modal and wants a new Navigation Stack
+        /// </summary>
+        internal string PreviousNavigationServiceName;
+
+        /// <summary>
+        /// Used when a page is shown modal and wants a new Navigation Stack
+        /// </summary>
+        internal string CurrentNavigationServiceName = Constants.DefaultNavigationServiceName;
+
+        /// <summary>
+        /// This means the current PageModel is shown modally and can be pop'd modally
+        /// </summary>
+        public bool IsModalAndHasPreviousNavigationStack()
+        {
+            return !string.IsNullOrWhiteSpace (PreviousNavigationServiceName) && PreviousNavigationServiceName != CurrentNavigationServiceName;
+        }
+
+        /// <summary>
         /// This method is called when the view is disappearing. 
         /// </summary>
         protected virtual void ViewIsDisappearing (object sender, EventArgs e)
@@ -68,6 +105,44 @@ namespace FreshMvvm
         /// </summary>
         protected virtual void ViewIsAppearing (object sender, EventArgs e)
         {
+            if (!_alreadyAttached)
+                AttachPageWasPoppedEvent();
+        }
+
+        bool _alreadyAttached = false;
+        /// <summary>
+        /// This is used to attach the page was popped method to a NavigationPage if available
+        /// </summary>
+        void AttachPageWasPoppedEvent()
+        {
+            var navPage = (this.CurrentPage.Parent as NavigationPage);
+            if (navPage != null)
+            {
+                _alreadyAttached = true;
+                navPage.Popped += HandleNavPagePopped;
+            }
+        }
+
+        void HandleNavPagePopped(object sender, NavigationEventArgs e)
+        {
+            if (e.Page == this.CurrentPage)
+            {
+                if (PageWasPopped != null)
+                    PageWasPopped(this, EventArgs.Empty);
+
+                var navPage = (this.CurrentPage.Parent as NavigationPage);
+                if (navPage != null)
+                    navPage.Popped -= HandleNavPagePopped;
+
+                CurrentPage.Appearing -= ViewIsAppearing;
+                CurrentPage.Disappearing -= ViewIsDisappearing;
+            }
+        }
+
+        public void RaisePageWasPopped()
+        {
+            if (PageWasPopped != null)
+                PageWasPopped(this, EventArgs.Empty);
         }
     }
 }

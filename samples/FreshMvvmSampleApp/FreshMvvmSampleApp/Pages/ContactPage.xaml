@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="FreshMvvmSampleApp.ContactPage">
-	<BasePage.Content>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="FreshMvvmSampleApp.ContactPage"
+		xmlns:local="clr-namespace:FreshMvvmSampleApp;assembly=FreshMvvmSampleApp" >
+	<local:BasePage.Content>
 		<StackLayout Padding="15">
 			<Label Text="Contact Name" ></Label>
 			<Entry Text="{Binding Contact.Name}"></Entry>
@@ -9,6 +10,9 @@
 			<Button Text="Save" Command="{Binding SaveCommand}"></Button>
 			<BoxView HeightRequest="30"></BoxView>
 			<Button Text="Test Modal" Command="{Binding TestModal}"></Button>
+			<Button Text="Test Modal with Navigation (Basic)" Command="{Binding TestModalNavigationBasic}"></Button>
+			<Button Text="Test Modal with Navigation (Tabbed)" Command="{Binding TestModalNavigationTabbed}"></Button>
+			<Button Text="Test Modal with Navigation (MasterDetail)" Command="{Binding TestModalNavigationMasterDetail}"></Button>
 		</StackLayout>
-	</BasePage.Content>
-</BasePage>
+	</local:BasePage.Content>
+</local:BasePage>

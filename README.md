@@ -22,10 +22,6 @@ FreshMvvm is a super light Mvvm Framework designed specifically for Xamarin.Form
 
 > *Note* Different to standard naming conventions, FreshMvvm uses Page and PageModel instead of View and ViewModel, this is inline with Xamarin.Forms using Pages
 
-### Quick Start Guide
-
-TODO: Quick Start Guide
-
 ### The Story
 
 I [(Michael Ridland)](http://www.michaelridland.com/) was part-way into a Xamarin Traditional application when Xamarin.Forms was released. I wanted to move the project onto Xamarin.Forms but on that project I was using MvvmCross. At that time MvvmCross had no support for Xamarin.Forms, so I had the option of 1) adapting MvvmCross, 2) finding an alternative or 3) rolling my own Mvvm. The best part about MvvmCross was it's two-way databinding to the native iOS/Android controls but since Xamarin.Forms already had the Databinding builtin, that wasn't useful and the size with MvvmCross was an overhead when I didn't require it. I also wasn't able to find an alternative that I could easily move to. So that I could keep it simple and flexible, I ended up rolling my own Mvvm.
@@ -276,11 +272,95 @@ public class QuoteListPageModel : FreshBasePageModel
 	}
 }
 ```
+## Multiple Navigation Services
 
-## Setup Guide
+It’s always been possible to do any type of navigation in FreshMvvm, with custom or advanced scenarios were done by implementing a custom navigation service. Even with this ability people found it a little hard to do advanced navigation scenarios in FreshMvvm. After I reviewed all the support questions that came in for FreshMvvm I found that the basic issue people had was they wanted to be able to use our built in navigation containers multiple times, two primary examples are 1) within a master detail having a navigation stack in a master and another in the detail 2) The ability to push modally with a new navigation container. In order to support both these scenarios I concluded that the FreshMvvm required the ability to have named NavigationServices so that we could support multiple NavigationService’s.
 
-Please watch this video/read this post to get started. 
+### Using multiple navigation containers
 
+Below we’re running two navigation stacks, in a single MasterDetail.
 
+```csharp
+var masterDetailsMultiple = new MasterDetailPage (); //generic master detail page
 
+//we setup the first navigation container with ContactList
+var contactListPage = FreshPageModelResolver.ResolvePageModel<ContactListPageModel> ();
+contactListPage.Title = "Contact List";
+//we setup the first navigation container with name MasterPageArea
+var masterPageArea = new FreshNavigationContainer (contactListPage, "MasterPageArea");
+masterPageArea.Title = "Menu";
+
+masterDetailsMultiple.Master = masterPageArea; //set the first navigation container to the Master
+
+//we setup the second navigation container with the QuoteList 
+var quoteListPage = FreshPageModelResolver.ResolvePageModel<QuoteListPageModel> ();
+quoteListPage.Title = "Quote List";
+//we setup the second navigation container with name DetailPageArea
+var detailPageArea = new FreshNavigationContainer (quoteListPage, "DetailPageArea");
+
+masterDetailsMultiple.Detail = detailPageArea; //set the second navigation container to the Detail
+
+MainPage = masterDetailsMultiple;
+```
+
+### PushModally with new navigation stack
+
+```csharp
+//push a basic page Modally
+var page = FreshPageModelResolver.ResolvePageModel<MainMenuPageModel> ();
+var basicNavContainer = new FreshNavigationContainer (page, "secondNavPage");
+await CoreMethods.PushNewNavigationServiceModal(basicNavContainer, new FreshBasePageModel[] { page.GetModel() }); 
+
+//push a tabbed page Modally
+var tabbedNavigation = new FreshTabbedNavigationContainer ("secondNavPage");
+tabbedNavigation.AddTab<ContactListPageModel> ("Contacts", "contacts.png", null);
+tabbedNavigation.AddTab<QuoteListPageModel> ("Quotes", "document.png", null);
+await CoreMethods.PushNewNavigationServiceModal(tabbedNavigation);
+
+//push a master detail page Modally
+var masterDetailNav = new FreshMasterDetailNavigationContainer ("secondNavPage");
+masterDetailNav.Init ("Menu", "Menu.png");
+masterDetailNav.AddPage<ContactListPageModel> ("Contacts", null);
+masterDetailNav.AddPage<QuoteListPageModel> ("Quotes", null);
+await CoreMethods.PushNewNavigationServiceModal(masterDetailNav);
+```
+
+## Custom IOC Containers
+
+The second major request for FreshMvvm 1.0 was to allow custom IOC containers. In the case that your application already has a container that you want to leverage.
+
+Using a custom IOC container is very simple in that you only need to implement a single interface.
+
+```csharp
+public interface IFreshIOC
+{
+    object Resolve(Type resolveType);
+    void Register<RegisterType>(RegisterType instance) where RegisterType : class;
+    void Register<RegisterType>(RegisterType instance, string name) where RegisterType : class;
+    ResolveType Resolve<ResolveType>() where ResolveType : class;
+    ResolveType Resolve<ResolveType>(string name) where ResolveType : class;
+    void Register<RegisterType, RegisterImplementation> ()
+        where RegisterType : class
+        where RegisterImplementation : class, RegisterType;
+```
+
+And then set the IOC container in the System.
+
+```csharp
+FreshIOC.OverrideContainer(myContainer);
+```
+
+### Related Videos/Quick Start Guides
+
+[FreshMvvm n=0 – Mvvm in Xamarin.Forms and Why FreshMvvm](http://www.michaelridland.com/xamarin/mvvminxamarinformsfreshmvvm/)
+
+[FreshMvvm n=1 : Your first FreshMvvm Application](http://www.michaelridland.com/xamarin/xamarinforms-mvvm-first-freshmvvm-application/)
+
+[FreshMvvm n=2 – IOC and Constructor Injection](http://www.michaelridland.com/xamarin/freshmvvm-n2-ioc-constructor-injection/)
+
+[FreshMvvm n=3: Navigation in FreshMvvm](http://www.michaelridland.com/xamarin/freshmvvm-n3-navigation-in-freshmvvm/)
+
+[Implementing custom navigation in FreshMvvm for Xamarin.Forms](http://www.michaelridland.com/xamarin/implementing-freshmvvm-mvvm-xamarin-forms/)
+
+[TDD in Xamarin Studio – Live Coding FreshMvvm](http://www.michaelridland.com/xamarin/tdd-in-xamarin-studio-live-coding-freshmvvm/)
 

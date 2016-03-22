@@ -571,7 +571,7 @@ namespace FreshTinyIoC
     }
     #endregion
 
-    public sealed partial class FreshTinyIoCContainer : IDisposable
+    public partial class FreshTinyIoCContainer : IDisposable
     {
         private sealed class MethodAccessException : Exception
         {

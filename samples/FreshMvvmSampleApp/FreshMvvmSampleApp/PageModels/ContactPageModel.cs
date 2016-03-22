@@ -12,6 +12,13 @@ namespace FreshMvvmSampleApp
         public ContactPageModel (IDatabaseService dataService)
         {
             _dataService = dataService;
+
+            this.WhenAny(HandleContactChanged, o => o.Contact);
+        }
+
+        void HandleContactChanged(string propertyName)
+        {
+            //handle the property changed, nice
         }
 
         public Contact Contact { get; set; }
@@ -42,6 +49,45 @@ namespace FreshMvvmSampleApp
                 });
             }
         }
+
+        public Command TestModalNavigationBasic {
+            get {
+                return new Command (async () => {
+
+                    var page = FreshPageModelResolver.ResolvePageModel<MainMenuPageModel> ();
+                    var basicNavContainer = new FreshNavigationContainer (page, "secondNavPage");
+
+                    await CoreMethods.PushNewNavigationServiceModal(basicNavContainer, new FreshBasePageModel[] { page.GetModel() }); 
+                });
+            }
+        }
+
+
+        public Command TestModalNavigationTabbed {
+            get {
+                return new Command (async () => {
+
+                    var tabbedNavigation = new FreshTabbedNavigationContainer ("secondNavPage");
+                    tabbedNavigation.AddTab<ContactListPageModel> ("Contacts", "contacts.png", null);
+                    tabbedNavigation.AddTab<QuoteListPageModel> ("Quotes", "document.png", null);
+
+                    await CoreMethods.PushNewNavigationServiceModal(tabbedNavigation);
+                });
+            }
+        }
+
+        public Command TestModalNavigationMasterDetail {
+            get {
+                return new Command (async () => {
+
+                    var masterDetailNav = new FreshMasterDetailNavigationContainer ("secondNavPage");
+                    masterDetailNav.Init ("Menu", "Menu.png");
+                    masterDetailNav.AddPage<ContactListPageModel> ("Contacts", null);
+                    masterDetailNav.AddPage<QuoteListPageModel> ("Quotes", null);
+                    await CoreMethods.PushNewNavigationServiceModal(masterDetailNav); 
+
+                });
+            }
+        }
     }
 }
-

@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using FreshMvvm;
 using PropertyChanged;
+using System.Diagnostics;
 
 namespace FreshMvvmSampleApp
 {
@@ -24,7 +25,7 @@ namespace FreshMvvmSampleApp
 
         protected override void ViewIsAppearing (object sender, System.EventArgs e)
         {
-            CoreMethods.DisplayAlert ("Page is appearing", "", "Ok");
+            Debug.WriteLine ("View is appearing");
             base.ViewIsAppearing (sender, e);
         }
 

@@ -20,20 +20,44 @@ namespace FreshMvvm
         public static Page ResolvePageModel<T> (object data, T pageModel) where T : FreshBasePageModel
         {
             var type = pageModel.GetType ();
-            var name = type.AssemblyQualifiedName.Replace ("Model", string.Empty);
+            return ResolvePageModel (type, data, pageModel);
+        }
+
+        public static Page ResolvePageModel (Type type, object data) 
+        {
+            var pageModel = FreshIOC.Container.Resolve (type) as FreshBasePageModel;
+            return ResolvePageModel (type, data, pageModel);
+        }
+
+        public static Page ResolvePageModel (Type type, object data, FreshBasePageModel pageModel)
+        {
+            var name = GetPageTypeName (type);
             var pageType = Type.GetType (name);
             if (pageType == null)
                 throw new Exception (name + " not found");
 
             var page = (Page)FreshIOC.Container.Resolve (pageType);
 
-            page.BindingContext = pageModel;
-            pageModel.WireEvents (page);
-            pageModel.CurrentPage = page;
-			pageModel.CoreMethods = new PageModelCoreMethods (page, pageModel);
-            pageModel.Init (data);
+            BindingPageModel(data, page, pageModel);
 
             return page;
+        }
+
+        public static Page BindingPageModel(object data, Page targetPage, FreshBasePageModel pageModel)
+        {
+            pageModel.WireEvents (targetPage);
+            pageModel.CurrentPage = targetPage;
+            pageModel.CoreMethods = new PageModelCoreMethods (targetPage, pageModel);
+            pageModel.Init (data);
+            targetPage.BindingContext = pageModel;
+            return targetPage;
+        }
+
+        private static string GetPageTypeName (Type pageModelType)
+        {
+            return pageModelType.AssemblyQualifiedName
+                       .Replace ("PageModel", "Page")
+                       .Replace ("ViewModel", "Page");
         }
 
     }

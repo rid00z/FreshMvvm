@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace FreshMvvm.Tests.Mocks
 {
-	class MockPageModelCoreMethods : IPageModelCoreMethods
+    class MockPageModelCoreMethods : IPageModelCoreMethods
 	{
 		public void BatchBegin()
 		{
@@ -29,6 +29,26 @@ namespace FreshMvvm.Tests.Mocks
 		{
 			throw new NotImplementedException();
 		}
+
+        public Task PushPageModel<T, TPage>(object data, bool modal = false) where T : FreshBasePageModel where TPage : Xamarin.Forms.Page
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PushPageModel<T, TPage>() where T : FreshBasePageModel where TPage : Xamarin.Forms.Page
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PushNewNavigationServiceModal(FreshTabbedNavigationContainer tabbedNavigationContainer, FreshBasePageModel basePageModel = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task PushNewNavigationServiceModal(FreshMasterDetailNavigationContainer masterDetailContainer, FreshBasePageModel basePageModel = null)
+        {
+            throw new NotImplementedException();
+        }
 
 		public Task PopPageModel(bool modal = false)
 		{
@@ -64,5 +84,30 @@ namespace FreshMvvm.Tests.Mocks
 		{
 			throw new NotImplementedException();
 		}
+
+        public Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel[] basePageModels)
+        {
+            throw new NotImplementedException ();
+        }
+
+        public Task PopModalNavigationService ()
+        {
+            throw new NotImplementedException ();
+        }
+
+        public Task PushNewNavigationServiceModal (FreshTabbedNavigationContainer tabbedNavigationContainer)
+        {
+            throw new NotImplementedException ();
+        }
+
+        public Task PushNewNavigationServiceModal (FreshMasterDetailNavigationContainer masterDetailContainer)
+        {
+            throw new NotImplementedException ();
+        }
+
+        public Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel basePageModels)
+        {
+            throw new NotImplementedException ();
+        }
 	}
 }
