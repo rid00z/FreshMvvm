@@ -12,6 +12,7 @@
 // LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
 // FITNESS FOR A PARTICULAR PURPOSE.
 //===============================================================================
+using FreshMvvm;
 
 #region Preprocessor Directives
 // Uncomment this line if you want the container to automatically
@@ -581,7 +582,7 @@ namespace FreshTinyIoC
         /// <summary>
         /// Registration options for "fluent" API
         /// </summary>
-        public sealed class RegisterOptions
+        public sealed class RegisterOptions : IRegisterOptions
         {
             private FreshTinyIoCContainer _Container;
             private TypeRegistration _Registration;
@@ -597,7 +598,7 @@ namespace FreshTinyIoC
             /// </summary>
             /// <returns>RegisterOptions</returns>
             /// <exception cref="TinyIoCInstantiationTypeException"></exception>
-            public RegisterOptions AsSingleton()
+            public IRegisterOptions AsSingleton()
             {
                 var currentFactory = _Container.GetCurrentFactory(_Registration);
 
@@ -612,7 +613,7 @@ namespace FreshTinyIoC
             /// </summary>
             /// <returns>RegisterOptions</returns>
             /// <exception cref="TinyIoCInstantiationTypeException"></exception>
-            public RegisterOptions AsMultiInstance()
+            public IRegisterOptions AsMultiInstance()
             {
                 var currentFactory = _Container.GetCurrentFactory(_Registration);
 
@@ -627,7 +628,7 @@ namespace FreshTinyIoC
             /// </summary>
             /// <returns>RegisterOptions</returns>
             /// <exception cref="TinyIoCInstantiationTypeException"></exception>
-            public RegisterOptions WithWeakReference()
+            public IRegisterOptions WithWeakReference()
             {
                 var currentFactory = _Container.GetCurrentFactory(_Registration);
 
@@ -642,7 +643,7 @@ namespace FreshTinyIoC
             /// </summary>
             /// <returns>RegisterOptions</returns>
             /// <exception cref="TinyIoCInstantiationTypeException"></exception>
-            public RegisterOptions WithStrongReference()
+            public IRegisterOptions WithStrongReference()
             {
                 var currentFactory = _Container.GetCurrentFactory(_Registration);
 
@@ -652,7 +653,7 @@ namespace FreshTinyIoC
                 return _Container.AddUpdateRegistration(_Registration, currentFactory.StrongReferenceVariant);
             }
 
-            public RegisterOptions UsingConstructor<RegisterType>(Expression<Func<RegisterType>> constructor)
+            public IRegisterOptions UsingConstructor<RegisterType>(Expression<Func<RegisterType>> constructor)
             {
                 var lambda = constructor as LambdaExpression;
                 if (lambda == null)
@@ -709,13 +710,13 @@ namespace FreshTinyIoC
         /// </summary>
         public sealed class MultiRegisterOptions
         {
-            private IEnumerable<RegisterOptions> _RegisterOptions;
+            private IEnumerable<IRegisterOptions> _RegisterOptions;
 
             /// <summary>
             /// Initializes a new instance of the MultiRegisterOptions class.
             /// </summary>
             /// <param name="registerOptions">Registration options</param>
-            public MultiRegisterOptions(IEnumerable<RegisterOptions> registerOptions)
+            public MultiRegisterOptions(IEnumerable<IRegisterOptions> registerOptions)
             {
                 _RegisterOptions = registerOptions;
             }
@@ -742,9 +743,9 @@ namespace FreshTinyIoC
                 return this;
             }
 
-            private IEnumerable<RegisterOptions> ExecuteOnAllRegisterOptions(Func<RegisterOptions, RegisterOptions> action)
+            private IEnumerable<IRegisterOptions> ExecuteOnAllRegisterOptions(Func<IRegisterOptions, IRegisterOptions> action)
             {
-                var newRegisterOptions = new List<RegisterOptions>();
+                var newRegisterOptions = new List<IRegisterOptions>();
 
                 foreach (var registerOption in _RegisterOptions)
                 {
