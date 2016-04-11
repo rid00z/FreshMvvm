@@ -77,12 +77,12 @@ namespace FreshMvvm
         /// <summary>
         /// Used when a page is shown modal and wants a new Navigation Stack
         /// </summary>
-        internal string PreviousNavigationServiceName;
+        public string PreviousNavigationServiceName;
 
         /// <summary>
         /// Used when a page is shown modal and wants a new Navigation Stack
         /// </summary>
-        internal string CurrentNavigationServiceName = Constants.DefaultNavigationServiceName;
+        public string CurrentNavigationServiceName = Constants.DefaultNavigationServiceName;
 
         /// <summary>
         /// This means the current PageModel is shown modally and can be pop'd modally
