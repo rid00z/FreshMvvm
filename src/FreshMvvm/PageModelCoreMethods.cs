@@ -179,6 +179,16 @@ namespace FreshMvvm
             await rootNavigation.PushPage (navPage, null, true);
         }
 
+        public async Task SwitchOutRootNavigation (string navigationServiceName)
+        {
+            IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (navigationServiceName);
+
+            if (!(rootNavigation is Page))
+                throw new Exception("Navigation service is not a page");
+            
+            Xamarin.Forms.Application.Current.MainPage = rootNavigation as Page;
+        }
+
         public async Task PopModalNavigationService()
         {
             var currentNavigationService = FreshIOC.Container.Resolve<IFreshNavigationService> (_currentPageModel.CurrentNavigationServiceName);
