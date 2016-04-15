@@ -70,7 +70,7 @@ The Framework contains some built in Navigation containers for the different typ
 ###### Basic Navigation - Built In
 
 ```csharp
-var page = FreshBasePageModel.ResolvePageModel<MainMenuPageModel> ();
+var page = FreshPageModelResolver.ResolvePageModel<MainMenuPageModel> ();
 var basicNavContainer = new FreshNavigationContainer (page);
 MainPage = basicNavContainer;
 ```
