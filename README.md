@@ -20,7 +20,7 @@ FreshMvvm is a super light Mvvm Framework designed specifically for Xamarin.Form
 * Basic methods available in Model, like Alert
 * Built in Navigation types for SimpleNavigation, Tabbed and MasterDetail 
 
-> *Note* Different to standard naming conventions, FreshMvvm uses Page and PageModel instead of View and ViewModel, this is inline with Xamarin.Forms using Pages
+> *Note* ~~Different to standard naming conventions, FreshMvvm uses Page and PageModel instead of View and ViewModel, this is inline with Xamarin.Forms using Pages~~ Now we can use both the ViewModel naming conventions. 
 
 ### The Story
 
@@ -34,10 +34,10 @@ It was never a plan to create a framework but after presenting my Mvvm solution 
 
 This Framework, while simple, is also powerful and uses a Convention over Configuration style. 
 
-> *Note* ~~Different to standard naming conventions, FreshMvvm uses Page and PageModel instead of View and ViewModel, this is inline with Xamarin.Forms using Pages.~~ You can now use the ViewModel convention 
+> *Note* ~~Different to standard naming conventions, FreshMvvm uses Page and PageModel instead of View and ViewModel, this is inline with Xamarin.Forms using Pages~~ Now we can use both the ViewModel naming conventions.
 
 * A Page must have a corresponding PageModel, with naming important so a QuotePageModel must have a QuotePage
-The BindingContext on the page will be automatically set with the Model (Note* you can also now use the ViewModel naming convention) 
+The BindingContext on the page will be automatically set with the Model
 * A PageModel can have a Init method that takes a object
 * A PageModel can have a ReverseInit method that also take a object and is called when a model is poped with a object
 * PageModel can have dependancies automatically injected into the Constructor
@@ -126,7 +126,6 @@ FreshIOC.Container.Resolve<IDatabaseService>();
 ### IOC Container Lifetime Registration Options
 
 We now support a fluent API for setting the object lifetime of object inside the IOC Container.
-
 ```csharp
 // By default we register concrete types as 
 // multi-instance, and interfaces as singletons
@@ -137,8 +136,7 @@ FreshIOC.Container.Register<IMyInterface, MyConcreteType>(); // Singleton
 FreshIOC.Container.Register<MyConcreteType>().AsSingleton(); // Singleton
 FreshIOC.Container.Register<IMyInterface, MyConcreteType>().AsMultiInstance(); // Multi-instance
 ```
-
-As you can see below the the IFreshIOC interface returns
+As you can see below the IFreshIOC interface methods return the IRegisterOptions interface.
 
 ```csharp
 public interface IFreshIOC
@@ -154,8 +152,7 @@ public interface IFreshIOC
 }
 ```
 
-The interface that’s returned from the register methods is IRegisterOptions.
-
+The interface that's returned from the register methods is IRegisterOptions.
 ```csharp
 public interface IRegisterOptions
 {
@@ -371,17 +368,15 @@ await CoreMethods.PushNewNavigationServiceModal(masterDetailNav);
 
 ### Switching out NavigationStacks on the Xamarin.Forms MainPage
 
-There’s some cases in a Xamarin.Forms you might want to run multiple navigation stacks. A good example of this is when you have a navigation stack for the authentication and a stack for the primary area of your application.
+There's some cases in Xamarin.Forms you might want to run multiple navigation stacks. A good example of this is when you have a navigation stack for the authentication and a stack for the primary area of your application.
 
 To begin with we can setup some names for our navigation containers.
-
 ```csharp
 public class NavigationContainerNames
 {
     public const string AuthenticationContainer = "AuthenticationContainer";
     public const string MainContainer = "MainContainer";
 }
-
 ```
 
 Then we can create our two navigation containers and assign to the MainPage.
@@ -391,10 +386,10 @@ var loginPage = FreshMvvm.FreshPageModelResolver.ResolvePageModel<LoginViewModel
 var loginContainer = new FreshNavigationContainer(loginPage, NavigationContainerNames.AuthenticationContainer);
 
 var myPitchListViewContainer = new MainTabbedPage(NavigationContainerNames.MainContainer);
+
+MainPage = loginContainer;
 ```
-
-Once we’ve set this up we can now switch out our navigation containers.
-
+Once we've set this up we can now switch out our navigation containers.
 ```csharp
 CoreMethods.SwitchOutRootNavigation(NavigationContainerNames.MainContainer);
 ```
