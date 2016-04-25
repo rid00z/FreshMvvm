@@ -79,11 +79,11 @@ namespace FreshMvvm
 
             if (page is FreshMasterDetailNavigationContainer) 
             {
-                this.PushNewNavigationServiceModal ((FreshMasterDetailNavigationContainer)page, pageModel);
+                await this.PushNewNavigationServiceModal ((FreshMasterDetailNavigationContainer)page, pageModel);
             } 
             else if (page is FreshTabbedNavigationContainer) 
             {
-                this.PushNewNavigationServiceModal ((FreshTabbedNavigationContainer)page, pageModel);
+                await this.PushNewNavigationServiceModal ((FreshTabbedNavigationContainer)page, pageModel);
             } 
             else 
             {
@@ -179,7 +179,7 @@ namespace FreshMvvm
             await rootNavigation.PushPage (navPage, null, true);
         }
 
-        public async Task SwitchOutRootNavigation (string navigationServiceName)
+        public void SwitchOutRootNavigation (string navigationServiceName)
         {
             IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (navigationServiceName);
 
