@@ -79,11 +79,11 @@ namespace FreshMvvm
 
             if (page is FreshMasterDetailNavigationContainer) 
             {
-                this.PushNewNavigationServiceModal ((FreshMasterDetailNavigationContainer)page, pageModel);
+                await this.PushNewNavigationServiceModal ((FreshMasterDetailNavigationContainer)page, pageModel);
             } 
             else if (page is FreshTabbedNavigationContainer) 
             {
-                this.PushNewNavigationServiceModal ((FreshTabbedNavigationContainer)page, pageModel);
+                await this.PushNewNavigationServiceModal ((FreshTabbedNavigationContainer)page, pageModel);
             } 
             else 
             {
@@ -177,6 +177,16 @@ namespace FreshMvvm
 
             IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (_currentPageModel.CurrentNavigationServiceName);
             await rootNavigation.PushPage (navPage, null, true);
+        }
+
+        public void SwitchOutRootNavigation (string navigationServiceName)
+        {
+            IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (navigationServiceName);
+
+            if (!(rootNavigation is Page))
+                throw new Exception("Navigation service is not a page");
+            
+            Xamarin.Forms.Application.Current.MainPage = rootNavigation as Page;
         }
 
         public async Task PopModalNavigationService()

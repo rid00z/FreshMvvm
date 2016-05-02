@@ -52,7 +52,7 @@ namespace FreshMvvm.Tests
             //standard navigation should set named navigation
             var page = FreshPageModelResolver.ResolvePageModel<MockContentPageModel>();
             var pageModel = page.BindingContext as MockContentPageModel;
-            var standardNavigation = new FreshNavigationContainer(page, "testingLinking3");
+            new FreshNavigationContainer(page, "testingLinking3");
             pageModel.CurrentNavigationServiceName.Should ().Be ("testingLinking3");
 
             if (FreshIOC.Container.Resolve<IFreshNavigationService> ("testingLinking3") == null)

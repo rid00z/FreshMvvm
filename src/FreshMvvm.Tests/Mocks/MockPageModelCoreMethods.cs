@@ -5,6 +5,11 @@ namespace FreshMvvm.Tests.Mocks
 {
     class MockPageModelCoreMethods : IPageModelCoreMethods
 	{
+        public void SwitchOutRootNavigation(string navigationServiceName)
+        {
+            throw new NotImplementedException();
+        }
+
 		public void BatchBegin()
 		{
 			throw new NotImplementedException();

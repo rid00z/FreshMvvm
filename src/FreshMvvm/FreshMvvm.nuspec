@@ -2,10 +2,10 @@
 <package >
   <metadata>
     <id>FreshMvvm</id>
-    <version>1.0.3.0003</version>
+    <version>2.0.0</version>
     <title>FreshMvvm</title>
     <authors>Michael Ridland</authors>
-    <owners>Michael Ridland</owners>
+    <owners>rid00z</owners>
     <projectUrl>https://github.com/rid00z/FreshMvvm</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>FreshMvvm is a super light Mvvm Framework designed specifically for Xamarin.Forms. Its designed to be Easy, Simple and Flexible.</description>    

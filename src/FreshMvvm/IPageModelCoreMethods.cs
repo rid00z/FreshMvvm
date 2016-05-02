@@ -38,6 +38,8 @@ namespace FreshMvvm
 
         Task PopModalNavigationService();
 
+        void SwitchOutRootNavigation(string navigationServiceName);
+
         Task PopToRoot(bool animate);
 
 		void BatchBegin();
