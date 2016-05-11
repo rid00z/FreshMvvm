@@ -5,6 +5,8 @@ namespace FreshMvvm
 {
     public static class FreshPageModelResolver
     {
+        public static IFreshPageModelMapper PageModelMapper { get; set; } = new FreshPageModelMapper();
+
         public static Page ResolvePageModel<T> () where T : FreshBasePageModel
         {
             return ResolvePageModel<T> (null);
@@ -31,7 +33,7 @@ namespace FreshMvvm
 
         public static Page ResolvePageModel (Type type, object data, FreshBasePageModel pageModel)
         {
-            var name = GetPageTypeName (type);
+            var name = PageModelMapper.GetPageTypeName (type);
             var pageType = Type.GetType (name);
             if (pageType == null)
                 throw new Exception (name + " not found");
@@ -51,15 +53,7 @@ namespace FreshMvvm
             pageModel.Init (data);
             targetPage.BindingContext = pageModel;
             return targetPage;
-        }
-
-        private static string GetPageTypeName (Type pageModelType)
-        {
-            return pageModelType.AssemblyQualifiedName
-                       .Replace ("PageModel", "Page")
-                       .Replace ("ViewModel", "Page");
-        }
-
+        }            
     }
 }
 
