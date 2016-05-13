@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>FreshMvvm</id>
-    <version>2.0.1</version>
+    <version>2.1.0</version>
     <title>FreshMvvm</title>
     <authors>Michael Ridland</authors>
     <owners>rid00z</owners>
@@ -10,6 +10,26 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>FreshMvvm is a super light Mvvm Framework designed specifically for Xamarin.Forms. Its designed to be Easy, Simple and Flexible.</description>    
     <tags>Mvvm, Xamarin.Forms</tags>
+    <releaseNotes>
+    2.1.0
+    Adds ability to control pagemodel mapping via PageModelMapper
+    Adds ability to navigate without animation
+    Better cleanup of objects
+    IOC now has unregister feature
+    Add First Only Tabbed Navigation Container
+
+    2.0.1
+    Support for Xamarin.Forms 2.2.
+
+    2.0
+    IOC Container Lifetime Registration Options
+    Switching out NavigationStacks on the Xamarin.Forms MainPage
+    Multiple Navigation Services
+    Custom IOC Containers
+    WhenAny
+    Control over which Models and Views are linked
+    Events when page is popped (for disposal)
+    </releaseNotes>
   </metadata>
   <files>
         <file src="bin/Release/Fresh*.*" target="lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10" />

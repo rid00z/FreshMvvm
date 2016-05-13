@@ -42,8 +42,8 @@ namespace FreshMvvm
         /// <summary>
         /// This method is called when a page is Pop'd, it also allows for data to be returned.
         /// </summary>
-        /// <param name="returndData">This data that's returned from </param>
-        public virtual void ReverseInit (object returndData)
+        /// <param name="returnedData">This data that's returned from </param>
+        public virtual void ReverseInit (object returnedData)
         {
         }
 

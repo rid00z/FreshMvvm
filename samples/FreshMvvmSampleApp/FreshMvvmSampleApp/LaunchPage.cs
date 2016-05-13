@@ -15,6 +15,7 @@ namespace FreshMvvmSampleApp
                 "Master Detail",
                 "Tabbed Navigation",
                 "Custom Navigation",
+                "Tabbed (FO) Navigation",
                 "Multiple Navigation"
             };
             list.ItemTapped += (object sender, ItemTappedEventArgs e) => {
@@ -24,6 +25,8 @@ namespace FreshMvvmSampleApp
                     app.LoadMasterDetail ();
                 else if ((string)e.Item == "Tabbed Navigation")
                     app.LoadTabbedNav ();
+                else if ((string)e.Item == "Tabbed (FO) Navigation")
+                    app.LoadFOTabbedNav ();
                 else if ((string)e.Item == "Custom Navigation")
                     app.LoadCustomNav ();
                 else if ((string)e.Item == "Multiple Navigation")
