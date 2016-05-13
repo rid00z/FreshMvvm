@@ -39,18 +39,23 @@ namespace FreshMvvm
             return navigationContainer;
         }
 
-        protected virtual Page CreateContainerPage (Page page)
+        internal Page CreateContainerPageSafe (Page page)
         {
             if (page is NavigationPage || page is MasterDetailPage || page is TabbedPage)
                 return page;
-            
+
+            return CreateContainerPage(page);
+        }
+
+        protected virtual Page CreateContainerPage (Page page)
+        {
             return new NavigationPage (page);
         }
 
 		public System.Threading.Tasks.Task PushPage (Xamarin.Forms.Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
         {
             if (modal)
-                return this.CurrentPage.Navigation.PushModalAsync (CreateContainerPage (page));
+                return this.CurrentPage.Navigation.PushModalAsync (CreateContainerPageSafe (page));
             return this.CurrentPage.Navigation.PushAsync (page);
         }
 

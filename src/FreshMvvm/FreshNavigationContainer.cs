@@ -25,18 +25,23 @@ namespace FreshMvvm
             FreshIOC.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
         }
 
-        protected virtual Page CreateContainerPage (Page page)
+        internal Page CreateContainerPageSafe (Page page)
         {
             if (page is NavigationPage || page is MasterDetailPage || page is TabbedPage)
                 return page;
-            
+
+            return CreateContainerPage(page);
+        }
+
+        protected virtual Page CreateContainerPage (Page page)
+        {
             return new NavigationPage (page);
         }
 
 		public virtual Task PushPage (Xamarin.Forms.Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
         {
             if (modal)
-                return Navigation.PushModalAsync (CreateContainerPage (page), animate);
+                return Navigation.PushModalAsync (CreateContainerPageSafe (page), animate);
             return Navigation.PushAsync (page, animate);
         }
 

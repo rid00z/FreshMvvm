@@ -2086,6 +2086,53 @@ namespace FreshTinyIoC
         #endregion
         #endregion
 
+        #region Unregistration
+
+        /// <summary>
+        /// Remove a container class registration.
+        /// </summary>
+        /// <typeparam name="RegisterType">Type to unregister</typeparam>
+        /// <returns>true if the registration is successfully found and removed; otherwise, false.</returns>
+        public void Unregister<RegisterType>()
+        {
+            Unregister(typeof(RegisterType), string.Empty);
+        }
+
+        /// <summary>
+        /// Remove a named container class registration.
+        /// </summary>
+        /// <typeparam name="RegisterType">Type to unregister</typeparam>
+        /// <param name="name">Name of registration</param>
+        /// <returns>true if the registration is successfully found and removed; otherwise, false.</returns>
+        public void Unregister<RegisterType>(string name)
+        {
+            Unregister(typeof(RegisterType), name);
+        }
+
+        /// <summary>
+        /// Remove a container class registration.
+        /// </summary>
+        /// <param name="registerType">Type to unregister</param>
+        /// <returns>true if the registration is successfully found and removed; otherwise, false.</returns>
+        public void Unregister(Type registerType)
+        {
+            Unregister(registerType, string.Empty);
+        }
+
+        /// <summary>
+        /// Remove a named container class registration.
+        /// </summary>
+        /// <param name="registerType">Type to unregister</param>
+        /// <param name="name">Name of registration</param>
+        public void Unregister(Type registerType, string name)
+        {
+            var typeRegistration = new TypeRegistration(registerType, name);
+
+            RemoveRegistration(typeRegistration);
+        }
+
+        #endregion
+
         #region Object Factories
         /// <summary>
         /// Provides custom lifetime management for ASP.Net per-request lifetimes etc.

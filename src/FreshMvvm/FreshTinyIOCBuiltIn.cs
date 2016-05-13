@@ -47,6 +47,16 @@ namespace FreshMvvm
         {
             return FreshTinyIoCContainer.Current.Resolve (resolveType);
         }
+
+        public void Unregister<RegisterType>()
+        {
+            FreshTinyIoCContainer.Current.Unregister<RegisterType>();
+        }
+
+        public void Unregister<RegisterType>(string name)
+        {
+            FreshTinyIoCContainer.Current.Unregister<RegisterType>(name);
+        }
     }
 }
 

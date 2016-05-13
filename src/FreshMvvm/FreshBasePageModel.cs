@@ -127,15 +127,7 @@ namespace FreshMvvm
         {
             if (e.Page == this.CurrentPage)
             {
-                if (PageWasPopped != null)
-                    PageWasPopped(this, EventArgs.Empty);
-
-                var navPage = (this.CurrentPage.Parent as NavigationPage);
-                if (navPage != null)
-                    navPage.Popped -= HandleNavPagePopped;
-
-                CurrentPage.Appearing -= ViewIsAppearing;
-                CurrentPage.Disappearing -= ViewIsDisappearing;
+                RaisePageWasPopped();
             }
         }
 
@@ -143,6 +135,14 @@ namespace FreshMvvm
         {
             if (PageWasPopped != null)
                 PageWasPopped(this, EventArgs.Empty);
+
+            var navPage = (this.CurrentPage.Parent as NavigationPage);
+            if (navPage != null)
+                navPage.Popped -= HandleNavPagePopped;
+
+            CurrentPage.Appearing -= ViewIsAppearing;
+            CurrentPage.Disappearing -= ViewIsDisappearing;
+            CurrentPage.BindingContext = null;
         }
     }
 }

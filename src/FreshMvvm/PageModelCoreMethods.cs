@@ -194,15 +194,20 @@ namespace FreshMvvm
             var currentNavigationService = FreshIOC.Container.Resolve<IFreshNavigationService> (_currentPageModel.CurrentNavigationServiceName);
             currentNavigationService.NotifyChildrenPageWasPopped();
 
-            var navServiceName = _currentPageModel.PreviousNavigationServiceName;        
+            FreshIOC.Container.Unregister<IFreshNavigationService>(_currentPageModel.CurrentNavigationServiceName);
+
+            var navServiceName = _currentPageModel.PreviousNavigationServiceName;
             IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (navServiceName);
             await rootNavigation.PopPage (animate);
         }
 
-        public async Task PushPageModelWithNav<T> (object data, bool animate = true) where T : FreshBasePageModel
+        public async Task<string> PushPageModelWithNewNavigation<T> (object data, bool animate = true) where T : FreshBasePageModel
         {
             var page = FreshPageModelResolver.ResolvePageModel<T>(data);
-
+            var navigationName = Guid.NewGuid().ToString();
+            var naviationContainer = new FreshNavigationContainer(page, navigationName);
+            await PushNewNavigationServiceModal(naviationContainer, page.GetModel(), animate);
+            return navigationName;
         }
 
 		public void BatchBegin()

@@ -48,11 +48,16 @@ namespace FreshMvvm
                 Detail = navigationContainer;
         }
 
-        protected virtual Page CreateContainerPage (Page page)
+        internal Page CreateContainerPageSafe (Page page)
         {
             if (page is NavigationPage || page is MasterDetailPage || page is TabbedPage)
                 return page;
 
+            return CreateContainerPage(page);
+        }
+
+        protected virtual Page CreateContainerPage (Page page)
+        {
             return new NavigationPage (page);
         }
 
@@ -85,7 +90,7 @@ namespace FreshMvvm
         public Task PushPage (Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
         {
             if (modal)
-                return Navigation.PushModalAsync (CreateContainerPage(page));
+                return Navigation.PushModalAsync (CreateContainerPageSafe(page));
             return (Detail as NavigationPage).PushAsync (page, animate); //TODO: make this better
 		}
 
