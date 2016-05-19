@@ -5,7 +5,20 @@ namespace FreshMvvm
 {
     public static class FreshPageModelResolver
     {
-        public static IFreshPageModelMapper PageModelMapper { get; set; } = new FreshPageModelMapper();
+        private static bool _isPageModelMapperFound;
+
+        private static IFreshPageModelMapper _pageModelMapper;
+
+        public static IFreshPageModelMapper PageModelMapper
+        {
+            get { return _pageModelMapper; }
+
+            set
+            {
+                _pageModelMapper = value;
+                _isPageModelMapperFound = true;
+            }
+        }
 
         public static Page ResolvePageModel<T> () where T : FreshBasePageModel
         {
@@ -33,16 +46,62 @@ namespace FreshMvvm
 
         public static Page ResolvePageModel (Type type, object data, FreshBasePageModel pageModel)
         {
-            var name = PageModelMapper.GetPageTypeName (type);
-            var pageType = Type.GetType (name);
-            if (pageType == null)
-                throw new Exception (name + " not found");
+            Type pageType;
+
+            if (_isPageModelMapperFound == false)
+                pageType = FindPageModelMapper(type);
+            else
+                pageType = ResolvePageType(_pageModelMapper, type);
 
             var page = (Page)FreshIOC.Container.Resolve (pageType);
 
             BindingPageModel(data, page, pageModel);
 
             return page;
+        }
+
+        private static Type FindPageModelMapper(Type type)
+        {
+            string exceptionMessages = string.Empty;
+            Type pageType;
+            var pModelMapper = new FreshPageModelMapper();
+            try
+            {
+                pageType = ResolvePageType(pModelMapper, type);
+                PageModelMapper = pModelMapper;
+                return pageType;
+            }
+            catch(Exception e)
+            {
+                exceptionMessages += e.Message;
+            }
+
+            var vModelMapper = new FreshViewModelMapper();
+            try
+            {
+                pageType = ResolvePageType(vModelMapper, type);
+                PageModelMapper = vModelMapper;
+                return pageType;
+            }
+            catch(Exception e)
+            {
+                exceptionMessages += string.Format(", {0}", e.Message);
+                throw new Exception(exceptionMessages);
+            }
+        }
+
+        private static Type ResolvePageType(IFreshPageModelMapper pageModelMapper, Type type)
+        {
+            var name = pageModelMapper.GetPageTypeName(type);
+            var pageType = Type.GetType(name);
+
+            if (pageType == null)
+                throw new Exception(string.Format("Type not found: [{0}]", name));
+
+            if (_isPageModelMapperFound == false)
+                _isPageModelMapperFound = true;
+
+            return pageType;
         }
 
         public static Page BindingPageModel(object data, Page targetPage, FreshBasePageModel pageModel)
