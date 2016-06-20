@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace FreshMvvm
 {
@@ -31,7 +32,7 @@ namespace FreshMvvm
             var page = FreshPageModelResolver.ResolvePageModel<T> (data);
             page.GetModel ().CurrentNavigationServiceName = NavigationServiceName;
             _tabs.Add (page);
-            var navigationContainer = CreateContainerPage (page);
+            var navigationContainer = CreateContainerPageSafe (page);
             navigationContainer.Title = title;
             if (!string.IsNullOrWhiteSpace(icon))
                 navigationContainer.Icon = icon;
@@ -80,6 +81,21 @@ namespace FreshMvvm
                 if (page is NavigationPage)
                     ((NavigationPage)page).NotifyAllChildrenPopped();
             }
+        }
+            
+        public Task<FreshBasePageModel> SwitchSelectedRootPageModel<T>() where T : FreshBasePageModel
+        {
+            var page = _tabs.FindIndex(o => o.GetModel().GetType().FullName == typeof(T).FullName);
+
+            if (page > -1)
+            {
+                CurrentPage = this.Children[page];
+                var topOfStack = CurrentPage.Navigation.NavigationStack.LastOrDefault();
+                if (topOfStack != null)
+                    return Task.FromResult(topOfStack.GetModel());
+
+            }
+            return null;
         }
     }
 }

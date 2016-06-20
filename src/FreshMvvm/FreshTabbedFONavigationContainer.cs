@@ -2,6 +2,7 @@
 using Xamarin.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FreshMvvm
 {
@@ -11,18 +12,20 @@ namespace FreshMvvm
     public class FreshTabbedFONavigationContainer : NavigationPage, IFreshNavigationService
     {
         TabbedPage _innerTabbedPage;
+        public TabbedPage FirstTabbedPage { get { return _innerTabbedPage; } }
         List<Page> _tabs = new List<Page>();
         public IEnumerable<Page> TabbedPages { get { return _tabs; } }
 
-        public FreshTabbedFONavigationContainer () : this(Constants.DefaultNavigationServiceName)
+        public FreshTabbedFONavigationContainer (string titleOfFirstTab) : this(titleOfFirstTab, Constants.DefaultNavigationServiceName)
         {               
         }
 
-        public FreshTabbedFONavigationContainer(string navigationServiceName) : base(new TabbedPage())
+        public FreshTabbedFONavigationContainer(string titleOfFirstTab, string navigationServiceName) : base(new TabbedPage())
         {           
             NavigationServiceName = navigationServiceName;
             RegisterNavigation();
             _innerTabbedPage = (TabbedPage)this.CurrentPage;
+            _innerTabbedPage.Title = titleOfFirstTab;
         }
 
         protected void RegisterNavigation ()
@@ -35,7 +38,7 @@ namespace FreshMvvm
             var page = FreshPageModelResolver.ResolvePageModel<T> (data);
             page.GetModel ().CurrentNavigationServiceName = NavigationServiceName;
             _tabs.Add (page);
-            var container = CreateContainerPage (page);
+            var container = CreateContainerPageSafe (page);
             container.Title = title;
             if (!string.IsNullOrWhiteSpace(icon))
                 container.Icon = icon;
@@ -84,6 +87,25 @@ namespace FreshMvvm
                 if (page is NavigationPage)
                     ((NavigationPage)page).NotifyAllChildrenPopped();
             }
+        }
+
+        public Task<FreshBasePageModel> SwitchSelectedRootPageModel<T>() where T : FreshBasePageModel
+        {
+            if (this.CurrentPage == _innerTabbedPage)
+            {
+                var page = _tabs.FindIndex(o => o.GetModel().GetType().FullName == typeof(T).FullName);
+                if (page > -1)
+                {
+                    _innerTabbedPage.CurrentPage = this._innerTabbedPage.Children[page];
+                    return Task.FromResult(_innerTabbedPage.CurrentPage.GetModel());
+                }
+            }
+            else
+            {
+                throw new Exception("Cannot switch tabs when the tab screen is not visible");
+            }
+
+            return null;
         }
     }
 }

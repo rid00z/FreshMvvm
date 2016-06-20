@@ -201,6 +201,32 @@ namespace FreshMvvm
             await rootNavigation.PopPage (animate);
         }
 
+        /// <summary>
+        /// This method switches the selected main page, TabbedPage the selected tab or if MasterDetail, works with custom pages also
+        /// </summary>
+        public Task<FreshBasePageModel> SwitchSelectedRootPageModel<T>() where T : FreshBasePageModel
+        {
+            var currentNavigationService = FreshIOC.Container.Resolve<IFreshNavigationService> (_currentPageModel.CurrentNavigationServiceName);
+
+            return currentNavigationService.SwitchSelectedRootPageModel<T>();
+        }
+
+        /// <summary>
+        /// This method is used when you want to switch the selected page, 
+        /// </summary>
+        public Task<FreshBasePageModel> SwitchSelectedTab<T>() where T : FreshBasePageModel
+        {
+            return SwitchSelectedRootPageModel<T>();
+        }
+
+        /// <summary>
+        /// This method is used when you want to switch the selected page, 
+        /// </summary>
+        public Task<FreshBasePageModel> SwitchSelectedMaster<T>() where T : FreshBasePageModel
+        {
+            return SwitchSelectedRootPageModel<T>();
+        }
+
         public async Task<string> PushPageModelWithNewNavigation<T> (object data, bool animate = true) where T : FreshBasePageModel
         {
             var page = FreshPageModelResolver.ResolvePageModel<T>(data);

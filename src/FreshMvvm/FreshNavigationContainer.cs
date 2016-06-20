@@ -63,6 +63,11 @@ namespace FreshMvvm
         {
             this.NotifyAllChildrenPopped();
         }
+
+        public Task<FreshBasePageModel> SwitchSelectedRootPageModel<T>() where T : FreshBasePageModel
+        {
+            throw new Exception("This navigation container has no selected roots, just a single root");
+        }
     }
 }
 
