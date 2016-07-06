@@ -57,7 +57,6 @@ namespace FreshMvvmSampleApp
 
                     var page = FreshPageModelResolver.ResolvePageModel<MainMenuPageModel> ();
                     var basicNavContainer = new FreshNavigationContainer (page, Guid.NewGuid ().ToString ());
-
                     await CoreMethods.PushNewNavigationServiceModal(basicNavContainer, new FreshBasePageModel[] { page.GetModel() }); 
                 });
             }
@@ -71,7 +70,6 @@ namespace FreshMvvmSampleApp
                     var tabbedNavigation = new FreshTabbedNavigationContainer (Guid.NewGuid ().ToString ());
                     tabbedNavigation.AddTab<ContactListPageModel> ("Contacts", "contacts.png", null);
                     tabbedNavigation.AddTab<QuoteListPageModel> ("Quotes", "document.png", null);
-
                     await CoreMethods.PushNewNavigationServiceModal(tabbedNavigation);
                 });
             }

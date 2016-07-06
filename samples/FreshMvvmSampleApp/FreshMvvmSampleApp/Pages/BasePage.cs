@@ -11,9 +11,6 @@ namespace FreshMvvmSampleApp
             ToolbarItems.Add (new ToolbarItem ("", "Home.png", () => {                
                 Application.Current.MainPage = new NavigationPage (new LaunchPage ((App)Application.Current));
             }));
-
-
-
         }
 
         protected override void OnAppearing ()

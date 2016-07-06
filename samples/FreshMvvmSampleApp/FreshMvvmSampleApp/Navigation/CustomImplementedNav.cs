@@ -102,6 +102,21 @@ namespace FreshMvvmSampleApp
                     ((NavigationPage)page).NotifyAllChildrenPopped();
             }
         }
-	}
+
+        public Task<FreshBasePageModel> SwitchSelectedRootPageModel<T> () where T : FreshBasePageModel
+        {
+            if (_contactsPage.GetModel ().GetType ().FullName == typeof (T).FullName) {
+                _tabbedNavigationPage.CurrentPage = _contactsPage;
+                return Task.FromResult(_contactsPage.GetModel ());
+            }
+
+            if (_quotesPage.GetModel ().GetType ().FullName == typeof (T).FullName) {
+                _tabbedNavigationPage.CurrentPage = _quotesPage;
+                return Task.FromResult(_quotesPage.GetModel ());
+            }
+
+            throw new Exception ("Cannot do this");
+        }
+    }
 }
 
