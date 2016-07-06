@@ -245,6 +245,33 @@ namespace FreshMvvm
 		{
 			_currentPage.BatchCommit ();
 		}
+
+        /// <summary>
+        /// Removes current page/pagemodel from navigation
+        /// </summary>
+        public void RemoveFromNavigation ()
+        {
+            this._currentPageModel.RaisePageWasPopped ();
+            this._currentPage.Navigation.RemovePage (_currentPage);
+        }
+
+        /// <summary>
+        /// Removes specific page/pagemodel from navigation
+        /// </summary>
+        public void RemoveFromNavigation<TPageModel> (bool removeAll = false) where TPageModel : FreshBasePageModel
+        {
+            //var pages = this._currentPage.Navigation.Where (o => o is TPageModel);
+            foreach (var page in this._currentPage.Navigation.NavigationStack.Reverse().ToList()) 
+            {
+                if (page.BindingContext is TPageModel) 
+                {
+                    page.GetModel()?.RaisePageWasPopped ();
+                    this._currentPage.Navigation.RemovePage (page);
+                    if (!removeAll)
+                        break;
+                }
+            }
+        }
     }
 }
 
