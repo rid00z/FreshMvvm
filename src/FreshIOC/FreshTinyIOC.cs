@@ -324,16 +324,17 @@ namespace FreshTinyIoC
     #region TinyIoC Exception Types
     public class TinyIoCResolutionException : Exception
     {
-        private const string ERROR_TEXT = "Unable to resolve type: {0}";
+        private const string ERROR_TEXT = "Resolve failed: {0}";
+        private const string ERROR_TEXT_WITHINNER = "Resolve failed: {0} - Reason: {1}";
 
         public TinyIoCResolutionException(Type type)
-            : base(String.Format(ERROR_TEXT, type.FullName))
+            : base(String.Format(ERROR_TEXT, type.Name))
         {
         }
 
         public TinyIoCResolutionException(Type type, Exception innerException)
-            : base(String.Format(ERROR_TEXT, type.FullName), innerException)
-        {
+            : base(String.Format(ERROR_TEXT_WITHINNER, type.Name, innerException.Message), innerException)
+        {            
         }
     }
 
@@ -2263,7 +2264,9 @@ namespace FreshTinyIoC
                 }
                 catch (TinyIoCResolutionException ex)
                 {
-                    throw new TinyIoCResolutionException(this.registerType, ex);
+                    if (ex.InnerException != null)
+                        throw new TinyIoCResolutionException (registerType, ex.InnerException);
+                    throw new TinyIoCResolutionException (registerType, ex);
                 }
             }
 
@@ -2310,7 +2313,9 @@ namespace FreshTinyIoC
                 }
                 catch (Exception ex)
                 {
-                    throw new TinyIoCResolutionException(this.registerType, ex);
+                    if (ex.InnerException != null)
+                        throw new TinyIoCResolutionException (registerType, ex.InnerException);
+                    throw new TinyIoCResolutionException (registerType, ex);
                 }
             }
 
@@ -2373,7 +2378,9 @@ namespace FreshTinyIoC
                 }
                 catch (Exception ex)
                 {
-                    throw new TinyIoCResolutionException(this.registerType, ex);
+                    if (ex.InnerException != null)
+                        throw new TinyIoCResolutionException (registerType, ex.InnerException);
+                    throw new TinyIoCResolutionException (registerType, ex);
                 }
             }
 
@@ -3083,7 +3090,9 @@ namespace FreshTinyIoC
                 }
                 catch (Exception ex)
                 {
-                    throw new TinyIoCResolutionException(registration.Type, ex);
+                    if (ex.InnerException != null)
+                        throw new TinyIoCResolutionException (registration.Type, ex.InnerException);
+                    throw new TinyIoCResolutionException (registration.Type, ex);
                 }
             }
 
@@ -3350,11 +3359,17 @@ namespace FreshTinyIoC
                     // If a constructor parameter can't be resolved
                     // it will throw, so wrap it and throw that this can't
                     // be resolved.
-                    throw new TinyIoCResolutionException(typeToConstruct, ex);
+                    if (ex.InnerException.InnerException != null)
+                        throw new TinyIoCResolutionException (typeToConstruct, ex.InnerException.InnerException);
+                    if (ex.InnerException != null)
+                        throw new TinyIoCResolutionException (typeToConstruct, ex.InnerException);
+                    throw new TinyIoCResolutionException (typeToConstruct, ex);
                 }
                 catch (Exception ex)
                 {
-                    throw new TinyIoCResolutionException(typeToConstruct, ex);
+                    if (ex.InnerException != null)
+                        throw new TinyIoCResolutionException (typeToConstruct, ex.InnerException);
+                    throw new TinyIoCResolutionException (typeToConstruct, ex);
                 }
             }
 
@@ -3369,7 +3384,9 @@ namespace FreshTinyIoC
             }
             catch (Exception ex)
             {
-                throw new TinyIoCResolutionException(typeToConstruct, ex);
+                if (ex.InnerException != null)
+                    throw new TinyIoCResolutionException (typeToConstruct, ex.InnerException);
+                throw new TinyIoCResolutionException (typeToConstruct, ex);
             }
         }
         #if COMPILED_EXPRESSIONS
