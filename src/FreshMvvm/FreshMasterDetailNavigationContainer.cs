@@ -17,13 +17,18 @@ namespace FreshMvvm
         public Dictionary<string, Page> Pages { get { return _pages; } }
         protected ObservableCollection<string> PageNames { get { return _pageNames; } }
 
-        public FreshMasterDetailNavigationContainer () : this(Constants.DefaultNavigationServiceName)
+		public FreshMasterDetailNavigationContainer () : this(Constants.DefaultNavigationServiceName, MasterBehavior.Default)
         {			
         }
 
-        public FreshMasterDetailNavigationContainer (string navigationServiceName)
+		public FreshMasterDetailNavigationContainer(MasterBehavior masterDrawerBehavior) : this(Constants.DefaultNavigationServiceName, masterDrawerBehavior)
+		{
+		}
+
+		public FreshMasterDetailNavigationContainer (string navigationServiceName, MasterBehavior masterDrawerBehavior)
         {                       
-            NavigationServiceName = navigationServiceName;   
+            NavigationServiceName = navigationServiceName;
+			MasterBehavior = masterDrawerBehavior;
             RegisterNavigation ();
         }
 
