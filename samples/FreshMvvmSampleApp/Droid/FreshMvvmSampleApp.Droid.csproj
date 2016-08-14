@@ -16,7 +16,7 @@
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <AssemblyName>FreshMvvmSampleApp.Droid</AssemblyName>
     <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
-    <ReleaseVersion>2.1.0</ReleaseVersion>
+    <ReleaseVersion>2.2.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
