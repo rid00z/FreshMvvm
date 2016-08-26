@@ -3,6 +3,9 @@ using Xamarin.Forms;
 using PropertyChanged;
 using System.Collections.ObjectModel;
 using FreshMvvm;
+using System.Diagnostics.Contracts;
+using System.Linq;
+using System.Windows.Input;
 
 namespace FreshMvvmSampleApp
 {
@@ -61,6 +64,18 @@ namespace FreshMvvmSampleApp
             get {
                 return new Command<Contact> (async (contact) => {
                     await CoreMethods.PushPageModel<ContactPageModel> (contact);
+                });
+            }
+        }
+
+        public ICommand OpenFirst
+        {
+            get
+            {
+                return new FreshAwaitCommand(async (contact, tcs) =>
+                {
+                    await CoreMethods.PushPageModel<ContactPageModel>(this.Contacts.First());
+                    tcs.SetResult(true);
                 });
             }
         }

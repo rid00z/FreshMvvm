@@ -5,12 +5,15 @@
         <ToolbarItem Name="Add" Command="{Binding AddContact}" Order="Primary" Priority="0" />
     </ContentPage.ToolbarItems>
 	<local:BasePage.Content>
-		<ListView ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedContact}" >
-			<ListView.ItemTemplate>
-				<DataTemplate>
-					<TextCell Text="{Binding Name}" Detail="{Binding Phone}"></TextCell>
-				</DataTemplate>
-			</ListView.ItemTemplate>
-		</ListView>
+        <StackLayout>
+			<Button Command="{Binding OpenFirst}" Text="Open First"></Button>
+    		<ListView ItemsSource="{Binding Contacts}" SelectedItem="{Binding SelectedContact}" >
+    			<ListView.ItemTemplate>
+    				<DataTemplate>
+    					<TextCell Text="{Binding Name}" Detail="{Binding Phone}"></TextCell>
+    				</DataTemplate>
+    			</ListView.ItemTemplate>
+    		</ListView>
+		</StackLayout>
 	</local:BasePage.Content>
 </local:BasePage>
