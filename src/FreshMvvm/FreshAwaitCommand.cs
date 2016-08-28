@@ -6,7 +6,7 @@ namespace FreshMvvm
 {
     /// <summary>
     /// FreshAwaitCommand is designed to avoid the double tap issue in Xamarin.Forms for Android,
-    /// in Xamarin.Forms it was a common issue that double taps on command would open the same window multiple times.
+    /// in Xamarin.Forms it's a common issue that double taps on command would open the same window multiple times.
     /// 
     /// This command awaits TaskCompletionSource before allowing anymore of the command to execute.
     /// 
