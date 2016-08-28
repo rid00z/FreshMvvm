@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using PropertyChanged;
 using System.Collections.ObjectModel;
 using FreshMvvm;
+using System.Windows.Input;
 
 namespace FreshMvvmSampleApp
 {
@@ -21,6 +22,7 @@ namespace FreshMvvmSampleApp
         public override void Init (object initData)
         {
             Contacts = new ObservableCollection<Contact> (_databaseService.GetContacts ());
+            AddContact = CoreMethods.CreateCommand(() => CoreMethods.PushPageModel<ContactPageModel>());
         }
 
         protected override void ViewIsAppearing (object sender, EventArgs e)
@@ -49,13 +51,7 @@ namespace FreshMvvmSampleApp
             }
         }
 
-        public Command AddContact {
-            get {
-                return new Command (async () => {
-                    await CoreMethods.PushPageModel<ContactPageModel> ();
-                });
-            }
-        }
+        public ICommand AddContact { get; private set; }
 
         public Command<Contact> ContactSelected {
             get {

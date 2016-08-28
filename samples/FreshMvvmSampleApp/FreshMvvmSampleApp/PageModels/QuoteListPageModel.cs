@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using FreshMvvm;
 using PropertyChanged;
 using System.Diagnostics;
+using System.Windows.Input;
 
 namespace FreshMvvmSampleApp
 {
@@ -21,6 +22,7 @@ namespace FreshMvvmSampleApp
         public override void Init (object initData)
         {
             Quotes = new ObservableCollection<Quote> (_databaseService.GetQuotes ());
+            AddQuote = CoreMethods.CreateCommand(() => CoreMethods.PushPageModel<QuotePageModel>());
         }
 
         protected override void ViewIsAppearing (object sender, System.EventArgs e)
@@ -42,13 +44,7 @@ namespace FreshMvvmSampleApp
             }
         }
 
-        public Command AddQuote {
-            get {
-                return new Command (async () => {
-                    await CoreMethods.PushPageModel<QuotePageModel> ();
-                });
-            }
-        }
+        public ICommand AddQuote { get; private set; }
 
         Quote _selectedQuote;
 
