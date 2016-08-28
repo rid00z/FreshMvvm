@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Linq;
+using System.Windows.Input;
 
 namespace FreshMvvm
 {
@@ -271,6 +272,54 @@ namespace FreshMvvm
                         break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Creates a command without parameter.
+        /// </summary>
+        /// <returns>The command.</returns>
+        /// <param name="execute">Execute method.</param>
+        /// <param name="sharedLock">Shared lock.</param>
+        public ICommand CreateCommand(Func<Task> execute, SharedLock sharedLock = null)
+        {
+            return new FreshNavigationCommand(execute, sharedLock);
+        }
+
+        /// <summary>
+        /// Creates a command with a object parameter.
+        /// </summary>
+        /// <returns>The command.</returns>
+        /// <param name="execute">Execute method.</param>
+        /// <param name="sharedLock">Shared lock.</param>
+        public ICommand CreateCommand(Func<object, Task> execute, SharedLock sharedLock = null)
+        {
+            return new FreshNavigationCommand(execute, sharedLock);
+        }
+
+        /// <summary>
+        /// Creates a genric command.
+        /// </summary>
+        /// <returns>The command.</returns>
+        /// <param name="execute">Execute method.</param>
+        /// <param name="sharedLock">Shared lock.</param>
+        /// <typeparam name="TValue">Parameter type, ex. string.</typeparam>
+        public ICommand CreateCommand<TValue>(Func<TValue, Task> execute, SharedLock sharedLock = null)
+        {
+            return new FreshNavigationCommand<TValue>(execute, sharedLock);
+        }
+
+        /// <summary>
+        /// Creates a command, with a conversion function from string to given type.
+        /// Typicaly used in xaml parameters to convert command parameters from string.
+        /// </summary>
+        /// <returns>The command.</returns>
+        /// <param name="execute">Execute method.</param>
+        /// <param name="stringConverter">int.Parse, "0" to 0</param>
+        /// <param name="sharedLock">Shared lock.</param>
+        /// <typeparam name="TValue">Parameter type to convert to from string.</typeparam>
+        public ICommand CreateCommand<TValue>(Func<TValue, Task> execute, Func<string, TValue> stringConverter, SharedLock sharedLock = null)
+        {
+            return new FreshNavigationCommand<string>((obj) => execute(stringConverter(obj)), sharedLock);
         }
     }
 }
