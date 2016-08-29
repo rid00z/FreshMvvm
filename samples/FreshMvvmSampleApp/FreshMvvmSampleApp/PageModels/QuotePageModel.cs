@@ -24,9 +24,10 @@ namespace FreshMvvmSampleApp
         public override void Init (object initData)
         {
             Quote = (initData as Quote) ?? new Quote();
-            
-            SaveCommand = CoreMethods.CreateCommand(SaveCommandLogic);
-            TestModal = CoreMethods.CreateCommand(() => CoreMethods.PushPageModel<ModalPageModel>(null, true));
+
+            var sharedLock = new SharedLock();
+            SaveCommand = CoreMethods.CreateCommand(SaveCommandLogic, sharedLock);
+            TestModal = CoreMethods.CreateCommand(() => CoreMethods.PushPageModel<ModalPageModel>(null, true), sharedLock);
         }
 
         private async Task SaveCommandLogic()

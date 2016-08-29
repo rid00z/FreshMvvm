@@ -40,11 +40,12 @@ namespace FreshMvvmSampleApp
                 Contact = new Contact ();
             }
 
-            SaveCommand = CoreMethods.CreateCommand(SaveCommandLogic);
-            TestModal = CoreMethods.CreateCommand(() => CoreMethods.PushPageModel<ModalPageModel>(null, true));
-            TestModalNavigationBasic = CoreMethods.CreateCommand(TestModalNavigationBasicLogic);
-            TestModalNavigationTabbed = CoreMethods.CreateCommand(TestModalNavigationTabbedLogic);
-            TestModalNavigationMasterDetail = CoreMethods.CreateCommand(TestModalNavigationMasterDetailLogic);
+            var sharedLock = new SharedLock();
+            SaveCommand = CoreMethods.CreateCommand(SaveCommandLogic, sharedLock);
+            TestModal = CoreMethods.CreateCommand(() => CoreMethods.PushPageModel<ModalPageModel>(null, true), sharedLock);
+            TestModalNavigationBasic = CoreMethods.CreateCommand(TestModalNavigationBasicLogic, sharedLock);
+            TestModalNavigationTabbed = CoreMethods.CreateCommand(TestModalNavigationTabbedLogic, sharedLock);
+            TestModalNavigationMasterDetail = CoreMethods.CreateCommand(TestModalNavigationMasterDetailLogic, sharedLock);
         }
 
         private async Task SaveCommandLogic()
