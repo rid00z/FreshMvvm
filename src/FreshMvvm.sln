@@ -384,7 +384,7 @@ Global
 		{215D48BD-E485-4532-8D15-9F528B41E1D2} = {1E4FFC49-0D98-4DD1-8CB8-2A8383EC31C1}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		version = 2.1.0
+		version = 2.2.0
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

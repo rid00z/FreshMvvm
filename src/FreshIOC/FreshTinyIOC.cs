@@ -3359,7 +3359,7 @@ namespace FreshTinyIoC
                     // If a constructor parameter can't be resolved
                     // it will throw, so wrap it and throw that this can't
                     // be resolved.
-                    if (ex.InnerException.InnerException != null)
+                    if (ex.InnerException != null && ex.InnerException.InnerException != null)
                         throw new TinyIoCResolutionException (typeToConstruct, ex.InnerException.InnerException);
                     if (ex.InnerException != null)
                         throw new TinyIoCResolutionException (typeToConstruct, ex.InnerException);

@@ -7,7 +7,11 @@ using Xamarin.Forms;
 
 namespace FreshMvvm.Tests.Mocks
 {
-	class MockContentPage : ContentPage
+    class MockContentPage : ContentPage
 	{
+        public MockContentPage(FreshBasePageModel model)
+        {
+            BindingContext = model;
+        }
 	}
 }

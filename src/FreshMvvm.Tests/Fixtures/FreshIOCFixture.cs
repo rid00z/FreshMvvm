@@ -12,7 +12,7 @@ namespace FreshMvvm.Tests.Fixtures
 			var container = FreshIOC.Container;
 
 			Assert.That(container, Is.Not.Null);
-			Assert.That(container, Is.TypeOf<FreshTinyIoCContainer>());
+            Assert.That(container, Is.TypeOf<FreshTinyIOCBuiltIn>());
 		}
 	}
 }
