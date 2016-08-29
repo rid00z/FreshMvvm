@@ -2,6 +2,8 @@
 using PropertyChanged;
 using FreshMvvm;
 using System;
+using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace FreshMvvmSampleApp
 {
@@ -9,6 +11,12 @@ namespace FreshMvvmSampleApp
     public class ContactPageModel : FreshBasePageModel
     {
         IDatabaseService _dataService;
+
+        public ICommand SaveCommand { get; private set; }
+        public ICommand TestModal { get; private set; }
+        public ICommand TestModalNavigationBasic { get; private set; }
+        public ICommand TestModalNavigationTabbed { get; private set; }
+        public ICommand TestModalNavigationMasterDetail { get; private set; }
 
         public ContactPageModel (IDatabaseService dataService)
         {
@@ -31,62 +39,41 @@ namespace FreshMvvmSampleApp
             } else {
                 Contact = new Contact ();
             }
+
+            SaveCommand = CoreMethods.CreateCommand(SaveCommandLogic);
+            TestModal = CoreMethods.CreateCommand(() => CoreMethods.PushPageModel<ModalPageModel>(null, true));
+            TestModalNavigationBasic = CoreMethods.CreateCommand(TestModalNavigationBasicLogic);
+            TestModalNavigationTabbed = CoreMethods.CreateCommand(TestModalNavigationTabbedLogic);
+            TestModalNavigationMasterDetail = CoreMethods.CreateCommand(TestModalNavigationMasterDetailLogic);
         }
 
-        public Command SaveCommand {
-            get { 
-                return new Command (() => {
-                    _dataService.UpdateContact (Contact);
-                    CoreMethods.PopPageModel (Contact);
-                }
-                );
-            }
+        private async Task SaveCommandLogic()
+        {
+            _dataService.UpdateContact(Contact);
+            await CoreMethods.PopPageModel(Contact);
         }
 
-        public Command TestModal {
-            get {
-                return new Command (async () => {
-                    await CoreMethods.PushPageModel<ModalPageModel> (null, true);
-                });
-            }
+        private async Task TestModalNavigationBasicLogic()
+        {
+            var page = FreshPageModelResolver.ResolvePageModel<MainMenuPageModel>();
+            var basicNavContainer = new FreshNavigationContainer(page, Guid.NewGuid().ToString());
+            await CoreMethods.PushNewNavigationServiceModal(basicNavContainer, new FreshBasePageModel[] { page.GetModel() });
         }
 
-        public Command TestModalNavigationBasic {
-            get {
-                return new Command (async () => {
-
-                    var page = FreshPageModelResolver.ResolvePageModel<MainMenuPageModel> ();
-                    var basicNavContainer = new FreshNavigationContainer (page, Guid.NewGuid ().ToString ());
-                    await CoreMethods.PushNewNavigationServiceModal(basicNavContainer, new FreshBasePageModel[] { page.GetModel() }); 
-                });
-            }
+        public async Task TestModalNavigationTabbedLogic() {
+            var tabbedNavigation = new FreshTabbedNavigationContainer (Guid.NewGuid ().ToString ());
+            tabbedNavigation.AddTab<ContactListPageModel> ("Contacts", "contacts.png", null);
+            tabbedNavigation.AddTab<QuoteListPageModel> ("Quotes", "document.png", null);
+            await CoreMethods.PushNewNavigationServiceModal(tabbedNavigation);
         }
 
-
-        public Command TestModalNavigationTabbed {
-            get {
-                return new Command (async () => {
-
-                    var tabbedNavigation = new FreshTabbedNavigationContainer (Guid.NewGuid ().ToString ());
-                    tabbedNavigation.AddTab<ContactListPageModel> ("Contacts", "contacts.png", null);
-                    tabbedNavigation.AddTab<QuoteListPageModel> ("Quotes", "document.png", null);
-                    await CoreMethods.PushNewNavigationServiceModal(tabbedNavigation);
-                });
-            }
-        }
-
-        public Command TestModalNavigationMasterDetail {
-            get {
-                return new Command (async () => {
-
-                    var masterDetailNav = new FreshMasterDetailNavigationContainer (Guid.NewGuid ().ToString ());
-                    masterDetailNav.Init ("Menu", "Menu.png");
-                    masterDetailNav.AddPage<ContactListPageModel> ("Contacts", null);
-                    masterDetailNav.AddPage<QuoteListPageModel> ("Quotes", null);
-                    await CoreMethods.PushNewNavigationServiceModal(masterDetailNav); 
-
-                });
-            }
+        public async Task TestModalNavigationMasterDetailLogic()
+        {
+            var masterDetailNav = new FreshMasterDetailNavigationContainer(Guid.NewGuid().ToString());
+            masterDetailNav.Init("Menu", "Menu.png");
+            masterDetailNav.AddPage<ContactListPageModel>("Contacts", null);
+            masterDetailNav.AddPage<QuoteListPageModel>("Quotes", null);
+            await CoreMethods.PushNewNavigationServiceModal(masterDetailNav);
         }
     }
 }

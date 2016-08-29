@@ -1,6 +1,8 @@
 ﻿using Xamarin.Forms;
 using PropertyChanged;
 using FreshMvvm;
+using System.Windows.Input;
+using System.Threading.Tasks;
 
 namespace FreshMvvmSampleApp
 {
@@ -8,6 +10,9 @@ namespace FreshMvvmSampleApp
     public class QuotePageModel : FreshBasePageModel
     {
         IDatabaseService _databaseService;
+
+        public ICommand SaveCommand { get; private set; }
+        public ICommand TestModal { get; private set; }
 
         public Quote Quote { get; set; }
 
@@ -17,27 +22,17 @@ namespace FreshMvvmSampleApp
         }
 
         public override void Init (object initData)
-        {			
-            Quote = initData as Quote;
-            if (Quote == null)
-                Quote = new Quote ();
+        {
+            Quote = (initData as Quote) ?? new Quote();
+            
+            SaveCommand = CoreMethods.CreateCommand(SaveCommandLogic);
+            TestModal = CoreMethods.CreateCommand(() => CoreMethods.PushPageModel<ModalPageModel>(null, true));
         }
 
-        public Command SaveCommand {
-            get {
-                return new Command (async () => {
-                    _databaseService.UpdateQuote (Quote);
-                    await CoreMethods.PopPageModel (Quote);
-                });
-            }
-        }
-
-        public Command TestModal {
-            get {
-                return new Command (async () => {
-                    await CoreMethods.PushPageModel<ModalPageModel> (null, true);
-                });
-            }
+        private async Task SaveCommandLogic()
+        {
+            _databaseService.UpdateQuote (Quote);
+            await CoreMethods.PopPageModel (Quote);
         }
     }
 }
