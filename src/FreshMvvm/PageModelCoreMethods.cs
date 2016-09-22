@@ -260,7 +260,7 @@ namespace FreshMvvm
         /// </summary>
         public void RemoveFromNavigation<TPageModel> (bool removeAll = false) where TPageModel : FreshBasePageModel
         {
-            FreshBasePageModel next = null;
+            FreshBasePageModel nextPageModel = null;
             foreach (var page in this._currentPage.Navigation.NavigationStack.Reverse().ToList())
             {
                 if (page.BindingContext is TPageModel) 
@@ -268,15 +268,15 @@ namespace FreshMvvm
                     page.GetModel()?.RaisePageWasPopped ();
                     this._currentPage.Navigation.RemovePage (page);
 
-                    bool isPreviousPageModelMatch = typeof(TPageModel) == next?.PreviousPageModel?.GetType();
+                    bool isPreviousPageModelMatch = typeof(TPageModel) == nextPageModel?.PreviousPageModel?.GetType();
                     if (isPreviousPageModelMatch)
                     {
-                        next.PreviousPageModel = next.PreviousPageModel?.PreviousPageModel;
+                        nextPageModel.PreviousPageModel = nextPageModel.PreviousPageModel?.PreviousPageModel;
                     }
                     if (!removeAll)
                         break;
                 }
-                next = next == null ? _currentPageModel : next.PreviousPageModel;
+                nextPageModel = nextPageModel == null ? _currentPageModel : nextPageModel.PreviousPageModel;
             }
         }
     }
