@@ -10,7 +10,11 @@ namespace FreshMvvm
     /// </summary>
     public class FreshNavigationCommand : IFreshNavigationCommand
     {
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add { _sharedLock.SharedCanExecuteChanged += value; }
+            remove { _sharedLock.SharedCanExecuteChanged -= value; }
+        }
 
         private readonly SharedLock _sharedLock;
         private readonly Func<object, Task> _execute;
@@ -58,19 +62,13 @@ namespace FreshMvvm
         {
             if (_sharedLock.TakeLock()) //Ignores code block if lock already taken in SharedLock.
             {
-                var events = CanExecuteChanged;
                 try
                 {
-                    if (events != null)
-                        events(this, EventArgs.Empty);
-
                     await _execute(parameter);
                 }
                 finally
                 {
                     _sharedLock.ReleaseLock();
-                    if (events != null)
-                        events(this, EventArgs.Empty);
                 }
             }
         }
@@ -81,7 +79,8 @@ namespace FreshMvvm
         public FreshNavigationCommand(Func<TValue, Task> execute, SharedLock sharedLock = null)
             : base(obj => execute((TValue)obj), sharedLock)
         {
-            //
+            if (execute == null)
+                throw new ArgumentException(nameof(execute));
         }
     }
 
@@ -94,6 +93,8 @@ namespace FreshMvvm
         private int _lock;
 
         public bool IsLocked => _lock != 0;
+
+        public event EventHandler SharedCanExecuteChanged;
 
         public SharedLock()
         {
@@ -108,6 +109,11 @@ namespace FreshMvvm
         {
             var oldVal = Interlocked.Exchange(ref _lock, 1); //Atomic swap values.
             var lockTaken = oldVal == 0; //If the old value was 0, no one else is executing at this time.
+
+            var events = SharedCanExecuteChanged;
+            if (events != null)
+                events(this, EventArgs.Empty);
+
             return lockTaken;
         }
 
@@ -119,6 +125,11 @@ namespace FreshMvvm
         {
             var oldVal = Interlocked.Exchange(ref _lock, 0);
             var lockReleased = oldVal == 1;
+
+            var events = SharedCanExecuteChanged;
+            if (events != null)
+                events(this, EventArgs.Empty);
+
             return lockReleased;
         }
     }
