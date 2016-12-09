@@ -8,7 +8,7 @@ namespace FreshMvvm
         {
             return pageModelType.AssemblyQualifiedName
                 .Replace ("PageModel", "Page")
-                .Replace ("ViewModel", "Page");
+                .Replace ("ViewModel", "View");
         }
     }
 }
