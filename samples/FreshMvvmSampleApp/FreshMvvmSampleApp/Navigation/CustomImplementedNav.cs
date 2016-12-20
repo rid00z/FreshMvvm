@@ -85,6 +85,14 @@ namespace FreshMvvmSampleApp
 				await ((NavigationPage)_tabbedNavigationPage.CurrentPage).PopAsync (); 
 		}
 
+		public void NotifyChildrenPageWasPopped()
+		{
+			if (Master is NavigationPage)
+				((NavigationPage)Master).NotifyAllChildrenPopped();
+			if (Detail is FreshTabbedNavigationContainer)
+				((FreshTabbedNavigationContainer)Detail).NotifyChildrenPageWasPopped();
+		}
+
         public virtual async Task PopToRoot (bool animate = true)
         {
             await ((NavigationPage)_tabbedNavigationPage.CurrentPage).PopToRootAsync (animate);
