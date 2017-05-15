@@ -63,7 +63,7 @@ public interface IFreshNavigationService
 }
 ```
 
-Within the PushPage and PopPage you can do any type of navigation that you like, this can from a simple navigation to a advanced nested navigation. 
+Within the PushPage and PopPage you can do any type of navigation that you like, this can be anything from a simple navigation to a advanced nested navigation. 
 
 The Framework contains some built in Navigation containers for the different types of Navigation.
 
