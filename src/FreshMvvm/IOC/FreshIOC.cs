@@ -1,4 +1,4 @@
-﻿using FreshTinyIoC;
+﻿using TinyIoC;
 
 namespace FreshMvvm
 {

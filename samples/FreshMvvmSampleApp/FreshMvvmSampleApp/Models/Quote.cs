@@ -2,8 +2,7 @@
 using PropertyChanged;
 
 namespace FreshMvvmSampleApp
-{
-    [ImplementPropertyChanged]
+{    
     public class Quote
     {
         public Quote ()

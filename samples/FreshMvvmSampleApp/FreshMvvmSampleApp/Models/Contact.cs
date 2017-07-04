@@ -2,8 +2,7 @@
 using PropertyChanged;
 
 namespace FreshMvvmSampleApp
-{
-    [ImplementPropertyChanged]
+{    
     public class Contact
     {
         public Contact ()

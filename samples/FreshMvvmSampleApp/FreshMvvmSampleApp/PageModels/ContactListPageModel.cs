@@ -8,8 +8,7 @@ using System.Linq;
 using System.Windows.Input;
 
 namespace FreshMvvmSampleApp
-{
-    [ImplementPropertyChanged]
+{    
     public class ContactListPageModel : FreshBasePageModel
     {
         IDatabaseService _databaseService;

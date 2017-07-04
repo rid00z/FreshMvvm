@@ -5,7 +5,6 @@ using System;
 
 namespace FreshMvvmSampleApp
 {
-    [ImplementPropertyChanged]
     public class ContactPageModel : FreshBasePageModel
     {
         IDatabaseService _dataService;
