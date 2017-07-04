@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>FreshMvvm</id>
-    <version>2.2.0</version>
+    <version>2.2.1</version>
     <title>FreshMvvm</title>
     <authors>Michael Ridland</authors>
     <owners>rid00z</owners>
@@ -10,14 +10,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>FreshMvvm is a super light Mvvm Framework designed specifically for Xamarin.Forms. Its designed to be Easy, Simple and Flexible.</description>    
     <tags>Mvvm, Xamarin.Forms</tags>
-    <dependencies>
-        <group targetFramework="netstandard1.0">
-            <dependency id="NETStandard.Library" version="1.6.1" />
-        </group>
-        <group targetFramework="portable-net45+win8+wpa81+wp8">
-            dependency id="Xamarin.Forms" version="2.3.0.107" />
-        </group>
-    </dependencies>
     <releaseNotes>
     2.2.1
     Support .Net Standard 1.6
@@ -45,6 +37,14 @@
     Control over which Models and Views are linked
     Events when page is popped (for disposal)
     </releaseNotes>
+    <dependencies>
+        <group targetFramework="netstandard1.0">
+            <dependency id="NETStandard.Library" version="1.6.1" />
+        </group>
+        <group targetFramework="portable-net45+win8+wpa81+wp8">
+            <dependency id="Xamarin.Forms" version="2.3.0.107" />
+        </group>
+    </dependencies>
   </metadata>
   <files>
         <file src="bin/Release/Fresh*.*" target="lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10" />
