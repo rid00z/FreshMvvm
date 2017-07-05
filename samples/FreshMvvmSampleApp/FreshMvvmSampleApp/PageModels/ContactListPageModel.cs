@@ -1,15 +1,12 @@
 ﻿using System;
 using Xamarin.Forms;
-using PropertyChanged;
 using System.Collections.ObjectModel;
 using FreshMvvm;
-using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Windows.Input;
 
 namespace FreshMvvmSampleApp
 {
-    [ImplementPropertyChanged]
     public class ContactListPageModel : FreshBasePageModel
     {
         IDatabaseService _databaseService;

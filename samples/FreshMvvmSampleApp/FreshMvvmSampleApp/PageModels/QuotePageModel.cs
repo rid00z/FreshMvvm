@@ -1,10 +1,8 @@
 ﻿using Xamarin.Forms;
-using PropertyChanged;
 using FreshMvvm;
 
 namespace FreshMvvmSampleApp
 {
-    [ImplementPropertyChanged]
     public class QuotePageModel : FreshBasePageModel
     {
         IDatabaseService _databaseService;

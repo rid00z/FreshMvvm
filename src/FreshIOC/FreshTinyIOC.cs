@@ -3512,32 +3512,32 @@ namespace System.Reflection
     {
         public static bool IsClass(this Type type)
         {
-            return type.IsClass;
+            return type.GetTypeInfo().IsClass;
         }
 
         public static bool IsAbstract(this Type type)
         {
-            return type.IsAbstract;
+            return type.GetTypeInfo().IsAbstract;
         }
 
         public static bool IsInterface(this Type type)
         {
-            return type.IsInterface;
+            return type.GetTypeInfo().IsInterface;
         }
 
         public static bool IsPrimitive(this Type type)
         {
-            return type.IsPrimitive;
+            return type.GetTypeInfo().IsPrimitive;
         }
 
         public static bool IsValueType(this Type type)
         {
-            return type.IsValueType;
+            return type.GetTypeInfo().IsValueType;
         }
 
         public static bool IsGenericType(this Type type)
         {
-            return type.IsGenericType;
+            return type.GetTypeInfo().IsGenericType;
         }
 
         public static bool IsGenericParameter(this Type type)
@@ -3547,17 +3547,17 @@ namespace System.Reflection
 
         public static bool IsGenericTypeDefinition(this Type type)
         {
-            return type.IsGenericTypeDefinition;
+            return type.GetTypeInfo().IsGenericTypeDefinition;
         }
 
         public static Type BaseType(this Type type)
         {
-            return type.BaseType;
+            return type.GetTypeInfo().BaseType;
         }
 
         public static Assembly Assembly(this Type type)
         {
-            return type.Assembly;
+            return type.GetTypeInfo().Assembly;
         }
     }
 }
