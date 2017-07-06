@@ -1,6 +1,4 @@
-﻿using FreshTinyIoC;
-
-namespace FreshMvvm
+﻿namespace FreshMvvm
 {
     public class FreshIOC
     {

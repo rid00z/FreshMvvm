@@ -48,7 +48,9 @@ Events when page is popped (for disposal)
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FreshIoC\FreshIoC.csproj" />
+    <Reference Include="System.Reflection.TypeExtensions">
+      <HintPath>..\..\..\..\..\.nuget\packages\System.Reflection.TypeExtensions\4.3.0\ref\netstandard1.3\System.Reflection.TypeExtensions.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
