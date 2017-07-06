@@ -1,9 +1,5 @@
-﻿using System;
-using PropertyChanged;
-
-namespace FreshMvvmSampleApp
+﻿namespace FreshMvvmSampleApp
 {
-    [ImplementPropertyChanged]
     public class Quote
     {
         public Quote ()

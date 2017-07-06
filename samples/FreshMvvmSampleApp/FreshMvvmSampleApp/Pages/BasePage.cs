@@ -1,6 +1,7 @@
 ﻿using System;
 using Xamarin.Forms;
 using System.ComponentModel;
+using Xamarin.Forms.Xaml;
 
 namespace FreshMvvmSampleApp
 {

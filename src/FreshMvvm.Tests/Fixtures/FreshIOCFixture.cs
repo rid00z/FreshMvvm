@@ -1,5 +1,4 @@
-﻿using FreshTinyIoC;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace FreshMvvm.Tests.Fixtures
 {

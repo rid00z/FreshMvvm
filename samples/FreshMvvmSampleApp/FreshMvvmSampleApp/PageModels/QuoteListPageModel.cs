@@ -1,12 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using Xamarin.Forms;
 using FreshMvvm;
-using PropertyChanged;
 using System.Diagnostics;
 
 namespace FreshMvvmSampleApp
 {
-    [ImplementPropertyChanged]
     public class QuoteListPageModel : FreshBasePageModel
     {
         IDatabaseService _databaseService;
