@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using FreshMvvm.IoC;
+using FreshMvvm.NavigationContainers;
 using FreshMvvm.Tests.Mocks;
 using NUnit.Framework;
 
@@ -14,7 +16,7 @@ namespace FreshMvvm.Tests.Fixtures
             var page = new MockContentPage(new MockContentPageModel());
 
 			var navigation = new FreshNavigationContainer(page);
-			var navigationService = FreshIOC.Container.Resolve<IFreshNavigationService>();
+			var navigationService = FreshIoC.Container.Resolve<IFreshNavigationService>();
 
 			Assert.IsNotNull(navigationService);
 			Assert.AreEqual(navigation, navigationService);

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace FreshMvvm
+namespace FreshMvvm.IoC.TinyIoC
 {
     public interface IRegisterOptions
     {
@@ -9,7 +9,7 @@ namespace FreshMvvm
         IRegisterOptions AsMultiInstance();
         IRegisterOptions WithWeakReference();
         IRegisterOptions WithStrongReference();
-        IRegisterOptions UsingConstructor<RegisterType>(Expression<Func<RegisterType>> constructor);
+        IRegisterOptions UsingConstructor<TRegisterType>(Expression<Func<TRegisterType>> constructor);
     }
 }
 

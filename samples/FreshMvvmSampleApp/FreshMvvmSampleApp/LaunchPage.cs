@@ -32,7 +32,7 @@ namespace FreshMvvmSampleApp
                 else if ((string)e.Item == "Multiple Navigation")
                     app.LoadMultipleNavigation ();
             };
-            this.Content = list;
+            Content = list;
         }
     }
 }

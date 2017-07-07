@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
@@ -8,16 +9,25 @@ namespace FreshMvvm
 {
     public static class PropertyChangedExtensions
     {
-        public static void WhenAny<T, TProperty> (this T source, Action<string> action, params Expression<Func<T, TProperty>>[] properties) where T : INotifyPropertyChanged
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="TProperty"></typeparam>
+        /// <param name="source"></param>
+        /// <param name="action"></param>
+        /// <param name="properties"></param>
+        public static void WhenAny<T, TProperty>(this T source, Action<string> action, params Expression<Func<T, TProperty>>[] properties) where T : INotifyPropertyChanged
         {
-            Dictionary<string, Func<T, TProperty>> propertyNames = new Dictionary<string, Func<T, TProperty>> ();
-            Expression<Func<T, TProperty>>[] properties2 = properties;
-            for (int i = 0; i < properties2.Length; i++) {
-                Expression<Func<T, TProperty>> expression = properties2 [i];
-                propertyNames.Add (expression.GetPropertyInfo<T, TProperty> ().Name, expression.Compile ());
-            }
-            source.PropertyChanged += (object sender, PropertyChangedEventArgs e) => {
-                if (propertyNames.ContainsKey (e.PropertyName)) {
+            Expression<Func<T, TProperty>>[] propertiesCopy = properties;
+
+            Dictionary<string, Func<T, TProperty>> propertyNames = propertiesCopy
+                .ToDictionary(expression => expression.GetPropertyInfo().Name, expression => expression.Compile());
+
+            source.PropertyChanged += (s, e) =>
+            {
+                if (propertyNames.ContainsKey(e.PropertyName))
+                {
                     action(e.PropertyName);
                 }
             };
@@ -34,15 +44,15 @@ namespace FreshMvvm
         public static PropertyInfo GetPropertyInfo<TSource, TValue>(this Expression<Func<TSource, TValue>> property)
         {
             if (property == null)
-                throw new ArgumentNullException("property");
+                throw new ArgumentNullException(nameof(property));
 
             var body = property.Body as MemberExpression;
             if (body == null)
-                throw new ArgumentException("Expression is not a property", "property");
+                throw new ArgumentException("Expression is not a property", nameof(property));
 
             var propertyInfo = body.Member as PropertyInfo;
             if (propertyInfo == null)
-                throw new ArgumentException("Expression is not a property", "property");
+                throw new ArgumentException("Expression is not a property", nameof(property));
 
             return propertyInfo;
         }

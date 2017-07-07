@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Xamarin.Forms;
 
-using Xamarin.Forms;
-
-namespace FreshMvvmSampleApp
+namespace FreshMvvmSampleApp.Pages
 {
 	public partial class ModalPage : ContentPage
 	{

@@ -1,7 +1,7 @@
-﻿using Xamarin.Forms;
-using FreshMvvm;
+﻿using FreshMvvm;
+using Xamarin.Forms;
 
-namespace FreshMvvmSampleApp
+namespace FreshMvvmSampleApp.PageModels
 {
     public class MainMenuPageModel : FreshBasePageModel
     {

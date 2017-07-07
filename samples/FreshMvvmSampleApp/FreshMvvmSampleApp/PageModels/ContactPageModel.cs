@@ -1,12 +1,15 @@
-﻿using Xamarin.Forms;
+﻿using System;
 using FreshMvvm;
-using System;
+using FreshMvvm.NavigationContainers;
+using FreshMvvmSampleApp.Models;
+using FreshMvvmSampleApp.Services;
+using Xamarin.Forms;
 
-namespace FreshMvvmSampleApp
+namespace FreshMvvmSampleApp.PageModels
 {
     public class ContactPageModel : FreshBasePageModel
     {
-        IDatabaseService _dataService;
+        readonly IDatabaseService _dataService;
 
         public ContactPageModel (IDatabaseService dataService)
         {
@@ -55,7 +58,7 @@ namespace FreshMvvmSampleApp
 
                     var page = FreshPageModelResolver.ResolvePageModel<MainMenuPageModel> ();
                     var basicNavContainer = new FreshNavigationContainer (page, Guid.NewGuid ().ToString ());
-                    await CoreMethods.PushNewNavigationServiceModal(basicNavContainer, new FreshBasePageModel[] { page.GetModel() }); 
+                    await CoreMethods.PushNewNavigationServiceModal(basicNavContainer, new[] { page.GetModel() }); 
                 });
             }
         }

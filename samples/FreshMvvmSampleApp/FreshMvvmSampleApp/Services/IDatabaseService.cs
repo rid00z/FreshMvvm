@@ -1,7 +1,7 @@
-using System;
 using System.Collections.Generic;
+using FreshMvvmSampleApp.Models;
 
-namespace FreshMvvmSampleApp
+namespace FreshMvvmSampleApp.Services
 {
     public interface IDatabaseService
     {
