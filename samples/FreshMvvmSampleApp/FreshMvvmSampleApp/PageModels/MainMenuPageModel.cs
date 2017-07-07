@@ -12,7 +12,7 @@ namespace FreshMvvmSampleApp.PageModels
         public Command ShowQuotes {
             get {
                 return new Command (async () => {
-                    await CoreMethods.PushPageModel<QuoteListPageModel> ();
+                    await Navigation.PushPageModel<QuoteListPageModel> ();
                 });
             }
         }
@@ -20,7 +20,7 @@ namespace FreshMvvmSampleApp.PageModels
         public Command ShowContacts {
             get {
                 return new Command (async () => {
-                    await CoreMethods.PushPageModel<ContactListPageModel> ();
+                    await Navigation.PushPageModel<ContactListPageModel> ();
                 });
             }
         }

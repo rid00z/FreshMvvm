@@ -50,7 +50,9 @@ namespace FreshMvvm
         {
             pageModel.WireEvents(targetPage);
             pageModel.CurrentPage = targetPage;
-            pageModel.CoreMethods = new PageModelCoreMethods(targetPage, pageModel);
+            pageModel.Navigation = new PageModelNavigation(targetPage, pageModel);
+            pageModel.Notifications = new PageModelNotifications(targetPage);
+            pageModel.Transactions = new PageModelTransactions(targetPage);
             pageModel.Init(data);
             targetPage.BindingContext = pageModel;
             return targetPage;

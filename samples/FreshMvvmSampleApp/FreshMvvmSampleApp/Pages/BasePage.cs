@@ -25,7 +25,7 @@ namespace FreshMvvmSampleApp.Pages
                     {
                         var closeModal = new ToolbarItem("Close Modal", "", () =>
                         {
-                            basePageModel.CoreMethods.PopModalNavigationService();
+                            basePageModel.Navigation.PopModalNavigationService();
                         });
 
                         ToolbarItems.Add(closeModal);

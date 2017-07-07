@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace FreshMvvm.Tests.Fixtures
 {
 	[TestFixture]
-	class FreshTabbedNavigationContainerFixture
+	public class FreshTabbedNavigationContainerFixture
 	{
 	}
 }

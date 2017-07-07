@@ -12,7 +12,7 @@ namespace FreshMvvmSampleApp.PageModels
         public Command CloseCommand {
             get {
                 return new Command (() => {
-                    CoreMethods.PopPageModel (true);
+                    Navigation.PopPageModel (true);
                 });
             }
         }

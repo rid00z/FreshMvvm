@@ -38,7 +38,7 @@ namespace FreshMvvmSampleApp.PageModels
             get { 
                 return new Command (() => {
                     _dataService.UpdateContact (Contact);
-                    CoreMethods.PopPageModel (Contact);
+                    Navigation.PopPageModel (Contact);
                 }
                 );
             }
@@ -47,7 +47,7 @@ namespace FreshMvvmSampleApp.PageModels
         public Command TestModal {
             get {
                 return new Command (async () => {
-                    await CoreMethods.PushPageModel<ModalPageModel> (null, true);
+                    await Navigation.PushPageModel<ModalPageModel> (null, true);
                 });
             }
         }
@@ -58,7 +58,7 @@ namespace FreshMvvmSampleApp.PageModels
 
                     var page = FreshPageModelResolver.ResolvePageModel<MainMenuPageModel> ();
                     var basicNavContainer = new FreshNavigationContainer (page, Guid.NewGuid ().ToString ());
-                    await CoreMethods.PushNewNavigationServiceModal(basicNavContainer, new[] { page.GetModel() }); 
+                    await Navigation.PushNewNavigationServiceModal(basicNavContainer, new[] { page.GetModel() }); 
                 });
             }
         }
@@ -71,7 +71,7 @@ namespace FreshMvvmSampleApp.PageModels
                     var tabbedNavigation = new FreshTabbedNavigationContainer (Guid.NewGuid ().ToString ());
                     tabbedNavigation.AddTab<ContactListPageModel> ("Contacts", "contacts.png", null);
                     tabbedNavigation.AddTab<QuoteListPageModel> ("Quotes", "document.png", null);
-                    await CoreMethods.PushNewNavigationServiceModal(tabbedNavigation);
+                    await Navigation.PushNewNavigationServiceModal(tabbedNavigation);
                 });
             }
         }
@@ -84,7 +84,7 @@ namespace FreshMvvmSampleApp.PageModels
                     masterDetailNav.Init ("Menu", "Menu.png");
                     masterDetailNav.AddPage<ContactListPageModel> ("Contacts", null);
                     masterDetailNav.AddPage<QuoteListPageModel> ("Quotes", null);
-                    await CoreMethods.PushNewNavigationServiceModal(masterDetailNav); 
+                    await Navigation.PushNewNavigationServiceModal(masterDetailNav); 
 
                 });
             }

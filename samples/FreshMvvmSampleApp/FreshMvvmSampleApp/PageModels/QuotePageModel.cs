@@ -27,7 +27,7 @@ namespace FreshMvvmSampleApp.PageModels
             get {
                 return new Command (async () => {
                     _databaseService.UpdateQuote (Quote);
-                    await CoreMethods.PopPageModel (Quote);
+                    await Navigation.PopPageModel (Quote);
                 });
             }
         }
@@ -35,7 +35,7 @@ namespace FreshMvvmSampleApp.PageModels
         public Command TestModal {
             get {
                 return new Command (async () => {
-                    await CoreMethods.PushPageModel<ModalPageModel> (null, true);
+                    await Navigation.PushPageModel<ModalPageModel> (null, true);
                 });
             }
         }

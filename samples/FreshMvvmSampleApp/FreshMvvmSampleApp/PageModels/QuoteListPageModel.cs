@@ -45,7 +45,7 @@ namespace FreshMvvmSampleApp.PageModels
         public Command AddQuote {
             get {
                 return new Command (async () => {
-                    await CoreMethods.PushPageModel<QuotePageModel> ();
+                    await Navigation.PushPageModel<QuotePageModel> ();
                 });
             }
         }
@@ -64,7 +64,7 @@ namespace FreshMvvmSampleApp.PageModels
         public Command<Quote> QuoteSelected {
             get {
                 return new Command<Quote> (async (quote) => {
-                    await CoreMethods.PushPageModel<QuotePageModel> (quote);
+                    await Navigation.PushPageModel<QuotePageModel> (quote);
                 });
             }
         }

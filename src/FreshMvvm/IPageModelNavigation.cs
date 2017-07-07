@@ -5,14 +5,8 @@ using Xamarin.Forms;
 
 namespace FreshMvvm
 {
-    public interface IPageModelCoreMethods
+    public interface IPageModelNavigation
     {
-        Task DisplayAlert (string title, string message, string cancel);
-
-        Task<string> DisplayActionSheet (string title, string cancel, string destruction, params string[] buttons);
-
-        Task<bool> DisplayAlert (string title, string message, string accept, string cancel);
-
         Task PushPageModel<T> (object data, bool modal = false, bool animate = true) where T : FreshBasePageModel;
 
         Task PushPageModel<T, TPage> (object data, bool modal = false, bool animate = true) where T : FreshBasePageModel where TPage : Page;
@@ -76,9 +70,18 @@ namespace FreshMvvm
         Task<FreshBasePageModel> SwitchSelectedMaster<T>()where T : FreshBasePageModel;
 
         Task PopToRoot(bool animate);
+    }
 
+    public interface IPageModelNotifications
+    {
+        Task DisplayAlert(string title, string message, string cancel);
+        Task<string> DisplayActionSheet(string title, string cancel, string destruction, params string[] buttons);
+        Task<bool> DisplayAlert(string title, string message, string accept, string cancel);
+    }
+
+    public interface IPageModelTransactions
+    {
         void BatchBegin();
-
         void BatchCommit();
     }
 }

@@ -34,7 +34,11 @@ namespace FreshMvvm
         /// <summary>
         /// Core methods are basic built in methods for the App including Pushing, Pop and Alert
         /// </summary>
-        public IPageModelCoreMethods CoreMethods { get; set; }
+        public IPageModelNavigation Navigation { get; set; }
+
+        public IPageModelNotifications Notifications { get; set; }
+
+        public IPageModelTransactions Transactions { get; set; }
 
         /// <summary>
         /// This method is called when a page is Pop'd, it also allows for data to be returned.

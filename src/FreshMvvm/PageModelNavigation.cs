@@ -7,37 +7,17 @@ using FreshMvvm.NavigationContainers;
 
 namespace FreshMvvm
 {
-    public class PageModelCoreMethods : IPageModelCoreMethods
+    public class PageModelNavigation : IPageModelNavigation
     {
         private readonly Page _currentPage;
         private readonly FreshBasePageModel _currentPageModel;
 
-        public PageModelCoreMethods(Page currentPage, FreshBasePageModel pageModel)
+        public PageModelNavigation(Page currentPage, FreshBasePageModel pageModel)
         {
             _currentPage = currentPage;
             _currentPageModel = pageModel;
         }
-
-        public async Task DisplayAlert(string title, string message, string cancel)
-        {
-            if (_currentPage != null)
-                await _currentPage.DisplayAlert(title, message, cancel);
-        }
-
-        public async Task<string> DisplayActionSheet(string title, string cancel, string destruction, params string[] buttons)
-        {
-            if (_currentPage != null)
-                return await _currentPage.DisplayActionSheet(title, cancel, destruction, buttons);
-            return null;
-        }
-
-        public async Task<bool> DisplayAlert(string title, string message, string accept, string cancel)
-        {
-            if (_currentPage != null)
-                return await _currentPage.DisplayAlert(title, message, accept, cancel);
-            return false;
-        }
-
+        
         public async Task PushPageModel<T>(object data, bool modal = false, bool animate = true) where T : FreshBasePageModel
         {
             T pageModel = FreshIoC.Container.Resolve<T>();
@@ -237,17 +217,7 @@ namespace FreshMvvm
             await PushNewNavigationServiceModal(naviationContainer, page.GetModel(), animate);
             return navigationName;
         }
-
-        public void BatchBegin()
-        {
-            _currentPage.BatchBegin();
-        }
-
-        public void BatchCommit()
-        {
-            _currentPage.BatchCommit();
-        }
-
+        
         /// <summary>
         /// Removes current page/pagemodel from navigation
         /// </summary>
@@ -272,5 +242,55 @@ namespace FreshMvvm
             }
         }
     }
-}
 
+    public class PageModelNotifications : IPageModelNotifications
+    {
+        private readonly Page _currentPage;
+
+        public PageModelNotifications(Page currentPage)
+        {
+            _currentPage = currentPage;
+        }
+
+        public async Task DisplayAlert(string title, string message, string cancel)
+        {
+            if (_currentPage != null)
+                await _currentPage.DisplayAlert(title, message, cancel);
+        }
+
+        public async Task<string> DisplayActionSheet(string title, string cancel, string destruction, params string[] buttons)
+        {
+            if (_currentPage != null)
+                return await _currentPage.DisplayActionSheet(title, cancel, destruction, buttons);
+            return null;
+        }
+
+        public async Task<bool> DisplayAlert(string title, string message, string accept, string cancel)
+        {
+            if (_currentPage != null)
+                return await _currentPage.DisplayAlert(title, message, accept, cancel);
+            return false;
+        }
+    }
+
+    public class PageModelTransactions : IPageModelTransactions
+    {
+        private readonly Page _currentPage;
+
+        public PageModelTransactions(Page currentPage)
+        {
+            _currentPage = currentPage;
+        }
+
+        public void BatchBegin()
+        {
+            _currentPage.BatchBegin();
+        }
+
+        public void BatchCommit()
+        {
+            _currentPage.BatchCommit();
+        }
+
+    }
+}

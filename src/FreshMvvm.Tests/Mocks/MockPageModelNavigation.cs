@@ -5,7 +5,7 @@ using Xamarin.Forms;
 
 namespace FreshMvvm.Tests.Mocks
 {
-    class MockPageModelCoreMethods : IPageModelCoreMethods
+    class MockPageModelNavigation : IPageModelNavigation
 	{
         public void SwitchOutRootNavigation(string navigationServiceName)
         {

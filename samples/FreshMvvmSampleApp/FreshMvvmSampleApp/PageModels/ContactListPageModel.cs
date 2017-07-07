@@ -58,7 +58,7 @@ namespace FreshMvvmSampleApp.PageModels
             {
                 return new Command(async () =>
                 {
-                    await CoreMethods.PushPageModel<ContactPageModel>();
+                    await Navigation.PushPageModel<ContactPageModel>();
                 });
             }
         }
@@ -69,7 +69,7 @@ namespace FreshMvvmSampleApp.PageModels
             {
                 return new Command<Contact>(async (contact) =>
                 {
-                    await CoreMethods.PushPageModel<ContactPageModel>(contact);
+                    await Navigation.PushPageModel<ContactPageModel>(contact);
                 });
             }
         }
@@ -80,7 +80,7 @@ namespace FreshMvvmSampleApp.PageModels
             {
                 return new FreshAwaitCommand(async (contact, tcs) =>
                 {
-                    await CoreMethods.PushPageModel<ContactPageModel>(Contacts.First());
+                    await Navigation.PushPageModel<ContactPageModel>(Contacts.First());
                     tcs.SetResult(true);
                 });
             }

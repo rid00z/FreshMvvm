@@ -24,7 +24,7 @@ namespace FreshMvvm.Tests.Fixtures
 
 			Assert.IsNotNull(context);
 			Assert.IsNotNull(context.CurrentPage);
-			Assert.IsNotNull(context.CoreMethods);
+			Assert.IsNotNull(context.Navigation);
 		}
 
 		[TestCase("test data")]
@@ -35,7 +35,7 @@ namespace FreshMvvm.Tests.Fixtures
 
 			Assert.IsNotNull(context);
 			Assert.IsNotNull(context.CurrentPage);
-			Assert.IsNotNull(context.CoreMethods);
+			Assert.IsNotNull(context.Navigation);
 			Assert.AreSame(data, context.Data);
 		}
 	}

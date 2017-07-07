@@ -4,7 +4,7 @@ using NUnit.Framework;
 namespace FreshMvvm.Tests.Fixtures
 {
 	[TestFixture]
-	class FreshIocTests
+	public class FreshIocTests
 	{
 		[Test]
 		public void Test_Get_IoC_Container()

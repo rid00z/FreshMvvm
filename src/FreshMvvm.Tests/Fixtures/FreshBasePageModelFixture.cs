@@ -80,12 +80,12 @@ namespace FreshMvvm.Tests.Fixtures
         public void Test_CoreMethods_Property()
         {
             var viewModel = new MockFreshBasePageModel();
-            var methods = new MockPageModelCoreMethods();
+            var methods = new MockPageModelNavigation();
 
-            viewModel.CoreMethods = methods;
+            viewModel.Navigation = methods;
 
-            Assert.IsNotNull(viewModel.CoreMethods);
-            Assert.AreEqual(methods, viewModel.CoreMethods);
+            Assert.IsNotNull(viewModel.Navigation);
+            Assert.AreEqual(methods, viewModel.Navigation);
         }
     }
 }

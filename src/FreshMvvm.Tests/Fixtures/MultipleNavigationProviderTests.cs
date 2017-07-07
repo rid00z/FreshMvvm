@@ -72,7 +72,7 @@ namespace FreshMvvm.Tests.Fixtures
         {
             SetupFirstNavigationAndPage();
 
-            var coreMethods = new PageModelCoreMethods(_page, _pageModel);
+            var coreMethods = new PageModelNavigation(_page, _pageModel);
             coreMethods.PushPageModel<MockContentPageModel>();
 
             _navigationMock.Received().PushPage(Arg.Any<Page>(),
@@ -87,7 +87,7 @@ namespace FreshMvvm.Tests.Fixtures
         {
             SetupFirstNavigationAndPage();
 
-            var coreMethods = new PageModelCoreMethods(_page, _pageModel);
+            var coreMethods = new PageModelNavigation(_page, _pageModel);
             await coreMethods.PushPageModel<MockContentPageModel>();
             await coreMethods.PushPageModel<MockContentPageModel>();
 
@@ -138,7 +138,7 @@ namespace FreshMvvm.Tests.Fixtures
 
             await PushSecondNavigationStack();
 
-            await _coreMethods.PushPageModel<MockContentPageModel>();
+            await _navigation.PushPageModel<MockContentPageModel>();
 
             var pageModelLatest = _secondNavService.CurrentPage.BindingContext as FreshBasePageModel;
 
@@ -153,7 +153,7 @@ namespace FreshMvvm.Tests.Fixtures
 
             await PushSecondNavigationStack();
 
-            await _coreMethodsSecondPage.PopPageModel(true);
+            await _navigationSecondPage.PopPageModel(true);
 
             //previousNavigation has pop modal called
             await _navigationMock.Received().PopPage(true);
@@ -168,11 +168,11 @@ namespace FreshMvvm.Tests.Fixtures
 
             await PushSecondNavigationStack();
 
-            await _coreMethodsSecondPage.PushPageModel<MockContentPageModel>();
+            await _navigationSecondPage.PushPageModel<MockContentPageModel>();
 
             var pageModelLatest = _secondNavService.CurrentPage.BindingContext as FreshBasePageModel;
 
-            await pageModelLatest.CoreMethods.PopModalNavigationService();
+            await pageModelLatest.Navigation.PopModalNavigationService();
 
             //previousNavigation has pop modal called
             await _navigationMock.Received().PopPage(true);
@@ -200,23 +200,23 @@ namespace FreshMvvm.Tests.Fixtures
             if (_pageModel != null) _pageModel.CurrentNavigationServiceName = "firstNav";
         }
 
-        PageModelCoreMethods _coreMethodsSecondPage;
-        PageModelCoreMethods _coreMethods;
+        PageModelNavigation _navigationSecondPage;
+        PageModelNavigation _navigation;
         Page _pageSecond;
         FreshBasePageModel _pageModelSecond;
         FreshNavigationContainer _secondNavService;
 
         private async Task PushSecondNavigationStack()
         {
-            _coreMethods = new PageModelCoreMethods(_page, _pageModel);
-            await _coreMethods.PushPageModel<MockContentPageModel>();
+            _navigation = new PageModelNavigation(_page, _pageModel);
+            await _navigation.PushPageModel<MockContentPageModel>();
 
             _pageSecond = FreshPageModelResolver.ResolvePageModel<MockContentPageModel>();
             _pageModelSecond = _pageSecond.BindingContext as MockContentPageModel;
-            _coreMethodsSecondPage = new PageModelCoreMethods(_pageSecond, _pageModelSecond);
+            _navigationSecondPage = new PageModelNavigation(_pageSecond, _pageModelSecond);
             _secondNavService = new FreshNavigationContainer(_pageSecond, "secondNav");
 
-            await _coreMethods.PushNewNavigationServiceModal(_secondNavService, new[] { _pageModelSecond });
+            await _navigation.PushNewNavigationServiceModal(_secondNavService, new[] { _pageModelSecond });
         }
     }
 }
