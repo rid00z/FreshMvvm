@@ -1,4 +1,6 @@
 ﻿using System;
+using FreshMvvm.IoC;
+using FreshMvvm.IoC.TinyIoC;
 using TinyIoC;
 
 namespace FreshMvvm
@@ -6,41 +8,35 @@ namespace FreshMvvm
     /// <summary>
     /// Built in TinyIOC for ease of use
     /// </summary>
-    public class FreshTinyIOCBuiltIn : IFreshIOC
+    public class FreshTinyIoCBuiltIn : IFreshIoC
     {
-        public static TinyIoCContainer Current
-        {
-            get
-            {
-                return TinyIoCContainer.Current;
-            }
-        }
+        internal static TinyIoCContainer Current => TinyIoCContainer.Current;
 
-        public IRegisterOptions Register<RegisterType>(RegisterType instance, string name) where RegisterType : class
+        public IRegisterOptions Register<TRegisterType>(TRegisterType instance, string name) where TRegisterType : class
         {
             return TinyIoCContainer.Current.Register(instance, name);
         }
 
-        public IRegisterOptions Register<RegisterType>(RegisterType instance) where RegisterType : class
+        public IRegisterOptions Register<TRegisterType>(TRegisterType instance) where TRegisterType : class
         {
             return TinyIoCContainer.Current.Register(instance);
         }
 
-        public ResolveType Resolve<ResolveType>(string name) where ResolveType : class
+        public TResolveType Resolve<TResolveType>(string name) where TResolveType : class
         {
-            return TinyIoCContainer.Current.Resolve<ResolveType>(name);
+            return TinyIoCContainer.Current.Resolve<TResolveType>(name);
         }
 
-        public ResolveType Resolve<ResolveType>() where ResolveType : class
+        public TResolveType Resolve<TResolveType>() where TResolveType : class
         {
-            return TinyIoCContainer.Current.Resolve<ResolveType>();
+            return TinyIoCContainer.Current.Resolve<TResolveType>();
         }
 
-        public IRegisterOptions Register<RegisterType, RegisterImplementation>()
-            where RegisterType : class
-            where RegisterImplementation : class, RegisterType
+        public IRegisterOptions Register<TRegisterType, TRegisterImplementation>()
+            where TRegisterType : class
+            where TRegisterImplementation : class, TRegisterType
         {
-            return TinyIoCContainer.Current.Register<RegisterType, RegisterImplementation>();
+            return TinyIoCContainer.Current.Register<TRegisterType, TRegisterImplementation>();
         }
 
         public object Resolve(Type resolveType)
@@ -48,14 +44,14 @@ namespace FreshMvvm
             return TinyIoCContainer.Current.Resolve(resolveType);
         }
 
-        public void Unregister<RegisterType>()
+        public void Unregister<TRegisterType>()
         {
-            TinyIoCContainer.Current.Unregister<RegisterType>();
+            TinyIoCContainer.Current.Unregister<TRegisterType>();
         }
 
-        public void Unregister<RegisterType>(string name)
+        public void Unregister<TRegisterType>(string name)
         {
-            TinyIoCContainer.Current.Unregister<RegisterType>(name);
+            TinyIoCContainer.Current.Unregister<TRegisterType>(name);
         }
     }
 }

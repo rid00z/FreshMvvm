@@ -1,19 +1,20 @@
 ﻿using System;
+using FreshMvvm.IoC.TinyIoC;
 
-namespace FreshMvvm
+namespace FreshMvvm.IoC
 {
-    public interface IFreshIOC
+    public interface IFreshIoC
     {
         object Resolve(Type resolveType);
-        IRegisterOptions Register<RegisterType>(RegisterType instance) where RegisterType : class;
-        IRegisterOptions Register<RegisterType>(RegisterType instance, string name) where RegisterType : class;
-        ResolveType Resolve<ResolveType>() where ResolveType : class;
-        ResolveType Resolve<ResolveType>(string name) where ResolveType : class;
-        IRegisterOptions Register<RegisterType, RegisterImplementation> ()
-            where RegisterType : class
-            where RegisterImplementation : class, RegisterType;
-        void Unregister<RegisterType>();
-        void Unregister<RegisterType>(string name);
+        IRegisterOptions Register<TRegisterType>(TRegisterType instance) where TRegisterType : class;
+        IRegisterOptions Register<TRegisterType>(TRegisterType instance, string name) where TRegisterType : class;
+        TResolveType Resolve<TResolveType>() where TResolveType : class;
+        TResolveType Resolve<TResolveType>(string name) where TResolveType : class;
+        IRegisterOptions Register<TRegisterType, TRegisterImplementation> ()
+            where TRegisterType : class
+            where TRegisterImplementation : class, TRegisterType;
+        void Unregister<TRegisterType>();
+        void Unregister<TRegisterType>(string name);
     }
 }
 

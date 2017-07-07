@@ -1,8 +1,7 @@
-﻿using System;
-using FreshMvvm;
+﻿using FreshMvvm;
 using Xamarin.Forms;
 
-namespace FreshMvvmSampleApp
+namespace FreshMvvmSampleApp.PageModels
 {
     public class ModalPageModel : FreshBasePageModel
     {

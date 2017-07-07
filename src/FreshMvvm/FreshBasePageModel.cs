@@ -1,11 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 using System.Runtime.CompilerServices;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 namespace FreshMvvm
 {
@@ -58,9 +55,7 @@ namespace FreshMvvm
         protected void RaisePropertyChanged ([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanged;
-            if (handler != null) {
-                handler (this, new PropertyChangedEventArgs (propertyName));
-            }
+            handler?.Invoke (this, new PropertyChangedEventArgs (propertyName));
         }
 
         internal void WireEvents (Page page)
@@ -109,23 +104,21 @@ namespace FreshMvvm
                 AttachPageWasPoppedEvent();
         }
 
-        bool _alreadyAttached = false;
+        private bool _alreadyAttached;
         /// <summary>
         /// This is used to attach the page was popped method to a NavigationPage if available
         /// </summary>
-        void AttachPageWasPoppedEvent()
+        private void AttachPageWasPoppedEvent()
         {
-            var navPage = (this.CurrentPage.Parent as NavigationPage);
-            if (navPage != null)
-            {
-                _alreadyAttached = true;
-                navPage.Popped += HandleNavPagePopped;
-            }
+            var navPage = CurrentPage.Parent as NavigationPage;
+            if (navPage == null) return;
+            _alreadyAttached = true;
+            navPage.Popped += HandleNavPagePopped;
         }
 
-        void HandleNavPagePopped(object sender, NavigationEventArgs e)
+        private void HandleNavPagePopped(object sender, NavigationEventArgs e)
         {
-            if (e.Page == this.CurrentPage)
+            if (e.Page == CurrentPage)
             {
                 RaisePageWasPopped();
             }
@@ -133,10 +126,9 @@ namespace FreshMvvm
 
         public void RaisePageWasPopped()
         {
-            if (PageWasPopped != null)
-                PageWasPopped(this, EventArgs.Empty);
+            PageWasPopped?.Invoke(this, EventArgs.Empty);
 
-            var navPage = (this.CurrentPage.Parent as NavigationPage);
+            var navPage = CurrentPage.Parent as NavigationPage;
             if (navPage != null)
                 navPage.Popped -= HandleNavPagePopped;
 

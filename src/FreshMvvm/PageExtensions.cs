@@ -1,5 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 
 namespace FreshMvvm
 {
@@ -16,15 +15,13 @@ namespace FreshMvvm
             foreach (var page in navigationPage.Navigation.ModalStack)
             {
                 var pageModel = page.GetModel();
-                if (pageModel != null)
-                    pageModel.RaisePageWasPopped();
+                pageModel?.RaisePageWasPopped();
             }
 
             foreach (var page in navigationPage.Navigation.NavigationStack)
             {
                 var pageModel = page.GetModel();
-                if (pageModel != null)
-                    pageModel.RaisePageWasPopped();
+                pageModel?.RaisePageWasPopped();
             }
         }
     }

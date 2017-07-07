@@ -1,13 +1,15 @@
 ﻿using System.Collections.ObjectModel;
-using Xamarin.Forms;
-using FreshMvvm;
 using System.Diagnostics;
+using FreshMvvm;
+using FreshMvvmSampleApp.Models;
+using FreshMvvmSampleApp.Services;
+using Xamarin.Forms;
 
-namespace FreshMvvmSampleApp
+namespace FreshMvvmSampleApp.PageModels
 {
     public class QuoteListPageModel : FreshBasePageModel
     {
-        IDatabaseService _databaseService;
+        readonly IDatabaseService _databaseService;
 
         public QuoteListPageModel (IDatabaseService databaseService)
         {
@@ -51,9 +53,7 @@ namespace FreshMvvmSampleApp
         Quote _selectedQuote;
 
         public Quote SelectedQuote {
-            get {
-                return _selectedQuote;
-            }
+            get => _selectedQuote;
             set {
                 _selectedQuote = value;
                 if (value != null)

@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
-
-namespace FreshMvvmSampleApp
+﻿namespace FreshMvvmSampleApp.Pages
 {
-	public partial class MainMenuPage : BasePage
-	{
-		public MainMenuPage ()
-		{
-			InitializeComponent ();
-		}
-	}
+    public partial class MainMenuPage : BasePage
+    {
+        public MainMenuPage()
+        {
+            InitializeComponent();
+        }
+    }
 }
 

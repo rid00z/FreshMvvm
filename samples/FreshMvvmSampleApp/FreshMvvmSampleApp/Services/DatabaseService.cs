@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using FreshMvvmSampleApp.Models;
 
-namespace FreshMvvmSampleApp
+namespace FreshMvvmSampleApp.Services
 {
     public class DatabaseService : IDatabaseService
     {
-        private List<Contact> _contacts;
-        private List<Quote> _quotes;
+        private readonly List<Contact> _contacts;
+        private readonly List<Quote> _quotes;
 
         public DatabaseService ()
         {

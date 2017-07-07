@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
-
-namespace FreshMvvmSampleApp
+﻿namespace FreshMvvmSampleApp.Pages
 {
 	public partial class QuoteListPage : BasePage
 	{

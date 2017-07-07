@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using FreshMvvm.NavigationContainers;
 using Xamarin.Forms;
 
 namespace FreshMvvm.Tests.Mocks
@@ -36,12 +37,12 @@ namespace FreshMvvm.Tests.Mocks
 			throw new NotImplementedException();
 		}
 
-        public Task PushPageModel<T, TPage>(object data, bool modal = false) where T : FreshBasePageModel where TPage : Xamarin.Forms.Page
+        public Task PushPageModel<T, TPage>(object data, bool modal = false) where T : FreshBasePageModel where TPage : Page
         {
             throw new NotImplementedException();
         }
 
-        public Task PushPageModel<T, TPage>() where T : FreshBasePageModel where TPage : Xamarin.Forms.Page
+        public Task PushPageModel<T, TPage>() where T : FreshBasePageModel where TPage : Page
         {
             throw new NotImplementedException();
         }
