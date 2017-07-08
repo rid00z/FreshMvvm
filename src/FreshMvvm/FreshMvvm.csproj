@@ -48,13 +48,8 @@ Events when page is popped (for disposal)
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
     <PackageReference Include="Xamarin.Forms" Version="2.3.5.256-pre6" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="System.Reflection.TypeExtensions">
-      <HintPath>..\..\..\..\..\.nuget\packages\System.Reflection.TypeExtensions\4.3.0\ref\netstandard1.3\System.Reflection.TypeExtensions.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
 </Project>
