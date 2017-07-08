@@ -1,5 +1,7 @@
 ﻿using System;
 using FreshMvvm;
+using FreshMvvm.Base;
+using FreshMvvm.Extensions;
 using FreshMvvm.NavigationContainers;
 using FreshMvvmSampleApp.Models;
 using FreshMvvmSampleApp.Services;
@@ -7,7 +9,7 @@ using Xamarin.Forms;
 
 namespace FreshMvvmSampleApp.PageModels
 {
-    public class ContactPageModel : FreshBasePageModel
+    public class ContactPageModel : FreshPageModel
     {
         readonly IDatabaseService _dataService;
 

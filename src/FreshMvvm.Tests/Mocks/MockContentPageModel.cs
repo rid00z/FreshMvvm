@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace FreshMvvm.Tests.Mocks
 {
-	class MockContentPageModel : MockFreshBasePageModel
+	class MockContentPageModel : MockFreshPageModel
 	{
 		public object Data { get; set; }
 

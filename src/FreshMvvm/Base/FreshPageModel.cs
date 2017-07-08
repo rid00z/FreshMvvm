@@ -1,12 +1,13 @@
 ﻿using System;
-using System.ComponentModel;
-using Xamarin.Forms;
-using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using FreshMvvm.CoreMethods;
+using Xamarin.Forms;
 
-namespace FreshMvvm
+namespace FreshMvvm.Base
 {
-    public abstract class FreshBasePageModel : INotifyPropertyChanged
+    public abstract class FreshPageModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -24,7 +25,7 @@ namespace FreshMvvm
         /// <summary>
         /// The previous page model, that's automatically filled, on push
         /// </summary>
-        public FreshBasePageModel PreviousPageModel { get; set; }
+        public FreshPageModel PreviousPageModel { get; set; }
 
         /// <summary>
         /// A reference to the current page, that's automatically filled, on push

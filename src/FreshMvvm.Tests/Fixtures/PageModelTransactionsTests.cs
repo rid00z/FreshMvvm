@@ -1,4 +1,5 @@
-﻿using NSubstitute;
+﻿using FreshMvvm.CoreMethods;
+using NSubstitute;
 using NUnit.Framework;
 using Xamarin.Forms;
 

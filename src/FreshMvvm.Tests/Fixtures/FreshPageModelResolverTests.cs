@@ -5,14 +5,14 @@ using NUnit.Framework;
 namespace FreshMvvm.Tests.Fixtures
 {
 	[TestFixture]
-	public class FreshPageModelResolverFixture
+	public class FreshPageModelResolverTests
 	{
 		[TestCase]
 		public void Test_ResolvePageModel_Not_Found()
 		{
 			Assert.Throws<Exception>(() =>
 			{
-				FreshPageModelResolver.ResolvePageModel<MockFreshBasePageModel>();
+				FreshPageModelResolver.ResolvePageModel<MockFreshPageModel>();
 			});
 		}
 

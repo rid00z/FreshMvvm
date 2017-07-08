@@ -1,9 +1,10 @@
 ﻿using FreshMvvm;
+using FreshMvvm.Base;
 using Xamarin.Forms;
 
 namespace FreshMvvmSampleApp.PageModels
 {
-    public class MainMenuPageModel : FreshBasePageModel
+    public class MainMenuPageModel : FreshPageModel
     {
         public MainMenuPageModel ()
         {

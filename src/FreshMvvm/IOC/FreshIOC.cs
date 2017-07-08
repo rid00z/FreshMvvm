@@ -1,4 +1,6 @@
-﻿namespace FreshMvvm.IoC
+﻿using FreshMvvm.IOC;
+
+namespace FreshMvvm.IoC
 {
     public class FreshIoC
     {

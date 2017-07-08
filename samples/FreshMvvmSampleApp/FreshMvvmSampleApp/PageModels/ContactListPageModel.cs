@@ -3,13 +3,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using FreshMvvm;
+using FreshMvvm.Base;
 using FreshMvvmSampleApp.Models;
 using FreshMvvmSampleApp.Services;
 using Xamarin.Forms;
 
 namespace FreshMvvmSampleApp.PageModels
 {
-    public class ContactListPageModel : FreshBasePageModel
+    public class ContactListPageModel : FreshPageModel
     {
         readonly IDatabaseService _databaseService;
 

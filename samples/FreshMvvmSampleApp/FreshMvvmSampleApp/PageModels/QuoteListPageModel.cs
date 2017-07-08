@@ -1,13 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using FreshMvvm;
+using FreshMvvm.Base;
 using FreshMvvmSampleApp.Models;
 using FreshMvvmSampleApp.Services;
 using Xamarin.Forms;
 
 namespace FreshMvvmSampleApp.PageModels
 {
-    public class QuoteListPageModel : FreshBasePageModel
+    public class QuoteListPageModel : FreshPageModel
     {
         readonly IDatabaseService _databaseService;
 

@@ -3,7 +3,7 @@ using FreshMvvm.IoC;
 using FreshMvvm.IoC.TinyIoC;
 using TinyIoC;
 
-namespace FreshMvvm
+namespace FreshMvvm.IOC
 {
     /// <summary>
     /// Built in TinyIOC for ease of use

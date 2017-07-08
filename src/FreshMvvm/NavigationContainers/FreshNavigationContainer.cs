@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using FreshMvvm.Base;
+using FreshMvvm.Extensions;
 using FreshMvvm.IoC;
 using Xamarin.Forms;
 
@@ -39,7 +41,7 @@ namespace FreshMvvm.NavigationContainers
             return new NavigationPage(page);
         }
 
-        public virtual Task PushPage(Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
+        public virtual Task PushPage(Page page, FreshPageModel model, bool modal = false, bool animate = true)
         {
             return modal ?
                 Navigation.PushModalAsync(CreateContainerPageSafe(page), animate) :
@@ -65,7 +67,7 @@ namespace FreshMvvm.NavigationContainers
             this.NotifyAllChildrenPopped();
         }
 
-        public Task<FreshBasePageModel> SwitchSelectedRootPageModel<T>() where T : FreshBasePageModel
+        public Task<FreshPageModel> SwitchSelectedRootPageModel<T>() where T : FreshPageModel
         {
             throw new Exception("This navigation container has no selected roots, just a single root");
         }

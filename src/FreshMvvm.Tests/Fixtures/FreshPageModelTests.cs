@@ -5,12 +5,12 @@ using NUnit.Framework;
 namespace FreshMvvm.Tests.Fixtures
 {
     [TestFixture]
-    public class FreshBasePageModelTests
+    public class FreshPageModelTests
     {
         [Test]
         public void Test_ImplementationINotifyPropertyChanged()
         {
-            var viewModel = new MockFreshBasePageModel();
+            var viewModel = new MockFreshPageModel();
 
             Assert.IsInstanceOf<INotifyPropertyChanged>(viewModel);
         }
@@ -19,7 +19,7 @@ namespace FreshMvvm.Tests.Fixtures
         public void Test_RaisePropertyChanged(string name)
         {
             string actual = null;
-            var viewModel = new MockFreshBasePageModel();
+            var viewModel = new MockFreshPageModel();
             viewModel.PropertyChanged += (s, e) =>
             {
                 actual = e.PropertyName;
@@ -35,7 +35,7 @@ namespace FreshMvvm.Tests.Fixtures
         [TestCase("default name", "new name")]
         public void Test_Init(string defaultValue, string newValue)
         {
-            var viewModel = new MockFreshBasePageModel { Name = defaultValue };
+            var viewModel = new MockFreshPageModel { Name = defaultValue };
 
             viewModel.Init(newValue);
 
@@ -45,7 +45,7 @@ namespace FreshMvvm.Tests.Fixtures
         [TestCase("default name", "new name")]
         public void Test_ReverseInit(string defaultValue, string newValue)
         {
-            var viewModel = new MockFreshBasePageModel { Name = defaultValue };
+            var viewModel = new MockFreshPageModel { Name = defaultValue };
 
             viewModel.ReverseInit(newValue);
 
@@ -55,7 +55,7 @@ namespace FreshMvvm.Tests.Fixtures
         [Test]
         public void Test_CurrentPage_Property()
         {
-            var viewModel = new MockFreshBasePageModel();
+            var viewModel = new MockFreshPageModel();
             var page = new MockContentPage(viewModel);
 
             viewModel.CurrentPage = page;
@@ -67,8 +67,8 @@ namespace FreshMvvm.Tests.Fixtures
         [Test]
         public void Test_PreviousPageModel_Property()
         {
-            var viewModel = new MockFreshBasePageModel();
-            var prevViewModel = new MockFreshBasePageModel();
+            var viewModel = new MockFreshPageModel();
+            var prevViewModel = new MockFreshPageModel();
 
             viewModel.PreviousPageModel = prevViewModel;
 
@@ -79,7 +79,7 @@ namespace FreshMvvm.Tests.Fixtures
         [Test]
         public void Test_CoreMethods_Property()
         {
-            var viewModel = new MockFreshBasePageModel();
+            var viewModel = new MockFreshPageModel();
             var methods = new MockPageModelNavigation();
 
             viewModel.Navigation = methods;

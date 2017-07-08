@@ -1,6 +1,8 @@
-﻿namespace FreshMvvm.Tests.Mocks
+﻿using FreshMvvm.Base;
+
+namespace FreshMvvm.Tests.Mocks
 {
-    public class MockFreshBasePageModel : FreshBasePageModel
+    public class MockFreshPageModel : FreshPageModel
     {
         private string _name;
 

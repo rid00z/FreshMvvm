@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using FreshMvvm.Base;
+using Xamarin.Forms;
 
 namespace FreshMvvmSampleApp.Pages
 {
@@ -16,7 +17,7 @@ namespace FreshMvvmSampleApp.Pages
         {
             base.OnAppearing();
 
-            var basePageModel = BindingContext as FreshMvvm.FreshBasePageModel;
+            var basePageModel = BindingContext as FreshPageModel;
             if (basePageModel != null)
             {
                 if (basePageModel.IsModalAndHasPreviousNavigationStack())

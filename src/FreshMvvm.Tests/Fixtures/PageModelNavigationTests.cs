@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FreshMvvm.Base;
+using FreshMvvm.CoreMethods;
 using NSubstitute;
 using NUnit.Framework;
 using Xamarin.Forms;
@@ -13,7 +15,7 @@ namespace FreshMvvm.Tests.Fixtures
 	public class PageModelNavigationFixture
 	{
 	    private Page page = Substitute.For<Page>();
-	    private FreshBasePageModel pageModel = Substitute.For<FreshBasePageModel>();
+	    private FreshPageModel pageModel = Substitute.For<FreshPageModel>();
 
 	    [SetUp]
 	    public void Setup()
