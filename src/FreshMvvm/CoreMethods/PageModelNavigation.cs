@@ -104,7 +104,7 @@ namespace FreshMvvm.CoreMethods
         {
             if (_currentPageModel?.PreviousPageModel != null && data != null)
             {
-                _currentPageModel.PreviousPageModel.ReverseInit(data);
+                _currentPageModel.PreviousPageModel.PoppedData(data);
             }
             await PopPageModel(modal, animate);
         }

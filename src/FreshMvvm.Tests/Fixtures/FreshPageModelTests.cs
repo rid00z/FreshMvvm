@@ -37,7 +37,7 @@ namespace FreshMvvm.Tests.Fixtures
         {
             var viewModel = new MockFreshPageModel { Name = defaultValue };
 
-            viewModel.Init(newValue);
+            viewModel.PushedData(newValue);
 
             Assert.AreEqual(newValue, viewModel.Name);
         }
@@ -47,7 +47,7 @@ namespace FreshMvvm.Tests.Fixtures
         {
             var viewModel = new MockFreshPageModel { Name = defaultValue };
 
-            viewModel.ReverseInit(newValue);
+            viewModel.PoppedData(newValue);
 
             Assert.AreEqual(newValue, viewModel.Name);
         }

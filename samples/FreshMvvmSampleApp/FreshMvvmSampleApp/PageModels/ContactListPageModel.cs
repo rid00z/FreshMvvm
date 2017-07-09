@@ -21,7 +21,7 @@ namespace FreshMvvmSampleApp.PageModels
 
         public ObservableCollection<Contact> Contacts { get; set; }
 
-        public override void Init(object initData)
+        public override void PushedData(object initData)
         {
             Contacts = new ObservableCollection<Contact>(_databaseService.GetContacts());
         }
@@ -31,7 +31,7 @@ namespace FreshMvvmSampleApp.PageModels
             base.ViewIsAppearing(sender, e);
         }
 
-        public override void ReverseInit(object value)
+        public override void PoppedData(object value)
         {
             var newContact = value as Contact;
             if (!Contacts.Contains(newContact))

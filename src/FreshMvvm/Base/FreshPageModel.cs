@@ -44,16 +44,16 @@ namespace FreshMvvm.Base
         /// <summary>
         /// This method is called when a page is Pop'd, it also allows for data to be returned.
         /// </summary>
-        /// <param name="returnedData">This data that's returned from </param>
-        public virtual void ReverseInit (object returnedData)
+        /// <param name="model">This data that's returned from </param>
+        public virtual void PoppedData (object model)
         {
         }
 
         /// <summary>
-        /// This method is called when the PageModel is loaded, the initData is the data that's sent from pagemodel before
+        /// This method is called when the PageModel is loaded, the model is the data that's sent from pagemodel before
         /// </summary>
-        /// <param name="initData">Data that's sent to this PageModel from the pusher</param>
-        public virtual void Init (object initData)
+        /// <param name="model">Data that's sent to this PageModel from the pusher</param>
+        public virtual void PushedData (object model)
         {            
         }
 

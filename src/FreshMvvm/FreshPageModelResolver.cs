@@ -55,7 +55,7 @@ namespace FreshMvvm
             pageModel.Navigation = new PageModelNavigation(targetPage, pageModel);
             pageModel.Notifications = new PageModelNotifications(targetPage);
             pageModel.Transactions = new PageModelTransactions(targetPage);
-            pageModel.Init(data);
+            pageModel.PushedData(data);
             targetPage.BindingContext = pageModel;
             return targetPage;
         }

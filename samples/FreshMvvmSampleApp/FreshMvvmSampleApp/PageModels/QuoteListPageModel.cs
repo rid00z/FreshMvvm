@@ -19,7 +19,7 @@ namespace FreshMvvmSampleApp.PageModels
 
         public ObservableCollection<Quote> Quotes { get; set; }
 
-        public override void Init (object initData)
+        public override void PushedData (object initData)
         {
             Quotes = new ObservableCollection<Quote> (_databaseService.GetQuotes ());
         }
@@ -35,7 +35,7 @@ namespace FreshMvvmSampleApp.PageModels
             base.ViewIsDisappearing (sender, e);
         }
 
-        public override void ReverseInit (object value)
+        public override void PoppedData (object value)
         {
             var newContact = value as Quote;
             if (!Quotes.Contains (newContact)) {

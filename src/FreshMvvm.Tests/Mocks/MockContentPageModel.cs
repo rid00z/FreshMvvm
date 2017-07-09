@@ -11,9 +11,9 @@ namespace FreshMvvm.Tests.Mocks
 	{
 		public object Data { get; set; }
 
-		public override void Init(object initData)
+		public override void PushedData(object initData)
 		{
-			base.Init(initData);
+			base.PushedData(initData);
 
 			Data = initData;
 		}

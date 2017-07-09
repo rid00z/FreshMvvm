@@ -17,7 +17,7 @@ namespace FreshMvvmSampleApp.PageModels
             _databaseService = databaseService;
         }
 
-        public override void Init (object initData)
+        public override void PushedData (object initData)
         {			
             Quote = initData as Quote;
             if (Quote == null)

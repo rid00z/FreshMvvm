@@ -27,7 +27,7 @@ namespace FreshMvvmSampleApp.PageModels
 
         public Contact Contact { get; set; }
 
-        public override void Init (object initData)
+        public override void PushedData (object initData)
         {
             if (initData != null) {
                 Contact = (Contact)initData;

@@ -16,16 +16,16 @@ namespace FreshMvvm.Tests.Mocks
             }
         }
 
-        public override void Init(object initData)
+        public override void PushedData(object initData)
         {
-            base.Init(initData);
+            base.PushedData(initData);
 
             Name = initData as string;
         }
 
-        public override void ReverseInit(object returndData)
+        public override void PoppedData(object returndData)
         {
-            base.ReverseInit(returndData);
+            base.PoppedData(returndData);
 
             Name = returndData as string;
         }
