@@ -196,3 +196,5 @@ FakesAssemblies/
 *.opt
 
 *.lock.json
+
+src/\.droidres/
