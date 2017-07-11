@@ -2,6 +2,9 @@
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
+using FreshMvvm.Base;
+using FreshMvvm.CoreMethods;
+using FreshMvvm.Extensions;
 using FreshMvvm.IoC;
 using FreshMvvm.NavigationContainers;
 using FreshMvvm.Tests.Helpers;
@@ -52,7 +55,7 @@ namespace FreshMvvm.Tests.Fixtures
             //standard navigation should set named navigation
             var page = FreshPageModelResolver.ResolvePageModel<MockContentPageModel>();
             var pageModel = page.BindingContext as MockContentPageModel;
-            new FreshNavigationContainer(page, "testingLinking3");
+            new FreshMvvm.NavigationContainers.FreshNavigationContainer(page, "testingLinking3");
             pageModel.CurrentNavigationServiceName.Should().Be("testingLinking3");
 
             if (FreshIoC.Container.Resolve<IFreshNavigationService>("testingLinking3") == null)
@@ -60,7 +63,7 @@ namespace FreshMvvm.Tests.Fixtures
 
             //standard navigation should throw exception when binding context isn't a FreshBasePageModel
             var pageEx = new Page();
-            Action standardNavExeption = () => new FreshNavigationContainer(pageEx, "testingLinking");
+            Action standardNavExeption = () => new FreshMvvm.NavigationContainers.FreshNavigationContainer(pageEx, "testingLinking");
             standardNavExeption.ShouldThrow<Exception>().WithMessage("BindingContext was not a FreshBasePageModel on this Page");
         }
 
@@ -72,11 +75,11 @@ namespace FreshMvvm.Tests.Fixtures
         {
             SetupFirstNavigationAndPage();
 
-            var coreMethods = new PageModelCoreMethods(_page, _pageModel);
+            var coreMethods = new PageModelNavigation(_page, _pageModel);
             coreMethods.PushPageModel<MockContentPageModel>();
 
             _navigationMock.Received().PushPage(Arg.Any<Page>(),
-                Arg.Is<FreshBasePageModel>(o => o.CurrentNavigationServiceName == _pageModel.CurrentNavigationServiceName), false, true);
+                Arg.Is<FreshPageModel>(o => o.CurrentNavigationServiceName == _pageModel.CurrentNavigationServiceName), false, true);
         }
 
         /// <summary>
@@ -87,7 +90,7 @@ namespace FreshMvvm.Tests.Fixtures
         {
             SetupFirstNavigationAndPage();
 
-            var coreMethods = new PageModelCoreMethods(_page, _pageModel);
+            var coreMethods = new PageModelNavigation(_page, _pageModel);
             await coreMethods.PushPageModel<MockContentPageModel>();
             await coreMethods.PushPageModel<MockContentPageModel>();
 
@@ -114,7 +117,7 @@ namespace FreshMvvm.Tests.Fixtures
             await PushSecondNavigationStack();
 
             //navigationService has push modal with new navigation service
-            await _navigationMock.Received().PushPage(_secondNavService, Arg.Any<FreshBasePageModel>(), true);
+            await _navigationMock.Received().PushPage(_secondNavService, Arg.Any<FreshPageModel>(), true);
         }
 
         ///   - when a new navigation service is pushed then models stores the previous navigationname
@@ -138,9 +141,9 @@ namespace FreshMvvm.Tests.Fixtures
 
             await PushSecondNavigationStack();
 
-            await _coreMethods.PushPageModel<MockContentPageModel>();
+            await _navigation.PushPageModel<MockContentPageModel>();
 
-            var pageModelLatest = _secondNavService.CurrentPage.BindingContext as FreshBasePageModel;
+            var pageModelLatest = _secondNavService.CurrentPage.BindingContext as FreshPageModel;
 
             pageModelLatest?.PreviousNavigationServiceName.Should().Be("firstNav");
         }
@@ -153,7 +156,7 @@ namespace FreshMvvm.Tests.Fixtures
 
             await PushSecondNavigationStack();
 
-            await _coreMethodsSecondPage.PopPageModel(true);
+            await _navigationSecondPage.PopPageModel(true);
 
             //previousNavigation has pop modal called
             await _navigationMock.Received().PopPage(true);
@@ -168,11 +171,11 @@ namespace FreshMvvm.Tests.Fixtures
 
             await PushSecondNavigationStack();
 
-            await _coreMethodsSecondPage.PushPageModel<MockContentPageModel>();
+            await _navigationSecondPage.PushPageModel<MockContentPageModel>();
 
-            var pageModelLatest = _secondNavService.CurrentPage.BindingContext as FreshBasePageModel;
+            var pageModelLatest = _secondNavService.CurrentPage.BindingContext as FreshPageModel;
 
-            await pageModelLatest.CoreMethods.PopModalNavigationService();
+            await pageModelLatest.Navigation.PopModalNavigationService();
 
             //previousNavigation has pop modal called
             await _navigationMock.Received().PopPage(true);
@@ -188,7 +191,7 @@ namespace FreshMvvm.Tests.Fixtures
 
         private IFreshNavigationService _navigationMock;
         private Page _page;
-        private FreshBasePageModel _pageModel;
+        private FreshPageModel _pageModel;
 
         void SetupFirstNavigationAndPage()
         {
@@ -200,23 +203,23 @@ namespace FreshMvvm.Tests.Fixtures
             if (_pageModel != null) _pageModel.CurrentNavigationServiceName = "firstNav";
         }
 
-        PageModelCoreMethods _coreMethodsSecondPage;
-        PageModelCoreMethods _coreMethods;
+        PageModelNavigation _navigationSecondPage;
+        PageModelNavigation _navigation;
         Page _pageSecond;
-        FreshBasePageModel _pageModelSecond;
-        FreshNavigationContainer _secondNavService;
+        FreshPageModel _pageModelSecond;
+        FreshMvvm.NavigationContainers.FreshNavigationContainer _secondNavService;
 
         private async Task PushSecondNavigationStack()
         {
-            _coreMethods = new PageModelCoreMethods(_page, _pageModel);
-            await _coreMethods.PushPageModel<MockContentPageModel>();
+            _navigation = new PageModelNavigation(_page, _pageModel);
+            await _navigation.PushPageModel<MockContentPageModel>();
 
             _pageSecond = FreshPageModelResolver.ResolvePageModel<MockContentPageModel>();
             _pageModelSecond = _pageSecond.BindingContext as MockContentPageModel;
-            _coreMethodsSecondPage = new PageModelCoreMethods(_pageSecond, _pageModelSecond);
-            _secondNavService = new FreshNavigationContainer(_pageSecond, "secondNav");
+            _navigationSecondPage = new PageModelNavigation(_pageSecond, _pageModelSecond);
+            _secondNavService = new FreshMvvm.NavigationContainers.FreshNavigationContainer(_pageSecond, "secondNav");
 
-            await _coreMethods.PushNewNavigationServiceModal(_secondNavService, new[] { _pageModelSecond });
+            await _navigation.PushNewNavigationServiceModal(_secondNavService, new[] { _pageModelSecond });
         }
     }
 }

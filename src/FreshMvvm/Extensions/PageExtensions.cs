@@ -1,12 +1,13 @@
-﻿using Xamarin.Forms;
+﻿using FreshMvvm.Base;
+using Xamarin.Forms;
 
-namespace FreshMvvm
+namespace FreshMvvm.Extensions
 {
     public static class PageExtensions
     {
-        public static FreshBasePageModel GetModel(this Page page)
+        public static FreshPageModel GetModel(this Page page)
         {
-            var pageModel = page.BindingContext as FreshBasePageModel;
+            var pageModel = page.BindingContext as FreshPageModel;
             return pageModel;
         }
 

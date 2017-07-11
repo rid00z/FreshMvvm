@@ -1,13 +1,14 @@
 ﻿using System.Collections.ObjectModel;
 using System.Diagnostics;
 using FreshMvvm;
+using FreshMvvm.Base;
 using FreshMvvmSampleApp.Models;
 using FreshMvvmSampleApp.Services;
 using Xamarin.Forms;
 
 namespace FreshMvvmSampleApp.PageModels
 {
-    public class QuoteListPageModel : FreshBasePageModel
+    public class QuoteListPageModel : FreshPageModel
     {
         readonly IDatabaseService _databaseService;
 
@@ -18,7 +19,7 @@ namespace FreshMvvmSampleApp.PageModels
 
         public ObservableCollection<Quote> Quotes { get; set; }
 
-        public override void Init (object initData)
+        public override void PushedData (object initData)
         {
             Quotes = new ObservableCollection<Quote> (_databaseService.GetQuotes ());
         }
@@ -34,7 +35,7 @@ namespace FreshMvvmSampleApp.PageModels
             base.ViewIsDisappearing (sender, e);
         }
 
-        public override void ReverseInit (object value)
+        public override void PoppedData (object value)
         {
             var newContact = value as Quote;
             if (!Quotes.Contains (newContact)) {
@@ -45,7 +46,7 @@ namespace FreshMvvmSampleApp.PageModels
         public Command AddQuote {
             get {
                 return new Command (async () => {
-                    await CoreMethods.PushPageModel<QuotePageModel> ();
+                    await Navigation.PushPageModel<QuotePageModel> ();
                 });
             }
         }
@@ -64,7 +65,7 @@ namespace FreshMvvmSampleApp.PageModels
         public Command<Quote> QuoteSelected {
             get {
                 return new Command<Quote> (async (quote) => {
-                    await CoreMethods.PushPageModel<QuotePageModel> (quote);
+                    await Navigation.PushPageModel<QuotePageModel> (quote);
                 });
             }
         }

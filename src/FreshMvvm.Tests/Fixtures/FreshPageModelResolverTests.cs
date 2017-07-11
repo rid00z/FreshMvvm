@@ -5,14 +5,14 @@ using NUnit.Framework;
 namespace FreshMvvm.Tests.Fixtures
 {
 	[TestFixture]
-	public class FreshPageModelResolverFixture
+	public class FreshPageModelResolverTests
 	{
 		[TestCase]
 		public void Test_ResolvePageModel_Not_Found()
 		{
 			Assert.Throws<Exception>(() =>
 			{
-				FreshPageModelResolver.ResolvePageModel<MockFreshBasePageModel>();
+				FreshPageModelResolver.ResolvePageModel<MockFreshPageModel>();
 			});
 		}
 
@@ -24,7 +24,7 @@ namespace FreshMvvm.Tests.Fixtures
 
 			Assert.IsNotNull(context);
 			Assert.IsNotNull(context.CurrentPage);
-			Assert.IsNotNull(context.CoreMethods);
+			Assert.IsNotNull(context.Navigation);
 		}
 
 		[TestCase("test data")]
@@ -35,7 +35,7 @@ namespace FreshMvvm.Tests.Fixtures
 
 			Assert.IsNotNull(context);
 			Assert.IsNotNull(context.CurrentPage);
-			Assert.IsNotNull(context.CoreMethods);
+			Assert.IsNotNull(context.Navigation);
 			Assert.AreSame(data, context.Data);
 		}
 	}

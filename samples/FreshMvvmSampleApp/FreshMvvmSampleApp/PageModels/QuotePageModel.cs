@@ -1,11 +1,12 @@
 ﻿using FreshMvvm;
+using FreshMvvm.Base;
 using FreshMvvmSampleApp.Models;
 using FreshMvvmSampleApp.Services;
 using Xamarin.Forms;
 
 namespace FreshMvvmSampleApp.PageModels
 {
-    public class QuotePageModel : FreshBasePageModel
+    public class QuotePageModel : FreshPageModel
     {
         readonly IDatabaseService _databaseService;
 
@@ -16,7 +17,7 @@ namespace FreshMvvmSampleApp.PageModels
             _databaseService = databaseService;
         }
 
-        public override void Init (object initData)
+        public override void PushedData (object initData)
         {			
             Quote = initData as Quote;
             if (Quote == null)
@@ -27,7 +28,7 @@ namespace FreshMvvmSampleApp.PageModels
             get {
                 return new Command (async () => {
                     _databaseService.UpdateQuote (Quote);
-                    await CoreMethods.PopPageModel (Quote);
+                    await Navigation.PopPageModel (Quote);
                 });
             }
         }
@@ -35,7 +36,7 @@ namespace FreshMvvmSampleApp.PageModels
         public Command TestModal {
             get {
                 return new Command (async () => {
-                    await CoreMethods.PushPageModel<ModalPageModel> (null, true);
+                    await Navigation.PushPageModel<ModalPageModel> (null, true);
                 });
             }
         }

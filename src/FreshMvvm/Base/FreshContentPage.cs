@@ -1,15 +1,15 @@
-﻿using Xamarin.Forms;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
+using Xamarin.Forms;
 
-namespace FreshMvvm
+namespace FreshMvvm.Base
 {
-    public class FreshBaseContentPage : ContentPage
+    public class FreshContentPage : ContentPage
     {
         protected override void OnBindingContextChanged()
         {
             base.OnBindingContextChanged();
 
-            var pageModel = BindingContext as FreshBasePageModel;
+            var pageModel = BindingContext as FreshPageModel;
 
             if (pageModel?.ToolbarItems == null || pageModel.ToolbarItems.Count <= 0) return;
 

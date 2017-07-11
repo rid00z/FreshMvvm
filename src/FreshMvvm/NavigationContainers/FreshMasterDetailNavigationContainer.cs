@@ -2,6 +2,8 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using FreshMvvm.Base;
+using FreshMvvm.Extensions;
 using FreshMvvm.IoC;
 using Xamarin.Forms;
 
@@ -37,7 +39,7 @@ namespace FreshMvvm.NavigationContainers
             FreshIoC.Container.Register<IFreshNavigationService>(this, NavigationServiceName);
         }
 
-        public virtual void AddPage<T>(string title, object data = null) where T : FreshBasePageModel
+        public virtual void AddPage<T>(string title, object data = null) where T : FreshPageModel
         {
             var page = FreshPageModelResolver.ResolvePageModel<T>(data);
             page.GetModel().CurrentNavigationServiceName = NavigationServiceName;
@@ -99,7 +101,7 @@ namespace FreshMvvm.NavigationContainers
             Master = navPage;
         }
 
-        public Task PushPage(Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
+        public Task PushPage(Page page, FreshPageModel model, bool modal = false, bool animate = true)
         {
             return modal ? 
                 Navigation.PushModalAsync(CreateContainerPageSafe(page)) : 
@@ -132,7 +134,7 @@ namespace FreshMvvm.NavigationContainers
             }
         }
 
-        public Task<FreshBasePageModel> SwitchSelectedRootPageModel<T>() where T : FreshBasePageModel
+        public Task<FreshPageModel> SwitchSelectedRootPageModel<T>() where T : FreshPageModel
         {
             var tabIndex = _pagesInner.FindIndex(o => o.GetModel().GetType().FullName == typeof(T).FullName);
 

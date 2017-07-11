@@ -1,4 +1,6 @@
 ﻿using System;
+using FreshMvvm.Base;
+using FreshMvvm.CoreMethods;
 using FreshMvvm.IoC;
 using Xamarin.Forms;
 
@@ -8,19 +10,19 @@ namespace FreshMvvm
     {
         public static IFreshPageModelMapper PageModelMapper { get; set; } = new FreshPageModelMapper();
 
-        public static Page ResolvePageModel<T>() where T : FreshBasePageModel
+        public static Page ResolvePageModel<T>() where T : FreshPageModel
         {
             return ResolvePageModel<T>(null);
         }
 
-        public static Page ResolvePageModel<T>(object initData) where T : FreshBasePageModel
+        public static Page ResolvePageModel<T>(object initData) where T : FreshPageModel
         {
             var pageModel = FreshIoC.Container.Resolve<T>();
 
             return ResolvePageModel(initData, pageModel);
         }
 
-        public static Page ResolvePageModel<T>(object data, T pageModel) where T : FreshBasePageModel
+        public static Page ResolvePageModel<T>(object data, T pageModel) where T : FreshPageModel
         {
             var type = pageModel.GetType();
             return ResolvePageModel(type, data, pageModel);
@@ -28,11 +30,11 @@ namespace FreshMvvm
 
         public static Page ResolvePageModel(Type type, object data)
         {
-            var pageModel = FreshIoC.Container.Resolve(type) as FreshBasePageModel;
+            var pageModel = FreshIoC.Container.Resolve(type) as FreshPageModel;
             return ResolvePageModel(type, data, pageModel);
         }
 
-        public static Page ResolvePageModel(Type type, object data, FreshBasePageModel pageModel)
+        public static Page ResolvePageModel(Type type, object data, FreshPageModel pageModel)
         {
             var name = PageModelMapper.GetPageTypeName(type);
             var pageType = Type.GetType(name);
@@ -46,12 +48,14 @@ namespace FreshMvvm
             return page;
         }
 
-        public static Page BindingPageModel(object data, Page targetPage, FreshBasePageModel pageModel)
+        public static Page BindingPageModel(object data, Page targetPage, FreshPageModel pageModel)
         {
             pageModel.WireEvents(targetPage);
             pageModel.CurrentPage = targetPage;
-            pageModel.CoreMethods = new PageModelCoreMethods(targetPage, pageModel);
-            pageModel.Init(data);
+            pageModel.Navigation = new PageModelNavigation(targetPage, pageModel);
+            pageModel.Notifications = new PageModelNotifications(targetPage);
+            pageModel.Transactions = new PageModelTransactions(targetPage);
+            pageModel.PushedData(data);
             targetPage.BindingContext = pageModel;
             return targetPage;
         }

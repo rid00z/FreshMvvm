@@ -3,13 +3,14 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using FreshMvvm;
+using FreshMvvm.Base;
 using FreshMvvmSampleApp.Models;
 using FreshMvvmSampleApp.Services;
 using Xamarin.Forms;
 
 namespace FreshMvvmSampleApp.PageModels
 {
-    public class ContactListPageModel : FreshBasePageModel
+    public class ContactListPageModel : FreshPageModel
     {
         readonly IDatabaseService _databaseService;
 
@@ -20,7 +21,7 @@ namespace FreshMvvmSampleApp.PageModels
 
         public ObservableCollection<Contact> Contacts { get; set; }
 
-        public override void Init(object initData)
+        public override void PushedData(object initData)
         {
             Contacts = new ObservableCollection<Contact>(_databaseService.GetContacts());
         }
@@ -30,7 +31,7 @@ namespace FreshMvvmSampleApp.PageModels
             base.ViewIsAppearing(sender, e);
         }
 
-        public override void ReverseInit(object value)
+        public override void PoppedData(object value)
         {
             var newContact = value as Contact;
             if (!Contacts.Contains(newContact))
@@ -58,7 +59,7 @@ namespace FreshMvvmSampleApp.PageModels
             {
                 return new Command(async () =>
                 {
-                    await CoreMethods.PushPageModel<ContactPageModel>();
+                    await Navigation.PushPageModel<ContactPageModel>();
                 });
             }
         }
@@ -69,7 +70,7 @@ namespace FreshMvvmSampleApp.PageModels
             {
                 return new Command<Contact>(async (contact) =>
                 {
-                    await CoreMethods.PushPageModel<ContactPageModel>(contact);
+                    await Navigation.PushPageModel<ContactPageModel>(contact);
                 });
             }
         }
@@ -80,7 +81,7 @@ namespace FreshMvvmSampleApp.PageModels
             {
                 return new FreshAwaitCommand(async (contact, tcs) =>
                 {
-                    await CoreMethods.PushPageModel<ContactPageModel>(Contacts.First());
+                    await Navigation.PushPageModel<ContactPageModel>(Contacts.First());
                     tcs.SetResult(true);
                 });
             }

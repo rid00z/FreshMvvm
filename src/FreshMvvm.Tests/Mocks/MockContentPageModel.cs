@@ -7,13 +7,13 @@ using Xamarin.Forms;
 
 namespace FreshMvvm.Tests.Mocks
 {
-	class MockContentPageModel : MockFreshBasePageModel
+	class MockContentPageModel : MockFreshPageModel
 	{
 		public object Data { get; set; }
 
-		public override void Init(object initData)
+		public override void PushedData(object initData)
 		{
-			base.Init(initData);
+			base.PushedData(initData);
 
 			Data = initData;
 		}

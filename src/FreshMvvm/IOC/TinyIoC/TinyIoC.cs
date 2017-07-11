@@ -363,7 +363,7 @@ namespace TinyIoC
 
 #if PORTABLE || NETSTANDARD1_0 || NETSTANDARD1_1 || NETSTANDARD1_2
     [Flags]
-    internal enum BindingFlags {
+    public enum BindingFlags {
         Default = 0,
         IgnoreCase = 1,
         DeclaredOnly = 2,

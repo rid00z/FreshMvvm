@@ -1,12 +1,13 @@
 ﻿using System;
-using System.ComponentModel;
-using Xamarin.Forms;
-using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using FreshMvvm.CoreMethods;
+using Xamarin.Forms;
 
-namespace FreshMvvm
+namespace FreshMvvm.Base
 {
-    public abstract class FreshBasePageModel : INotifyPropertyChanged
+    public abstract class FreshPageModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -24,7 +25,7 @@ namespace FreshMvvm
         /// <summary>
         /// The previous page model, that's automatically filled, on push
         /// </summary>
-        public FreshBasePageModel PreviousPageModel { get; set; }
+        public FreshPageModel PreviousPageModel { get; set; }
 
         /// <summary>
         /// A reference to the current page, that's automatically filled, on push
@@ -34,21 +35,25 @@ namespace FreshMvvm
         /// <summary>
         /// Core methods are basic built in methods for the App including Pushing, Pop and Alert
         /// </summary>
-        public IPageModelCoreMethods CoreMethods { get; set; }
+        public IPageModelNavigation Navigation { get; set; }
+
+        public IPageModelNotifications Notifications { get; set; }
+
+        public IPageModelTransactions Transactions { get; set; }
 
         /// <summary>
         /// This method is called when a page is Pop'd, it also allows for data to be returned.
         /// </summary>
-        /// <param name="returnedData">This data that's returned from </param>
-        public virtual void ReverseInit (object returnedData)
+        /// <param name="model">This data that's returned from </param>
+        public virtual void PoppedData (object model)
         {
         }
 
         /// <summary>
-        /// This method is called when the PageModel is loaded, the initData is the data that's sent from pagemodel before
+        /// This method is called when the PageModel is loaded, the model is the data that's sent from pagemodel before
         /// </summary>
-        /// <param name="initData">Data that's sent to this PageModel from the pusher</param>
-        public virtual void Init (object initData)
+        /// <param name="model">Data that's sent to this PageModel from the pusher</param>
+        public virtual void PushedData (object model)
         {            
         }
 

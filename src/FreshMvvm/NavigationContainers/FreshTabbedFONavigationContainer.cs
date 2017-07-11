@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using FreshMvvm.Base;
+using FreshMvvm.Extensions;
 using FreshMvvm.IoC;
 using Xamarin.Forms;
 
@@ -33,7 +35,7 @@ namespace FreshMvvm.NavigationContainers
             FreshIoC.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
         }
 
-        public virtual Page AddTab<T> (string title, string icon, object data = null) where T : FreshBasePageModel
+        public virtual Page AddTab<T> (string title, string icon, object data = null) where T : FreshPageModel
         {
             var page = FreshPageModelResolver.ResolvePageModel<T> (data);
             page.GetModel ().CurrentNavigationServiceName = NavigationServiceName;
@@ -61,7 +63,7 @@ namespace FreshMvvm.NavigationContainers
             return page;
         }
 
-        public Task PushPage (Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
+        public Task PushPage (Page page, FreshPageModel model, bool modal = false, bool animate = true)
         {
             return modal ? 
                 Navigation.PushModalAsync (CreateContainerPageSafe (page)) : 
@@ -91,7 +93,7 @@ namespace FreshMvvm.NavigationContainers
             }
         }
 
-        public Task<FreshBasePageModel> SwitchSelectedRootPageModel<T>() where T : FreshBasePageModel
+        public Task<FreshPageModel> SwitchSelectedRootPageModel<T>() where T : FreshPageModel
         {
             if (CurrentPage != FirstTabbedPage)
                 throw new Exception("Cannot switch tabs when the tab screen is not visible");

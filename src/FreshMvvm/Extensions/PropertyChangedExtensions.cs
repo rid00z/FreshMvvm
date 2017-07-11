@@ -1,11 +1,11 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace FreshMvvm
+namespace FreshMvvm.Extensions
 {
     public static class PropertyChangedExtensions
     {

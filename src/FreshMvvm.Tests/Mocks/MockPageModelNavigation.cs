@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using FreshMvvm.Base;
 using FreshMvvm.NavigationContainers;
 using Xamarin.Forms;
 
 namespace FreshMvvm.Tests.Mocks
 {
-    class MockPageModelCoreMethods : IPageModelCoreMethods
+    class MockPageModelNavigation : IPageModelNavigation
 	{
         public void SwitchOutRootNavigation(string navigationServiceName)
         {
@@ -37,22 +38,22 @@ namespace FreshMvvm.Tests.Mocks
 			throw new NotImplementedException();
 		}
 
-        public Task PushPageModel<T, TPage>(object data, bool modal = false) where T : FreshBasePageModel where TPage : Page
+        public Task PushPageModel<T, TPage>(object data, bool modal = false) where T : FreshPageModel where TPage : Page
         {
             throw new NotImplementedException();
         }
 
-        public Task PushPageModel<T, TPage>() where T : FreshBasePageModel where TPage : Page
+        public Task PushPageModel<T, TPage>() where T : FreshPageModel where TPage : Page
         {
             throw new NotImplementedException();
         }
 
-        public Task PushNewNavigationServiceModal(FreshTabbedNavigationContainer tabbedNavigationContainer, FreshBasePageModel basePageModel = null)
+        public Task PushNewNavigationServiceModal(FreshTabbedNavigationContainer tabbedNavigationContainer, FreshPageModel basePageModel = null)
         {
             throw new NotImplementedException();
         }
 
-        public Task PushNewNavigationServiceModal(FreshMasterDetailNavigationContainer masterDetailContainer, FreshBasePageModel basePageModel = null)
+        public Task PushNewNavigationServiceModal(FreshMasterDetailNavigationContainer masterDetailContainer, FreshPageModel basePageModel = null)
         {
             throw new NotImplementedException();
         }
@@ -82,17 +83,17 @@ namespace FreshMvvm.Tests.Mocks
 			throw new NotImplementedException();
 		}
 
-		public Task PushPageModel<T>() where T : FreshBasePageModel
+		public Task PushPageModel<T>() where T : FreshPageModel
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task PushPageModel<T>(object data, bool modal = false) where T : FreshBasePageModel
+		public Task PushPageModel<T>(object data, bool modal = false) where T : FreshPageModel
 		{
 			throw new NotImplementedException();
 		}
 
-        public Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel[] basePageModels)
+        public Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshPageModel[] basePageModels)
         {
             throw new NotImplementedException ();
         }
@@ -112,18 +113,18 @@ namespace FreshMvvm.Tests.Mocks
             throw new NotImplementedException ();
         }
 
-        public Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel basePageModels)
+        public Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshPageModel basePageModels)
         {
             throw new NotImplementedException ();
         }
 
-        public Task PushPageModel<T>(object data, bool modal = false, bool animate = true) where T : FreshBasePageModel
+        public Task PushPageModel<T>(object data, bool modal = false, bool animate = true) where T : FreshPageModel
         {
             throw new NotImplementedException();
         }
 
         public Task PushPageModel<T, TPage>(object data, bool modal = false, bool animate = true)
-            where T : FreshBasePageModel
+            where T : FreshPageModel
             where TPage : Page
         {
             throw new NotImplementedException();
@@ -139,13 +140,13 @@ namespace FreshMvvm.Tests.Mocks
             throw new NotImplementedException();
         }
 
-        public Task PushPageModel<T>(bool animate = true) where T : FreshBasePageModel
+        public Task PushPageModel<T>(bool animate = true) where T : FreshPageModel
         {
             throw new NotImplementedException();
         }
 
         public Task PushPageModel<T, TPage>(bool animate = true)
-            where T : FreshBasePageModel
+            where T : FreshPageModel
             where TPage : Page
         {
             throw new NotImplementedException();
@@ -161,32 +162,32 @@ namespace FreshMvvm.Tests.Mocks
             throw new NotImplementedException();
         }
 
-        public void RemoveFromNavigation<TPageModel>(bool removeAll = false) where TPageModel : FreshBasePageModel
+        public void RemoveFromNavigation<TPageModel>(bool removeAll = false) where TPageModel : FreshPageModel
         {
             throw new NotImplementedException();
         }
 
-        public Task<string> PushPageModelWithNewNavigation<T>(object data, bool animate = true) where T : FreshBasePageModel
+        public Task<string> PushPageModelWithNewNavigation<T>(object data, bool animate = true) where T : FreshPageModel
         {
             throw new NotImplementedException();
         }
 
-        public Task PushNewNavigationServiceModal(IFreshNavigationService newNavigationService, FreshBasePageModel[] basePageModels, bool animate = true)
+        public Task PushNewNavigationServiceModal(IFreshNavigationService newNavigationService, FreshPageModel[] basePageModels, bool animate = true)
         {
             throw new NotImplementedException();
         }
 
-        public Task PushNewNavigationServiceModal(FreshTabbedNavigationContainer tabbedNavigationContainer, FreshBasePageModel basePageModel = null, bool animate = true)
+        public Task PushNewNavigationServiceModal(FreshTabbedNavigationContainer tabbedNavigationContainer, FreshPageModel basePageModel = null, bool animate = true)
         {
             throw new NotImplementedException();
         }
 
-        public Task PushNewNavigationServiceModal(FreshMasterDetailNavigationContainer masterDetailContainer, FreshBasePageModel basePageModel = null, bool animate = true)
+        public Task PushNewNavigationServiceModal(FreshMasterDetailNavigationContainer masterDetailContainer, FreshPageModel basePageModel = null, bool animate = true)
         {
             throw new NotImplementedException();
         }
 
-        public Task PushNewNavigationServiceModal(IFreshNavigationService newNavigationService, FreshBasePageModel basePageModels, bool animate = true)
+        public Task PushNewNavigationServiceModal(IFreshNavigationService newNavigationService, FreshPageModel basePageModels, bool animate = true)
         {
             throw new NotImplementedException();
         }
@@ -196,17 +197,17 @@ namespace FreshMvvm.Tests.Mocks
             throw new NotImplementedException();
         }
 
-        public Task<FreshBasePageModel> SwitchSelectedRootPageModel<T>() where T : FreshBasePageModel
+        public Task<FreshPageModel> SwitchSelectedRootPageModel<T>() where T : FreshPageModel
         {
             throw new NotImplementedException();
         }
 
-        public Task<FreshBasePageModel> SwitchSelectedTab<T>() where T : FreshBasePageModel
+        public Task<FreshPageModel> SwitchSelectedTab<T>() where T : FreshPageModel
         {
             throw new NotImplementedException();
         }
 
-        public Task<FreshBasePageModel> SwitchSelectedMaster<T>() where T : FreshBasePageModel
+        public Task<FreshPageModel> SwitchSelectedMaster<T>() where T : FreshPageModel
         {
             throw new NotImplementedException();
         }

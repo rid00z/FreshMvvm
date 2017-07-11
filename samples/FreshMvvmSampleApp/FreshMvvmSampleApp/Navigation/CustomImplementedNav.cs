@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using FreshMvvm;
+using FreshMvvm.Base;
+using FreshMvvm.Extensions;
 using FreshMvvm.IoC;
 using FreshMvvm.NavigationContainers;
 using FreshMvvmSampleApp.PageModels;
@@ -71,7 +73,7 @@ namespace FreshMvvmSampleApp.Navigation
 			Master = new NavigationPage(_menuPage) { Title = "Menu" };
 		}
 
-        public virtual async Task PushPage (Page page, FreshBasePageModel model, bool modal = false, bool animated = true)
+        public virtual async Task PushPage (Page page, FreshPageModel model, bool modal = false, bool animated = true)
 		{
 			if (modal)
                 await Navigation.PushModalAsync (new NavigationPage(page), animated);
@@ -105,7 +107,7 @@ namespace FreshMvvmSampleApp.Navigation
             }
         }
 
-        public Task<FreshBasePageModel> SwitchSelectedRootPageModel<T> () where T : FreshBasePageModel
+        public Task<FreshPageModel> SwitchSelectedRootPageModel<T> () where T : FreshPageModel
         {
             if (_contactsPage.GetModel ().GetType ().FullName == typeof (T).FullName) {
                 _tabbedNavigationPage.CurrentPage = _contactsPage;
