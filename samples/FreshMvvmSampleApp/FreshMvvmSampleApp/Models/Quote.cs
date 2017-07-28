@@ -1,4 +1,4 @@
-﻿namespace FreshMvvmSampleApp
+﻿namespace FreshMvvmSampleApp.Models
 {
     public class Quote
     {

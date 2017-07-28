@@ -24,7 +24,7 @@ namespace FreshMvvmSampleApp.UWP
     {
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
 			LoadApplication(new FreshMvvmSampleApp.App());
 		}

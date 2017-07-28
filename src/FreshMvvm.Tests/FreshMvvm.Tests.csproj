@@ -6,8 +6,10 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="FluentAssertions" Version="4.19.3" />
+    <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="15.0.0" />
 		<PackageReference Include="NSubstitute" Version="2.0.3" />
 		<PackageReference Include="NUnit" Version="3.7.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.8.0-alpha1" />
 		<PackageReference Include="Xamarin.Forms" Version="2.3.4.247" />
 	</ItemGroup>
 	<ItemGroup>

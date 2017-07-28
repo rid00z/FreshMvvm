@@ -2,6 +2,11 @@
 using Xamarin.Forms;
 using System.Collections.Generic;
 using FreshMvvm;
+using FreshMvvm.IoC;
+using FreshMvvm.NavigationContainers;
+using FreshMvvmSampleApp.Navigation;
+using FreshMvvmSampleApp.PageModels;
+using FreshMvvmSampleApp.Services;
 
 namespace FreshMvvmSampleApp
 {
@@ -9,7 +14,7 @@ namespace FreshMvvmSampleApp
     {
         public App ()
         {
-            FreshIOC.Container.Register<IDatabaseService, DatabaseService> ();
+            FreshIoC.Container.Register<IDatabaseService, DatabaseService> ();
 
             MainPage = new NavigationPage (new LaunchPage (this));
         }

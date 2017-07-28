@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace FreshMvvm
+﻿namespace FreshMvvm
 {
     public static class Constants
     {

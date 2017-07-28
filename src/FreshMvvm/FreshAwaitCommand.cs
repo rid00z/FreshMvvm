@@ -14,8 +14,8 @@ namespace FreshMvvm
     /// </summary>
     public class FreshAwaitCommand : ICommand
     {
-        Action<object, TaskCompletionSource<object>> _execute;
-        volatile bool _canExecute = true;
+        readonly Action<object, TaskCompletionSource<object>> _execute;
+        private volatile bool _canExecute = true;
 
         /// <summary>
         /// NB* This command waits until you call SetResult on the TaskCompletionSource. The return 
@@ -24,12 +24,7 @@ namespace FreshMvvm
         /// <param name="execute">Execute.</param>
         public FreshAwaitCommand(Action<object, TaskCompletionSource<object>> execute)
         {
-            if (execute == null)
-            {
-                throw new ArgumentNullException(nameof(execute));
-            }
-
-            _execute = execute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
         }
 
         public event EventHandler CanExecuteChanged;
@@ -59,17 +54,7 @@ namespace FreshMvvm
         public void RaiseCanExecuteChanged()
         {
             var handler = CanExecuteChanged;
-            if (handler != null)
-            {
-                try
-                {
-                    handler(this, EventArgs.Empty);
-                }
-                catch (Exception)
-                {
-                }
-            }
+            handler?.Invoke(this, EventArgs.Empty);
         }
     }
 }
-

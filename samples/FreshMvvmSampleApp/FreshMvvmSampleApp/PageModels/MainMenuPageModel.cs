@@ -1,9 +1,10 @@
-﻿using Xamarin.Forms;
-using FreshMvvm;
+﻿using FreshMvvm;
+using FreshMvvm.Base;
+using Xamarin.Forms;
 
-namespace FreshMvvmSampleApp
+namespace FreshMvvmSampleApp.PageModels
 {
-    public class MainMenuPageModel : FreshBasePageModel
+    public class MainMenuPageModel : FreshPageModel
     {
         public MainMenuPageModel ()
         {
@@ -12,7 +13,7 @@ namespace FreshMvvmSampleApp
         public Command ShowQuotes {
             get {
                 return new Command (async () => {
-                    await CoreMethods.PushPageModel<QuoteListPageModel> ();
+                    await Navigation.PushPageModel<QuoteListPageModel> ();
                 });
             }
         }
@@ -20,7 +21,7 @@ namespace FreshMvvmSampleApp
         public Command ShowContacts {
             get {
                 return new Command (async () => {
-                    await CoreMethods.PushPageModel<ContactListPageModel> ();
+                    await Navigation.PushPageModel<ContactListPageModel> ();
                 });
             }
         }
