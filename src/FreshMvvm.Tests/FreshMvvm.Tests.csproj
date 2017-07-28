@@ -1,18 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFramework>netstandard1.4</TargetFramework>
-  </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="4.19.3" />
-    <PackageReference Include="NSubstitute" Version="2.0.3" />
-    <PackageReference Include="NUnit" Version="3.7.1" />
-    <PackageReference Include="Xamarin.Forms" Version="2.3.5.256-pre6" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\FreshMvvm\FreshMvvm.csproj" />
-  </ItemGroup>
-
+	<PropertyGroup>
+		<TargetFramework>netstandard1.4</TargetFramework>
+		<PackageTargetFallback>portable-net45+win8+wpa81+wp8</PackageTargetFallback>
+		<DebugType>full</DebugType>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="FluentAssertions" Version="4.19.3" />
+		<PackageReference Include="NSubstitute" Version="2.0.3" />
+		<PackageReference Include="NUnit" Version="3.7.1" />
+		<PackageReference Include="Xamarin.Forms" Version="2.3.4.247" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\FreshMvvm\FreshMvvm.csproj" />
+	</ItemGroup>
 </Project>

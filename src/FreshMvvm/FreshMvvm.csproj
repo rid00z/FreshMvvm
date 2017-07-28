@@ -1,26 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-  <PropertyGroup>
-    <TargetFrameworks>netstandard1.0;portable-net45+win8+wp8</TargetFrameworks>
-  </PropertyGroup>
-
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='portable-net45+win8+wp8'">
-    <TargetFrameworkIdentifier>.NETPortable</TargetFrameworkIdentifier>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
-    <DefineConstants>$(DefineConstants);PORTABLE</DefineConstants>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <PackageId>FreshMvvm</PackageId>
-    <PackageVersion>3.0.0-pre1</PackageVersion>
-    <Authors>Michael Ridland</Authors>
-    <PackageProjectUrl>https://github.com/rid00z/FreshMvvm</PackageProjectUrl>
-    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
-    <Description>FreshMvvm is a super light Mvvm Framework designed specifically for Xamarin.Forms. Its designed to be Easy, Simple and Flexible.</Description>
-    <PackageTags>Mvvm, Xamarin.Forms</PackageTags>
-    <PackageReleaseNotes>
+	<PropertyGroup>
+		<TargetFramework>netstandard1.0</TargetFramework>
+		<PackageTargetFallback>portable-net45+win8+wpa81+wp8</PackageTargetFallback>
+		<DebugType>full</DebugType>
+	</PropertyGroup>
+	
+	<PropertyGroup>
+		<PackageId>FreshMvvm</PackageId>
+		<PackageVersion>3.0.0-pre1</PackageVersion>
+		<Authors>Michael Ridland</Authors>
+		<PackageProjectUrl>https://github.com/rid00z/FreshMvvm</PackageProjectUrl>
+		<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+		<Description>FreshMvvm is a super light Mvvm Framework designed specifically for Xamarin.Forms. Its designed to be Easy, Simple and Flexible.</Description>
+		<PackageTags>Mvvm, Xamarin.Forms</PackageTags>
+		<PackageReleaseNotes>
       3.0.0-pre1
       Updated portable projects to net standard
 
@@ -48,30 +41,12 @@
       Control over which Models and Views are linked
       Events when page is popped (for disposal)
     </PackageReleaseNotes>
-    <AssemblyVersion>3.0.0.0</AssemblyVersion>
-    <FileVersion>3.0.0.0</FileVersion>
-    <Version>3.0.0-pre1</Version>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-  </PropertyGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' == 'portable-net45+win8+wp8'">
-    <Reference Include="System" />
-    <Reference Include="System.Reflection" />
-    <Reference Include="System.Runtime" />
-    <Reference Include="System.Threading.Tasks" />
-    <Reference Include="System.Threading" />
-    <Reference Include="System.Linq" />
-    <Reference Include="System.Linq.Expressions" />
-    <Reference Include="System.IO" />
-    <Reference Include="System.ObjectModel" />
-    <Reference Include="System.Collections" />
-    <Reference Include="Xamarin.Forms.Core">
-      <HintPath>$(USERPROFILE)\.nuget\packages\Xamarin.Forms\2.3.5.256-pre6\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.Core.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="2.3.5.256-pre6" />
-  </ItemGroup>
-
+		<AssemblyVersion>3.0.0.0</AssemblyVersion>
+		<FileVersion>3.0.0.0</FileVersion>
+		<Version>3.0.0-pre1</Version>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	</PropertyGroup>
+	<ItemGroup>
+	  <PackageReference Include="Xamarin.Forms" Version="2.3.4.247" />
+	</ItemGroup>
 </Project>
