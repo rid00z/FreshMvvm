@@ -63,7 +63,7 @@ public interface IFreshNavigationService
 }
 ```
 
-Within the PushPage and PopPage you can do any type of navigation that you like, this can from a simple navigation to a advanced nested navigation. 
+Within the PushPage and PopPage you can do any type of navigation that you like, this can be anything from a simple navigation to a advanced nested navigation. 
 
 The Framework contains some built in Navigation containers for the different types of Navigation.
 
@@ -379,19 +379,43 @@ public class NavigationContainerNames
 }
 ```
 
-Then we can create our two navigation containers and assign to the MainPage.
+Then we can create our two navigation containers and assign to the MainPage. 
 
 ```csharp
 var loginPage = FreshMvvm.FreshPageModelResolver.ResolvePageModel<LoginViewModel>();
 var loginContainer = new FreshNavigationContainer(loginPage, NavigationContainerNames.AuthenticationContainer);
 
-var myPitchListViewContainer = new MainTabbedPage(NavigationContainerNames.MainContainer);
+var myPitchListViewContainer = new FreshTabbedNavigationContainer(NavigationContainerNames.MainContainer);
 
 MainPage = loginContainer;
 ```
+
+The Navigation Container will use the name passed as argument to register in this method
+
+```csharp
+public FreshTabbedNavigationContainer(string navigationServiceName)
+{
+    NavigationServiceName = navigationServiceName;
+    RegisterNavigation ();
+}
+
+protected void RegisterNavigation ()
+{
+    FreshIOC.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
+}
+```
+
 Once we've set this up we can now switch out our navigation containers.
 ```csharp
 CoreMethods.SwitchOutRootNavigation(NavigationContainerNames.MainContainer);
+```
+
+That name will be resolved in this method to find the correct Navigation Container
+```csharp
+public void SwitchOutRootNavigation (string navigationServiceName)
+{
+    IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (navigationServiceName);
+}
 ```
 
 ## Custom IOC Containers

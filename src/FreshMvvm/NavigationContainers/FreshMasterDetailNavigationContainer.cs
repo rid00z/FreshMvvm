@@ -11,8 +11,11 @@ namespace FreshMvvm.NavigationContainers
 {
     public class FreshMasterDetailNavigationContainer : MasterDetailPage, IFreshNavigationService
     {
-        private readonly List<Page> _pagesInner = new List<Page>();
-        private ContentPage _menuPage;
+        List<Page> _pagesInner = new List<Page> ();
+        Dictionary<string, Page> _pages = new Dictionary<string, Page> ();
+        ContentPage _menuPage;
+        ObservableCollection<string> _pageNames = new ObservableCollection<string> ();
+	ListView _listView = new ListView ();
 
         public Dictionary<string, Page> Pages { get; } = new Dictionary<string, Page>();
 
@@ -68,27 +71,20 @@ namespace FreshMvvm.NavigationContainers
 
         protected virtual void CreateMenuPage(string menuPageTitle, string menuIcon = null)
         {
-            _menuPage = new ContentPage
-            {
-                Title = menuPageTitle
-            };
+            _menuPage = new ContentPage ();
+            _menuPage.Title = menuPageTitle; 
+	    
+            _listView.ItemsSource = _pageNames;
 
-            var listView = new ListView
-            {
-                ItemsSource = PageNames
-            };
-            
-            listView.ItemSelected += (sender, args) =>
-            {
-                if (Pages.ContainsKey((string)args.SelectedItem))
-                {
-                    Detail = Pages[(string)args.SelectedItem];
+            _listView.ItemSelected += (sender, args) => {
+                if (_pages.ContainsKey ((string)args.SelectedItem)) {
+                    Detail = _pages [(string)args.SelectedItem];
                 }
 
                 IsPresented = false;
             };
 
-            _menuPage.Content = listView;
+            _menuPage.Content = _listView;
 
             var navPage = new NavigationPage(_menuPage)
             {
@@ -138,7 +134,7 @@ namespace FreshMvvm.NavigationContainers
         {
             var tabIndex = _pagesInner.FindIndex(o => o.GetModel().GetType().FullName == typeof(T).FullName);
 
-            Detail = Pages.Values.ElementAt(tabIndex);
+            _listView.SelectedItem = _pageNames[tabIndex];
 
             return Task.FromResult((Detail as NavigationPage)?.CurrentPage.GetModel());
         }
