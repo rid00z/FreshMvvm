@@ -94,6 +94,18 @@
 		<Reference Include="System.Xml" />
 		<Reference Include="System.Core" />
 		<Reference Include="Xamarin.iOS" />
+		<Reference Include="Xamarin.Forms.Core">
+		  <HintPath>..\..\..\src\packages\Xamarin.Forms.2.3.4.247\lib\Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
+		</Reference>
+		<Reference Include="Xamarin.Forms.Platform">
+		  <HintPath>..\..\..\src\packages\Xamarin.Forms.2.3.4.247\lib\Xamarin.iOS10\Xamarin.Forms.Platform.dll</HintPath>
+		</Reference>
+		<Reference Include="Xamarin.Forms.Platform.iOS">
+		  <HintPath>..\..\..\src\packages\Xamarin.Forms.2.3.4.247\lib\Xamarin.iOS10\Xamarin.Forms.Platform.iOS.dll</HintPath>
+		</Reference>
+		<Reference Include="Xamarin.Forms.Xaml">
+		  <HintPath>..\..\..\src\packages\Xamarin.Forms.2.3.4.247\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 	<ItemGroup>
 		<BundleResource Include="Resources\Default.png" />
@@ -123,6 +135,7 @@
 	<ItemGroup>
 		<None Include="Info.plist" />
 		<None Include="Entitlements.plist" />
+		<None Include="packages.config" />
 	</ItemGroup>
 	<ItemGroup>
 		<Compile Include="Main.cs" />
@@ -135,8 +148,9 @@
 	<Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 	<ItemGroup>
 		<ProjectReference Include="..\FreshMvvmSampleApp\FreshMvvmSampleApp.csproj">
-			<Project>{5E51E157-09CF-4684-A1E2-277C07974413}</Project>
+			<Project>{BAB97A09-E24F-482D-925D-B2D1F9AB81D2}</Project>
 			<Name>FreshMvvmSampleApp</Name>
 		</ProjectReference>
 	</ItemGroup>
+	<Import Project="..\..\..\src\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\..\src\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
 </Project>
