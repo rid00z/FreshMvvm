@@ -48,5 +48,6 @@
 	</PropertyGroup>
 	<ItemGroup>
 	  <PackageReference Include="Xamarin.Forms" Version="2.3.4.247" />
+	  <PackageReference Include="System.Reflection.TypeExtensions" Version="4.3.0" />
 	</ItemGroup>
 </Project>
