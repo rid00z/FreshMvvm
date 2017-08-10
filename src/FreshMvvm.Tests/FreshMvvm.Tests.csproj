@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFramework>net4.6</TargetFramework>
+		<TargetFramework>net461</TargetFramework>
 		<PackageTargetFallback>portable-net45+win8+wpa81+wp8</PackageTargetFallback>
 		<DebugType>full</DebugType>
 	</PropertyGroup>
