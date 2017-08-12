@@ -30,8 +30,8 @@ namespace FreshMvvm.Tests.Fixtures
         {
             //master detail navigation
             var masterDetailNavigation = new FreshMasterDetailNavigationContainer("TestingLinking");
-            masterDetailNavigation.AddPage<MockContentPageModel>("Page1", null);
-            masterDetailNavigation.AddPage<MockContentPageModel>("Page2", null);
+            masterDetailNavigation.AddPage<MockContentPageModel>("Page1");
+            masterDetailNavigation.AddPage<MockContentPageModel>("Page2");
             var pageModel1 = masterDetailNavigation.Pages["Page1"].GetPageFromNav().GetModel();
             var pageModel2 = masterDetailNavigation.Pages["Page2"].GetPageFromNav().GetModel();
             pageModel1.CurrentNavigationServiceName.Should().Be("TestingLinking");
@@ -64,7 +64,7 @@ namespace FreshMvvm.Tests.Fixtures
             //standard navigation should throw exception when binding context isn't a FreshBasePageModel
             var pageEx = new Page();
             Action standardNavExeption = () => new FreshMvvm.NavigationContainers.FreshNavigationContainer(pageEx, "testingLinking");
-            standardNavExeption.ShouldThrow<Exception>().WithMessage("BindingContext was not a FreshBasePageModel on this Page");
+            standardNavExeption.ShouldThrow<InvalidCastException>().WithMessage("BindingContext was not a FreshBasePageModel on this Page");
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace FreshMvvm.Tests.Fixtures
             coreMethods.PushPageModel<MockContentPageModel>();
 
             _navigationMock.Received().PushPage(Arg.Any<Page>(),
-                Arg.Is<FreshPageModel>(o => o.CurrentNavigationServiceName == _pageModel.CurrentNavigationServiceName), false, true);
+                Arg.Is<FreshPageModel>(o => o.CurrentNavigationServiceName == _pageModel.CurrentNavigationServiceName));
         }
 
         /// <summary>

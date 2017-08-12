@@ -198,3 +198,5 @@ FakesAssemblies/
 *.lock.json
 
 src/\.droidres/
+
+*.bak

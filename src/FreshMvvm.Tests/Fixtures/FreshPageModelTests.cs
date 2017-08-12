@@ -56,7 +56,8 @@ namespace FreshMvvm.Tests.Fixtures
         public void Test_CurrentPage_Property()
         {
             var viewModel = new MockFreshPageModel();
-            var page = new MockContentPage(viewModel);
+            var page = new MockContentPage();
+            page.BindingContext = viewModel;
 
             viewModel.CurrentPage = page;
 

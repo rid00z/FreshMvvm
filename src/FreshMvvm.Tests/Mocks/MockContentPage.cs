@@ -10,9 +10,8 @@ namespace FreshMvvm.Tests.Mocks
 {
     class MockContentPage : ContentPage
 	{
-        public MockContentPage(FreshPageModel model)
+        public MockContentPage()
         {
-            BindingContext = model;
         }
 	}
 }
