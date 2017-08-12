@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-
-using Xamarin.Forms;
-
-namespace FreshMvvmSampleApp
+﻿namespace FreshMvvmSampleApp.Pages
 {
-	public partial class ContactPage : BasePage
-	{
-		public ContactPage ()
-		{
-			InitializeComponent ();
-		}
-	}
+    public partial class ContactPage : BasePage
+    {
+        public ContactPage()
+        {
+            InitializeComponent();
+        }
+    }
 }
 

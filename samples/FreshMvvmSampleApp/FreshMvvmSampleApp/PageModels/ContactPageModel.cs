@@ -1,14 +1,17 @@
-﻿using Xamarin.Forms;
-using PropertyChanged;
+﻿using System;
 using FreshMvvm;
-using System;
+using FreshMvvm.Base;
+using FreshMvvm.Extensions;
+using FreshMvvm.NavigationContainers;
+using FreshMvvmSampleApp.Models;
+using FreshMvvmSampleApp.Services;
+using Xamarin.Forms;
 
-namespace FreshMvvmSampleApp
+namespace FreshMvvmSampleApp.PageModels
 {
-    [ImplementPropertyChanged]
-    public class ContactPageModel : FreshBasePageModel
+    public class ContactPageModel : FreshPageModel
     {
-        IDatabaseService _dataService;
+        readonly IDatabaseService _dataService;
 
         public ContactPageModel (IDatabaseService dataService)
         {
@@ -24,7 +27,7 @@ namespace FreshMvvmSampleApp
 
         public Contact Contact { get; set; }
 
-        public override void Init (object initData)
+        public override void PushedData (object initData)
         {
             if (initData != null) {
                 Contact = (Contact)initData;
@@ -37,7 +40,7 @@ namespace FreshMvvmSampleApp
             get { 
                 return new Command (() => {
                     _dataService.UpdateContact (Contact);
-                    CoreMethods.PopPageModel (Contact);
+                    Navigation.PopPageModel (Contact);
                 }
                 );
             }
@@ -46,7 +49,7 @@ namespace FreshMvvmSampleApp
         public Command TestModal {
             get {
                 return new Command (async () => {
-                    await CoreMethods.PushPageModel<ModalPageModel> (null, true);
+                    await Navigation.PushPageModel<ModalPageModel> (null, true);
                 });
             }
         }
@@ -57,7 +60,7 @@ namespace FreshMvvmSampleApp
 
                     var page = FreshPageModelResolver.ResolvePageModel<MainMenuPageModel> ();
                     var basicNavContainer = new FreshNavigationContainer (page, Guid.NewGuid ().ToString ());
-                    await CoreMethods.PushNewNavigationServiceModal(basicNavContainer, new FreshBasePageModel[] { page.GetModel() }); 
+                    await Navigation.PushNewNavigationServiceModal(basicNavContainer, new[] { page.GetModel() }); 
                 });
             }
         }
@@ -70,7 +73,7 @@ namespace FreshMvvmSampleApp
                     var tabbedNavigation = new FreshTabbedNavigationContainer (Guid.NewGuid ().ToString ());
                     tabbedNavigation.AddTab<ContactListPageModel> ("Contacts", "contacts.png", null);
                     tabbedNavigation.AddTab<QuoteListPageModel> ("Quotes", "document.png", null);
-                    await CoreMethods.PushNewNavigationServiceModal(tabbedNavigation);
+                    await Navigation.PushNewNavigationServiceModal(tabbedNavigation);
                 });
             }
         }
@@ -83,7 +86,7 @@ namespace FreshMvvmSampleApp
                     masterDetailNav.Init ("Menu", "Menu.png");
                     masterDetailNav.AddPage<ContactListPageModel> ("Contacts", null);
                     masterDetailNav.AddPage<QuoteListPageModel> ("Quotes", null);
-                    await CoreMethods.PushNewNavigationServiceModal(masterDetailNav); 
+                    await Navigation.PushNewNavigationServiceModal(masterDetailNav); 
 
                 });
             }

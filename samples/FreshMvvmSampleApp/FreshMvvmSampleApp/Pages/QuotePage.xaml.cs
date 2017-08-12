@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Xamarin.Forms.Xaml;
 
-using Xamarin.Forms;
-
-namespace FreshMvvmSampleApp
+namespace FreshMvvmSampleApp.Pages
 {
-	public partial class QuotePage : BasePage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class QuotePage : BasePage
 	{
 		public QuotePage ()
 		{

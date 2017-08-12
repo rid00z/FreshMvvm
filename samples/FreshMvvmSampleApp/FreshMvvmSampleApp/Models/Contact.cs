@@ -1,9 +1,5 @@
-﻿using System;
-using PropertyChanged;
-
-namespace FreshMvvmSampleApp
+﻿namespace FreshMvvmSampleApp.Models
 {
-    [ImplementPropertyChanged]
     public class Contact
     {
         public Contact ()

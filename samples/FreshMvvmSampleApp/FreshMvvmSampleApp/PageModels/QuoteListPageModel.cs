@@ -1,15 +1,16 @@
 ﻿using System.Collections.ObjectModel;
-using Xamarin.Forms;
-using FreshMvvm;
-using PropertyChanged;
 using System.Diagnostics;
+using FreshMvvm;
+using FreshMvvm.Base;
+using FreshMvvmSampleApp.Models;
+using FreshMvvmSampleApp.Services;
+using Xamarin.Forms;
 
-namespace FreshMvvmSampleApp
+namespace FreshMvvmSampleApp.PageModels
 {
-    [ImplementPropertyChanged]
-    public class QuoteListPageModel : FreshBasePageModel
+    public class QuoteListPageModel : FreshPageModel
     {
-        IDatabaseService _databaseService;
+        readonly IDatabaseService _databaseService;
 
         public QuoteListPageModel (IDatabaseService databaseService)
         {
@@ -18,7 +19,7 @@ namespace FreshMvvmSampleApp
 
         public ObservableCollection<Quote> Quotes { get; set; }
 
-        public override void Init (object initData)
+        public override void PushedData (object initData)
         {
             Quotes = new ObservableCollection<Quote> (_databaseService.GetQuotes ());
         }
@@ -34,7 +35,7 @@ namespace FreshMvvmSampleApp
             base.ViewIsDisappearing (sender, e);
         }
 
-        public override void ReverseInit (object value)
+        public override void PoppedData (object value)
         {
             var newContact = value as Quote;
             if (!Quotes.Contains (newContact)) {
@@ -45,7 +46,7 @@ namespace FreshMvvmSampleApp
         public Command AddQuote {
             get {
                 return new Command (async () => {
-                    await CoreMethods.PushPageModel<QuotePageModel> ();
+                    await Navigation.PushPageModel<QuotePageModel> ();
                 });
             }
         }
@@ -53,9 +54,7 @@ namespace FreshMvvmSampleApp
         Quote _selectedQuote;
 
         public Quote SelectedQuote {
-            get {
-                return _selectedQuote;
-            }
+            get => _selectedQuote;
             set {
                 _selectedQuote = value;
                 if (value != null)
@@ -66,7 +65,7 @@ namespace FreshMvvmSampleApp
         public Command<Quote> QuoteSelected {
             get {
                 return new Command<Quote> (async (quote) => {
-                    await CoreMethods.PushPageModel<QuotePageModel> (quote);
+                    await Navigation.PushPageModel<QuotePageModel> (quote);
                 });
             }
         }

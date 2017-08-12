@@ -1,15 +1,19 @@
 ﻿using System;
-using FreshMvvm;
-using Xamarin.Forms;
-using System.Collections.Generic;
 using System.Threading.Tasks;
+using FreshMvvm;
+using FreshMvvm.Base;
+using FreshMvvm.Extensions;
+using FreshMvvm.IoC;
+using FreshMvvm.NavigationContainers;
+using FreshMvvmSampleApp.PageModels;
+using Xamarin.Forms;
 
-namespace FreshMvvmSampleApp
+namespace FreshMvvmSampleApp.Navigation
 {
 	/// <summary>
 	/// This is a sample custom implemented Navigation. It combines a MasterDetail and a TabbedPage.
 	/// </summary>
-    public class CustomImplementedNav : Xamarin.Forms.MasterDetailPage, IFreshNavigationService
+    public class CustomImplementedNav : MasterDetailPage, IFreshNavigationService
 	{
 		FreshTabbedNavigationContainer _tabbedNavigationPage;
 		Page _contactsPage, _quotesPage;
@@ -27,12 +31,12 @@ namespace FreshMvvmSampleApp
 			_tabbedNavigationPage = new FreshTabbedNavigationContainer ();
 			_contactsPage = _tabbedNavigationPage.AddTab<ContactListPageModel> ("Contacts", "contacts.png");
 			_quotesPage = _tabbedNavigationPage.AddTab<QuoteListPageModel> ("Quotes", "document.png");
-			this.Detail = _tabbedNavigationPage;
+			Detail = _tabbedNavigationPage;
 		}
 
 		protected void RegisterNavigation()
 		{
-            FreshIOC.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
+            FreshIoC.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
 		}
 
 		protected void CreateMenuPage(string menuPageTitle)
@@ -41,7 +45,7 @@ namespace FreshMvvmSampleApp
 			_menuPage.Title = menuPageTitle;
 			var listView = new ListView();
 
-			listView.ItemsSource = new string[] { "Contacts", "Quotes", "Modal Demo" };
+			listView.ItemsSource = new[] { "Contacts", "Quotes", "Modal Demo" };
 
 			listView.ItemSelected += async (sender, args) =>
 			{
@@ -69,7 +73,7 @@ namespace FreshMvvmSampleApp
 			Master = new NavigationPage(_menuPage) { Title = "Menu" };
 		}
 
-        public virtual async Task PushPage (Xamarin.Forms.Page page, FreshBasePageModel model, bool modal = false, bool animated = true)
+        public virtual async Task PushPage (Page page, FreshPageModel model, bool modal = false, bool animated = true)
 		{
 			if (modal)
                 await Navigation.PushModalAsync (new NavigationPage(page), animated);
@@ -90,7 +94,7 @@ namespace FreshMvvmSampleApp
             await ((NavigationPage)_tabbedNavigationPage.CurrentPage).PopToRootAsync (animate);
         }
 
-        public string NavigationServiceName { get; private set; }
+        public string NavigationServiceName { get; }
 
         public void NotifyChildrenPageWasPopped()
         {
@@ -103,7 +107,7 @@ namespace FreshMvvmSampleApp
             }
         }
 
-        public Task<FreshBasePageModel> SwitchSelectedRootPageModel<T> () where T : FreshBasePageModel
+        public Task<FreshPageModel> SwitchSelectedRootPageModel<T> () where T : FreshPageModel
         {
             if (_contactsPage.GetModel ().GetType ().FullName == typeof (T).FullName) {
                 _tabbedNavigationPage.CurrentPage = _contactsPage;

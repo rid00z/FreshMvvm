@@ -1,32 +1,35 @@
-﻿using System;
+﻿using FreshMvvm.Base;
 using Xamarin.Forms;
-using System.ComponentModel;
 
-namespace FreshMvvmSampleApp
+namespace FreshMvvmSampleApp.Pages
 {
     public class BasePage : ContentPage
     {
-        public BasePage ()
+        public BasePage()
         {
-            ToolbarItems.Add (new ToolbarItem ("", "Home.png", () => {                
-                Application.Current.MainPage = new NavigationPage (new LaunchPage ((App)Application.Current));
+            ToolbarItems.Add(new ToolbarItem("", "Home.png", () =>
+            {
+                Application.Current.MainPage = new NavigationPage(new LaunchPage((App)Application.Current));
             }));
         }
 
-        protected override void OnAppearing ()
+        protected override void OnAppearing()
         {
-            base.OnAppearing ();
+            base.OnAppearing();
 
-            var basePageModel = this.BindingContext as FreshMvvm.FreshBasePageModel;
-            if (basePageModel != null) {
-                if (basePageModel.IsModalAndHasPreviousNavigationStack ()) {
+            var basePageModel = BindingContext as FreshPageModel;
+            if (basePageModel != null)
+            {
+                if (basePageModel.IsModalAndHasPreviousNavigationStack())
+                {
                     if (ToolbarItems.Count < 2)
                     {
-                        var closeModal = new ToolbarItem ("Close Modal", "", () => {                
-                            basePageModel.CoreMethods.PopModalNavigationService(); 
+                        var closeModal = new ToolbarItem("Close Modal", "", () =>
+                        {
+                            basePageModel.Navigation.PopModalNavigationService();
                         });
 
-                        ToolbarItems.Add (closeModal);
+                        ToolbarItems.Add(closeModal);
                     }
                 }
             }

@@ -1,10 +1,10 @@
-﻿using System;
-using FreshMvvm;
+﻿using FreshMvvm;
+using FreshMvvm.Base;
 using Xamarin.Forms;
 
-namespace FreshMvvmSampleApp
+namespace FreshMvvmSampleApp.PageModels
 {
-    public class ModalPageModel : FreshBasePageModel
+    public class ModalPageModel : FreshPageModel
     {
         public ModalPageModel ()
         {
@@ -13,7 +13,7 @@ namespace FreshMvvmSampleApp
         public Command CloseCommand {
             get {
                 return new Command (() => {
-                    CoreMethods.PopPageModel (true);
+                    Navigation.PopPageModel (true);
                 });
             }
         }
