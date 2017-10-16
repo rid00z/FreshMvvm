@@ -10,7 +10,6 @@
     <AssemblyName>FreshIOC</AssemblyName>
     <TargetFrameworkProfile>Profile14</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <ReleaseVersion>2.2.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
