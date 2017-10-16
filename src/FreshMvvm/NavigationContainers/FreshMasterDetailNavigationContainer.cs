@@ -114,11 +114,20 @@ namespace FreshMvvm
         {
             if (Master is NavigationPage)
                 ((NavigationPage)Master).NotifyAllChildrenPopped();
+            if (Master is IFreshNavigationService)
+                ((IFreshNavigationService)Master).NotifyChildrenPageWasPopped();
+            
             foreach (var page in this.Pages.Values)
             {
                 if (page is NavigationPage)
                     ((NavigationPage)page).NotifyAllChildrenPopped();
+                if (page is IFreshNavigationService)
+                    ((IFreshNavigationService)page).NotifyChildrenPageWasPopped();
             }
+            if (this.Pages != null && !this.Pages.ContainsValue(Detail) && Detail is NavigationPage)
+                ((NavigationPage)Detail).NotifyAllChildrenPopped();
+            if (this.Pages != null && !this.Pages.ContainsValue(Detail) && Detail is IFreshNavigationService)
+                ((IFreshNavigationService)Detail).NotifyChildrenPageWasPopped();
         }
 
         public Task<FreshBasePageModel> SwitchSelectedRootPageModel<T>() where T : FreshBasePageModel
