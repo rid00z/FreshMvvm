@@ -50,6 +50,7 @@
     <Compile Include="IOC\FreshIOC.cs" />
     <Compile Include="IOC\IFreshIOC.cs" />
     <Compile Include="FreshAwaitCommand.cs" />
+    <Compile Include="Extensions\ObservableExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <ItemGroup>

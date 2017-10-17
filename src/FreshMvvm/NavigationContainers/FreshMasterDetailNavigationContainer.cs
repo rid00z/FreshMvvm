@@ -13,6 +13,7 @@ namespace FreshMvvm
         Dictionary<string, Page> _pages = new Dictionary<string, Page> ();
         ContentPage _menuPage;
         ObservableCollection<string> _pageNames = new ObservableCollection<string> ();
+	ListView _listView = new ListView ();
 
         public Dictionary<string, Page> Pages { get { return _pages; } }
         protected ObservableCollection<string> PageNames { get { return _pageNames; } }
@@ -66,12 +67,11 @@ namespace FreshMvvm
         protected virtual void CreateMenuPage (string menuPageTitle, string menuIcon = null)
         {
             _menuPage = new ContentPage ();
-            _menuPage.Title = menuPageTitle;
-            var listView = new ListView ();
+            _menuPage.Title = menuPageTitle; 
+	    
+            _listView.ItemsSource = _pageNames;
 
-            listView.ItemsSource = _pageNames;
-
-            listView.ItemSelected += (sender, args) => {
+            _listView.ItemSelected += (sender, args) => {
                 if (_pages.ContainsKey ((string)args.SelectedItem)) {
                     Detail = _pages [(string)args.SelectedItem];
                 }
@@ -79,7 +79,7 @@ namespace FreshMvvm
                 IsPresented = false;
             };
 
-            _menuPage.Content = listView;
+            _menuPage.Content = _listView;
 
             var navPage = new NavigationPage (_menuPage) { Title = "Menu" };
 
@@ -114,18 +114,27 @@ namespace FreshMvvm
         {
             if (Master is NavigationPage)
                 ((NavigationPage)Master).NotifyAllChildrenPopped();
+            if (Master is IFreshNavigationService)
+                ((IFreshNavigationService)Master).NotifyChildrenPageWasPopped();
+            
             foreach (var page in this.Pages.Values)
             {
                 if (page is NavigationPage)
                     ((NavigationPage)page).NotifyAllChildrenPopped();
+                if (page is IFreshNavigationService)
+                    ((IFreshNavigationService)page).NotifyChildrenPageWasPopped();
             }
+            if (this.Pages != null && !this.Pages.ContainsValue(Detail) && Detail is NavigationPage)
+                ((NavigationPage)Detail).NotifyAllChildrenPopped();
+            if (this.Pages != null && !this.Pages.ContainsValue(Detail) && Detail is IFreshNavigationService)
+                ((IFreshNavigationService)Detail).NotifyChildrenPageWasPopped();
         }
 
         public Task<FreshBasePageModel> SwitchSelectedRootPageModel<T>() where T : FreshBasePageModel
         {
             var tabIndex = _pagesInner.FindIndex(o => o.GetModel().GetType().FullName == typeof(T).FullName);
 
-            Detail = _pages.Values.ElementAt(tabIndex);;
+            _listView.SelectedItem = _pageNames[tabIndex];
 
             return Task.FromResult((Detail as NavigationPage).CurrentPage.GetModel());
         }
