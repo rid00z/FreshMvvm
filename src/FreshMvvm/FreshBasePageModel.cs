@@ -6,8 +6,6 @@ using System.Runtime.CompilerServices;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using FreshMvvm.Extensions;
-using System.Reactive;
 
 namespace FreshMvvm
 {
@@ -67,8 +65,8 @@ namespace FreshMvvm
 
         internal void WireEvents (Page page)
         {
-            page.ObserveAppearing().SubscribeWeakly(this, ViewIsAppearingStatic);
-            page.ObserveDisappearing().SubscribeWeakly(this, ViewIsDisappearingStatic);
+            page.Appearing += ViewIsAppearing;
+            page.Disappearing += ViewIsDisappearing;
         }
 
         /// <summary>
@@ -94,22 +92,12 @@ namespace FreshMvvm
             return !string.IsNullOrWhiteSpace (PreviousNavigationServiceName) && PreviousNavigationServiceName != CurrentNavigationServiceName;
         }
 
-        static void ViewIsDisappearingStatic(FreshBasePageModel sender, EventPattern<EventArgs> e)
-        {
-            sender.ViewIsDisappearing(sender, e.EventArgs);
-        }
-
         /// <summary>
         /// This method is called when the view is disappearing. 
         /// </summary>
         protected virtual void ViewIsDisappearing (object sender, EventArgs e)
         {
 
-        }
-
-        static void ViewIsAppearingStatic(FreshBasePageModel sender, EventPattern<EventArgs> e)
-        {
-            sender.ViewIsAppearing(sender, e.EventArgs);
         }
 
         /// <summary>
@@ -131,16 +119,11 @@ namespace FreshMvvm
             if (navPage != null)
             {
                 _alreadyAttached = true;
-                navPage.ObservePopped().SubscribeWeakly(this, HandleNavPagePoppedStatic);
+                navPage.Popped += HandleNavPagePopped;
             }
         }
 
-        static void HandleNavPagePoppedStatic(FreshBasePageModel sender, EventPattern<NavigationEventArgs> e)
-        {
-            sender.HandleNavPagePopped(sender, e.EventArgs);
-        }
-
-        private void HandleNavPagePopped(object sender, NavigationEventArgs e)
+        void HandleNavPagePopped(object sender, NavigationEventArgs e)
         {
             if (e.Page == this.CurrentPage)
             {
@@ -152,7 +135,13 @@ namespace FreshMvvm
         {
             if (PageWasPopped != null)
                 PageWasPopped(this, EventArgs.Empty);
-            
+
+            var navPage = (this.CurrentPage.Parent as NavigationPage);
+            if (navPage != null)
+                navPage.Popped -= HandleNavPagePopped;
+
+            CurrentPage.Appearing -= ViewIsAppearing;
+            CurrentPage.Disappearing -= ViewIsDisappearing;
             CurrentPage.BindingContext = null;
         }
     }
