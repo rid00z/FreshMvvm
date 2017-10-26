@@ -11,6 +11,8 @@ namespace FreshMvvm
 {
     public abstract class FreshBasePageModel : INotifyPropertyChanged
     {
+        NavigationPage _navigationPage;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
@@ -65,8 +67,8 @@ namespace FreshMvvm
 
         internal void WireEvents (Page page)
         {
-            page.Appearing += ViewIsAppearing;
-            page.Disappearing += ViewIsDisappearing;
+            page.Appearing += new WeakEventHandler<EventArgs>(ViewIsAppearing).Handler;
+            page.Disappearing += new WeakEventHandler<EventArgs>(ViewIsDisappearing).Handler;
         }
 
         /// <summary>
@@ -118,8 +120,9 @@ namespace FreshMvvm
             var navPage = (this.CurrentPage.Parent as NavigationPage);
             if (navPage != null)
             {
+                _navigationPage = navPage;
                 _alreadyAttached = true;
-                navPage.Popped += HandleNavPagePopped;
+                navPage.Popped += new WeakEventHandler<NavigationEventArgs>(HandleNavPagePopped).Handler;
             }
         }
 
@@ -139,6 +142,11 @@ namespace FreshMvvm
             var navPage = (this.CurrentPage.Parent as NavigationPage);
             if (navPage != null)
                 navPage.Popped -= HandleNavPagePopped;
+
+            if (_navigationPage != null)
+                _navigationPage.Popped -= HandleNavPagePopped;
+
+            _navigationPage = null;
 
             CurrentPage.Appearing -= ViewIsAppearing;
             CurrentPage.Disappearing -= ViewIsDisappearing;
