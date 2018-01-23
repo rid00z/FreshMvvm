@@ -20,7 +20,7 @@ FreshMvvm is a super light Mvvm Framework designed specifically for Xamarin.Form
 * Basic methods available in Model, like Alert
 * Built in Navigation types for SimpleNavigation, Tabbed and MasterDetail 
 
-> *Note* Different to standard naming conventions, FreshMvvm uses Page and PageModel instead of View and ViewModel, this is inline with Xamarin.Forms using Pages
+> *Note* ~~Different to standard naming conventions, FreshMvvm uses Page and PageModel instead of View and ViewModel, this is inline with Xamarin.Forms using Pages~~ Now we can use both the ViewModel naming conventions. 
 
 ### The Story
 
@@ -34,7 +34,7 @@ It was never a plan to create a framework but after presenting my Mvvm solution 
 
 This Framework, while simple, is also powerful and uses a Convention over Configuration style. 
 
-> *Note* Different to standard naming conventions, FreshMvvm uses Page and PageModel instead of View and ViewModel, this is inline with Xamarin.Forms using Pages.
+> *Note* ~~Different to standard naming conventions, FreshMvvm uses Page and PageModel instead of View and ViewModel, this is inline with Xamarin.Forms using Pages~~ Now we can use both the ViewModel naming conventions.
 
 * A Page must have a corresponding PageModel, with naming important so a QuotePageModel must have a QuotePage
 The BindingContext on the page will be automatically set with the Model
@@ -63,7 +63,7 @@ public interface IFreshNavigationService
 }
 ```
 
-Within the PushPage and PopPage you can do any type of navigation that you like, this can from a simple navigation to a advanced nested navigation. 
+Within the PushPage and PopPage you can do any type of navigation that you like, this can be anything from a simple navigation to a advanced nested navigation. 
 
 The Framework contains some built in Navigation containers for the different types of Navigation.
 
@@ -122,6 +122,47 @@ FreshIOC.Container.Resolve<IDatabaseService>();
 ```
 
 *This is also what drives constructor injection. 
+
+### IOC Container Lifetime Registration Options
+
+We now support a fluent API for setting the object lifetime of object inside the IOC Container.
+```csharp
+// By default we register concrete types as 
+// multi-instance, and interfaces as singletons
+FreshIOC.Container.Register<MyConcreteType>(); // Multi-instance
+FreshIOC.Container.Register<IMyInterface, MyConcreteType>(); // Singleton 
+
+// Fluent API allows us to change that behaviour
+FreshIOC.Container.Register<MyConcreteType>().AsSingleton(); // Singleton
+FreshIOC.Container.Register<IMyInterface, MyConcreteType>().AsMultiInstance(); // Multi-instance
+```
+As you can see below the IFreshIOC interface methods return the IRegisterOptions interface.
+
+```csharp
+public interface IFreshIOC
+{
+    object Resolve(Type resolveType);
+    IRegisterOptions Register<RegisterType>(RegisterType instance) where RegisterType : class;
+    IRegisterOptions Register<RegisterType>(RegisterType instance, string name) where RegisterType : class;
+    ResolveType Resolve<ResolveType>() where ResolveType : class;
+    ResolveType Resolve<ResolveType>(string name) where ResolveType : class;
+    IRegisterOptions Register<RegisterType, RegisterImplementation> ()
+        where RegisterType : class
+        where RegisterImplementation : class, RegisterType;
+}
+```
+
+The interface that's returned from the register methods is IRegisterOptions.
+```csharp
+public interface IRegisterOptions
+{
+    IRegisterOptions AsSingleton();
+    IRegisterOptions AsMultiInstance();
+    IRegisterOptions WithWeakReference();
+    IRegisterOptions WithStrongReference();
+    IRegisterOptions UsingConstructor<RegisterType>(Expression<Func<RegisterType>> constructor);
+}
+```
 
 ### PageModel - Constructor Injection
 
@@ -323,6 +364,58 @@ masterDetailNav.Init ("Menu", "Menu.png");
 masterDetailNav.AddPage<ContactListPageModel> ("Contacts", null);
 masterDetailNav.AddPage<QuoteListPageModel> ("Quotes", null);
 await CoreMethods.PushNewNavigationServiceModal(masterDetailNav);
+```
+
+### Switching out NavigationStacks on the Xamarin.Forms MainPage
+
+There's some cases in Xamarin.Forms you might want to run multiple navigation stacks. A good example of this is when you have a navigation stack for the authentication and a stack for the primary area of your application.
+
+To begin with we can setup some names for our navigation containers.
+```csharp
+public class NavigationContainerNames
+{
+    public const string AuthenticationContainer = "AuthenticationContainer";
+    public const string MainContainer = "MainContainer";
+}
+```
+
+Then we can create our two navigation containers and assign to the MainPage. 
+
+```csharp
+var loginPage = FreshMvvm.FreshPageModelResolver.ResolvePageModel<LoginViewModel>();
+var loginContainer = new FreshNavigationContainer(loginPage, NavigationContainerNames.AuthenticationContainer);
+
+var myPitchListViewContainer = new FreshTabbedNavigationContainer(NavigationContainerNames.MainContainer);
+
+MainPage = loginContainer;
+```
+
+The Navigation Container will use the name passed as argument to register in this method
+
+```csharp
+public FreshTabbedNavigationContainer(string navigationServiceName)
+{
+    NavigationServiceName = navigationServiceName;
+    RegisterNavigation ();
+}
+
+protected void RegisterNavigation ()
+{
+    FreshIOC.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
+}
+```
+
+Once we've set this up we can now switch out our navigation containers.
+```csharp
+CoreMethods.SwitchOutRootNavigation(NavigationContainerNames.MainContainer);
+```
+
+That name will be resolved in this method to find the correct Navigation Container
+```csharp
+public void SwitchOutRootNavigation (string navigationServiceName)
+{
+    IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (navigationServiceName);
+}
 ```
 
 ## Custom IOC Containers

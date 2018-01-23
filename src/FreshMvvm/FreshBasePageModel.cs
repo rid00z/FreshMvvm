@@ -11,6 +11,8 @@ namespace FreshMvvm
 {
     public abstract class FreshBasePageModel : INotifyPropertyChanged
     {
+        NavigationPage _navigationPage;
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
@@ -42,8 +44,8 @@ namespace FreshMvvm
         /// <summary>
         /// This method is called when a page is Pop'd, it also allows for data to be returned.
         /// </summary>
-        /// <param name="returndData">This data that's returned from </param>
-        public virtual void ReverseInit (object returndData)
+        /// <param name="returnedData">This data that's returned from </param>
+        public virtual void ReverseInit (object returnedData)
         {
         }
 
@@ -65,8 +67,8 @@ namespace FreshMvvm
 
         internal void WireEvents (Page page)
         {
-            page.Appearing += ViewIsAppearing;
-            page.Disappearing += ViewIsDisappearing;
+            page.Appearing += new WeakEventHandler<EventArgs>(ViewIsAppearing).Handler;
+            page.Disappearing += new WeakEventHandler<EventArgs>(ViewIsDisappearing).Handler;
         }
 
         /// <summary>
@@ -118,8 +120,9 @@ namespace FreshMvvm
             var navPage = (this.CurrentPage.Parent as NavigationPage);
             if (navPage != null)
             {
+                _navigationPage = navPage;
                 _alreadyAttached = true;
-                navPage.Popped += HandleNavPagePopped;
+                navPage.Popped += new WeakEventHandler<NavigationEventArgs>(HandleNavPagePopped).Handler;
             }
         }
 
@@ -127,15 +130,7 @@ namespace FreshMvvm
         {
             if (e.Page == this.CurrentPage)
             {
-                if (PageWasPopped != null)
-                    PageWasPopped(this, EventArgs.Empty);
-
-                var navPage = (this.CurrentPage.Parent as NavigationPage);
-                if (navPage != null)
-                    navPage.Popped -= HandleNavPagePopped;
-
-                CurrentPage.Appearing -= ViewIsAppearing;
-                CurrentPage.Disappearing -= ViewIsDisappearing;
+                RaisePageWasPopped();
             }
         }
 
@@ -143,6 +138,19 @@ namespace FreshMvvm
         {
             if (PageWasPopped != null)
                 PageWasPopped(this, EventArgs.Empty);
+
+            var navPage = (this.CurrentPage.Parent as NavigationPage);
+            if (navPage != null)
+                navPage.Popped -= HandleNavPagePopped;
+
+            if (_navigationPage != null)
+                _navigationPage.Popped -= HandleNavPagePopped;
+
+            _navigationPage = null;
+
+            CurrentPage.Appearing -= ViewIsAppearing;
+            CurrentPage.Disappearing -= ViewIsDisappearing;
+            CurrentPage.BindingContext = null;
         }
     }
 }

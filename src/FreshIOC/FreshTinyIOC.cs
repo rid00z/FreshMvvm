@@ -324,16 +324,17 @@ namespace FreshTinyIoC
     #region TinyIoC Exception Types
     public class TinyIoCResolutionException : Exception
     {
-        private const string ERROR_TEXT = "Unable to resolve type: {0}";
+        private const string ERROR_TEXT = "Resolve failed: {0}";
+        private const string ERROR_TEXT_WITHINNER = "Resolve failed: {0} - Reason: {1}";
 
         public TinyIoCResolutionException(Type type)
-            : base(String.Format(ERROR_TEXT, type.FullName))
+            : base(String.Format(ERROR_TEXT, type.Name))
         {
         }
 
         public TinyIoCResolutionException(Type type, Exception innerException)
-            : base(String.Format(ERROR_TEXT, type.FullName), innerException)
-        {
+            : base(String.Format(ERROR_TEXT_WITHINNER, type.Name, innerException.Message), innerException)
+        {            
         }
     }
 
@@ -2086,6 +2087,53 @@ namespace FreshTinyIoC
         #endregion
         #endregion
 
+        #region Unregistration
+
+        /// <summary>
+        /// Remove a container class registration.
+        /// </summary>
+        /// <typeparam name="RegisterType">Type to unregister</typeparam>
+        /// <returns>true if the registration is successfully found and removed; otherwise, false.</returns>
+        public void Unregister<RegisterType>()
+        {
+            Unregister(typeof(RegisterType), string.Empty);
+        }
+
+        /// <summary>
+        /// Remove a named container class registration.
+        /// </summary>
+        /// <typeparam name="RegisterType">Type to unregister</typeparam>
+        /// <param name="name">Name of registration</param>
+        /// <returns>true if the registration is successfully found and removed; otherwise, false.</returns>
+        public void Unregister<RegisterType>(string name)
+        {
+            Unregister(typeof(RegisterType), name);
+        }
+
+        /// <summary>
+        /// Remove a container class registration.
+        /// </summary>
+        /// <param name="registerType">Type to unregister</param>
+        /// <returns>true if the registration is successfully found and removed; otherwise, false.</returns>
+        public void Unregister(Type registerType)
+        {
+            Unregister(registerType, string.Empty);
+        }
+
+        /// <summary>
+        /// Remove a named container class registration.
+        /// </summary>
+        /// <param name="registerType">Type to unregister</param>
+        /// <param name="name">Name of registration</param>
+        public void Unregister(Type registerType, string name)
+        {
+            var typeRegistration = new TypeRegistration(registerType, name);
+
+            RemoveRegistration(typeRegistration);
+        }
+
+        #endregion
+
         #region Object Factories
         /// <summary>
         /// Provides custom lifetime management for ASP.Net per-request lifetimes etc.
@@ -2216,7 +2264,9 @@ namespace FreshTinyIoC
                 }
                 catch (TinyIoCResolutionException ex)
                 {
-                    throw new TinyIoCResolutionException(this.registerType, ex);
+                    if (ex.InnerException != null)
+                        throw new TinyIoCResolutionException (registerType, ex.InnerException);
+                    throw new TinyIoCResolutionException (registerType, ex);
                 }
             }
 
@@ -2263,7 +2313,9 @@ namespace FreshTinyIoC
                 }
                 catch (Exception ex)
                 {
-                    throw new TinyIoCResolutionException(this.registerType, ex);
+                    if (ex.InnerException != null)
+                        throw new TinyIoCResolutionException (registerType, ex.InnerException);
+                    throw new TinyIoCResolutionException (registerType, ex);
                 }
             }
 
@@ -2326,7 +2378,9 @@ namespace FreshTinyIoC
                 }
                 catch (Exception ex)
                 {
-                    throw new TinyIoCResolutionException(this.registerType, ex);
+                    if (ex.InnerException != null)
+                        throw new TinyIoCResolutionException (registerType, ex.InnerException);
+                    throw new TinyIoCResolutionException (registerType, ex);
                 }
             }
 
@@ -3036,7 +3090,9 @@ namespace FreshTinyIoC
                 }
                 catch (Exception ex)
                 {
-                    throw new TinyIoCResolutionException(registration.Type, ex);
+                    if (ex.InnerException != null)
+                        throw new TinyIoCResolutionException (registration.Type, ex.InnerException);
+                    throw new TinyIoCResolutionException (registration.Type, ex);
                 }
             }
 
@@ -3303,11 +3359,17 @@ namespace FreshTinyIoC
                     // If a constructor parameter can't be resolved
                     // it will throw, so wrap it and throw that this can't
                     // be resolved.
-                    throw new TinyIoCResolutionException(typeToConstruct, ex);
+                    if (ex.InnerException != null && ex.InnerException.InnerException != null)
+                        throw new TinyIoCResolutionException (typeToConstruct, ex.InnerException.InnerException);
+                    if (ex.InnerException != null)
+                        throw new TinyIoCResolutionException (typeToConstruct, ex.InnerException);
+                    throw new TinyIoCResolutionException (typeToConstruct, ex);
                 }
                 catch (Exception ex)
                 {
-                    throw new TinyIoCResolutionException(typeToConstruct, ex);
+                    if (ex.InnerException != null)
+                        throw new TinyIoCResolutionException (typeToConstruct, ex.InnerException);
+                    throw new TinyIoCResolutionException (typeToConstruct, ex);
                 }
             }
 
@@ -3322,7 +3384,9 @@ namespace FreshTinyIoC
             }
             catch (Exception ex)
             {
-                throw new TinyIoCResolutionException(typeToConstruct, ex);
+                if (ex.InnerException != null)
+                    throw new TinyIoCResolutionException (typeToConstruct, ex.InnerException);
+                throw new TinyIoCResolutionException (typeToConstruct, ex);
             }
         }
         #if COMPILED_EXPRESSIONS

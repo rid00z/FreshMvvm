@@ -1,6 +1,7 @@
 ﻿using Xamarin.Forms;
 using PropertyChanged;
 using FreshMvvm;
+using System;
 
 namespace FreshMvvmSampleApp
 {
@@ -55,8 +56,7 @@ namespace FreshMvvmSampleApp
                 return new Command (async () => {
 
                     var page = FreshPageModelResolver.ResolvePageModel<MainMenuPageModel> ();
-                    var basicNavContainer = new FreshNavigationContainer (page, "secondNavPage");
-
+                    var basicNavContainer = new FreshNavigationContainer (page, Guid.NewGuid ().ToString ());
                     await CoreMethods.PushNewNavigationServiceModal(basicNavContainer, new FreshBasePageModel[] { page.GetModel() }); 
                 });
             }
@@ -67,10 +67,9 @@ namespace FreshMvvmSampleApp
             get {
                 return new Command (async () => {
 
-                    var tabbedNavigation = new FreshTabbedNavigationContainer ("secondNavPage");
+                    var tabbedNavigation = new FreshTabbedNavigationContainer (Guid.NewGuid ().ToString ());
                     tabbedNavigation.AddTab<ContactListPageModel> ("Contacts", "contacts.png", null);
                     tabbedNavigation.AddTab<QuoteListPageModel> ("Quotes", "document.png", null);
-
                     await CoreMethods.PushNewNavigationServiceModal(tabbedNavigation);
                 });
             }
@@ -80,7 +79,7 @@ namespace FreshMvvmSampleApp
             get {
                 return new Command (async () => {
 
-                    var masterDetailNav = new FreshMasterDetailNavigationContainer ("secondNavPage");
+                    var masterDetailNav = new FreshMasterDetailNavigationContainer (Guid.NewGuid ().ToString ());
                     masterDetailNav.Init ("Menu", "Menu.png");
                     masterDetailNav.AddPage<ContactListPageModel> ("Contacts", null);
                     masterDetailNav.AddPage<QuoteListPageModel> ("Quotes", null);

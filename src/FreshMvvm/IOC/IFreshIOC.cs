@@ -13,6 +13,8 @@ namespace FreshMvvm
             where RegisterType : class
             where RegisterImplementation : class, RegisterType;
         IRegisterOptions Register(Type type, object impl);
+        void Unregister<RegisterType>();
+        void Unregister<RegisterType>(string name);
     }
 }
 

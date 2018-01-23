@@ -38,6 +38,14 @@ namespace FreshMvvmSampleApp
             MainPage = tabbedNavigation;
         }
 
+        public void LoadFOTabbedNav ()
+        {
+            var tabbedNavigation = new FreshTabbedFONavigationContainer ("CRM");
+            tabbedNavigation.AddTab<ContactListPageModel> ("Contacts", "contacts.png", null);
+            tabbedNavigation.AddTab<QuoteListPageModel> ("Quotes", "document.png", null);
+            MainPage = tabbedNavigation;
+        }
+
         public void LoadCustomNav ()
         {
             MainPage = new CustomImplementedNav ();
