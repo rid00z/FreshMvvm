@@ -36,11 +36,16 @@ namespace FreshMvvm
             return FreshTinyIoCContainer.Current.Resolve<ResolveType> ();
         }
 
-        public IRegisterOptions Register<RegisterType, RegisterImplementation> ()
+        public IRegisterOptions Register<RegisterType, RegisterImplementation>()
             where RegisterType : class
             where RegisterImplementation : class, RegisterType
         {
             return FreshTinyIoCContainer.Current.Register<RegisterType, RegisterImplementation>();
+        }
+
+        public IRegisterOptions Register(Type type, object impl)
+        {
+            return FreshTinyIoCContainer.Current.Register(type, impl);
         }
 
         public object Resolve(Type resolveType)
