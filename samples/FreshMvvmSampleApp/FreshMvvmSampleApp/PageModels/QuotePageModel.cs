@@ -4,7 +4,7 @@ using FreshMvvm;
 
 namespace FreshMvvmSampleApp
 {
-    [ImplementPropertyChanged]
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class QuotePageModel : FreshBasePageModel
     {
         IDatabaseService _databaseService;

@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace FreshMvvmSampleApp
 {
-    [ImplementPropertyChanged]
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class ContactListPageModel : FreshBasePageModel
     {
         IDatabaseService _databaseService;

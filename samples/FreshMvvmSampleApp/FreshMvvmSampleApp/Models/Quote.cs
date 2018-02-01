@@ -3,7 +3,7 @@ using PropertyChanged;
 
 namespace FreshMvvmSampleApp
 {
-    [ImplementPropertyChanged]
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class Quote
     {
         public Quote ()

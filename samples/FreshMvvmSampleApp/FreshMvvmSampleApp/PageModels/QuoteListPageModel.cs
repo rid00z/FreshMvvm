@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace FreshMvvmSampleApp
 {
-    [ImplementPropertyChanged]
+    [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class QuoteListPageModel : FreshBasePageModel
     {
         IDatabaseService _databaseService;
