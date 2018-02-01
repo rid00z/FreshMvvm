@@ -50,6 +50,18 @@ namespace FreshMvvm
             if (_pages.Count == 1)
                 Detail = navigationContainer;
         }
+        public virtual void AddPage(string modelName, string title, object data = null)
+        {
+            var pageModelType = Type.GetType(modelName);
+            var page = FreshPageModelResolver.ResolvePageModel(pageModelType, null);
+            page.GetModel().CurrentNavigationServiceName = NavigationServiceName;
+            _pagesInner.Add(page);
+            var navigationContainer = CreateContainerPage(page);
+            _pages.Add(title, navigationContainer);
+            _pageNames.Add(title);
+            if (_pages.Count == 1)
+                Detail = navigationContainer;
+        }
 
         internal Page CreateContainerPageSafe (Page page)
         {
