@@ -443,6 +443,31 @@ And then set the IOC container in the System.
 FreshIOC.OverrideContainer(myContainer);
 ```
 
+### Other Features
+
+#### WhenAny
+
+WhenAny is an extension method on INotifyPropertyChanged, it's a shorthand way to subscribe to a property changed event.
+
+In the example below, we use any to link up 
+```csharp
+[PropertyChanged.AddINotifyPropertyChangedInterface]
+public class ContactPageModel : FreshBasePageModel
+{
+    public ContactPageModel()
+    {
+        this.WhenAny(HandleContactChanged, o => o.Contact);
+    }
+
+    void HandleContactChanged(string propertyName)
+    {
+        //handle the property changed, nice
+    }
+
+    public Contact Contact { get; set; }
+}
+```
+
 ### Related Videos/Quick Start Guides
 
 [FreshMvvm n=0 – Mvvm in Xamarin.Forms and Why FreshMvvm](http://www.michaelridland.com/xamarin/mvvminxamarinformsfreshmvvm/)
