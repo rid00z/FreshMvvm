@@ -83,6 +83,7 @@
     <Compile Include="Mocks\MockFreshBasePageModel.cs" />
     <Compile Include="Fixtures\MultipleNavigationProviderTests.cs" />
     <Compile Include="Helpers\Helper.cs" />
+    <Compile Include="Fixtures\FreshNavigationCommandFixture.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

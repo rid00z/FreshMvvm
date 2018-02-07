@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace FreshMvvm.Tests.Mocks
@@ -206,6 +207,26 @@ namespace FreshMvvm.Tests.Mocks
         }
 
         public Task<FreshBasePageModel> SwitchSelectedMaster<T>() where T : FreshBasePageModel
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICommand CreateCommand(Func<Task> execute, SharedLock sharedLock = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICommand CreateCommand(Func<object, Task> execute, SharedLock sharedLock = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICommand CreateCommand<TValue>(Func<TValue, Task> execute, SharedLock sharedLock = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public ICommand CreateCommand<TValue>(Func<TValue, Task> execute, Func<string, TValue> stringConverter, SharedLock sharedLock = null)
         {
             throw new NotImplementedException();
         }

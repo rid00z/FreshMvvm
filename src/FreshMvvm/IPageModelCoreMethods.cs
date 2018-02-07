@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace FreshMvvm
@@ -82,6 +83,14 @@ namespace FreshMvvm
 		void BatchBegin();
 
 		void BatchCommit();
+
+        ICommand CreateCommand(Func<Task> execute, SharedLock sharedLock = null);
+
+        ICommand CreateCommand(Func<object, Task> execute, SharedLock sharedLock = null);
+
+        ICommand CreateCommand<TValue>(Func<TValue, Task> execute, SharedLock sharedLock = null);
+
+        ICommand CreateCommand<TValue>(Func<TValue, Task> execute, Func<string, TValue> stringConverter, SharedLock sharedLock = null);
     }
 }
 

@@ -44,6 +44,8 @@
     <Compile Include="PropertyChangedExtensions.cs" />
     <Compile Include="IFreshPageModelMapper.cs" />
     <Compile Include="FreshPageModelMapper.cs" />
+    <Compile Include="IFreshNavigationCommand.cs" />
+    <Compile Include="FreshNavigationCommand.cs" />
     <Compile Include="NavigationContainers\FreshMasterDetailNavigationContainer.cs" />
     <Compile Include="NavigationContainers\FreshTabbedFONavigationContainer.cs" />
     <Compile Include="NavigationContainers\FreshTabbedNavigationContainer.cs" />
