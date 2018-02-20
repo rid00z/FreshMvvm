@@ -28,12 +28,16 @@ namespace FreshMvvm
 
         public ResolveType Resolve<ResolveType>(string name) where ResolveType : class
         {
-            return FreshTinyIoCContainer.Current.Resolve<ResolveType> (name);
+            var result = FreshTinyIoCContainer.Current.Resolve<ResolveType>(name);
+            BuildUp(ref result);
+            return result;
         }
 
         public ResolveType Resolve<ResolveType>() where ResolveType : class
         {
-            return FreshTinyIoCContainer.Current.Resolve<ResolveType> ();
+            var result = FreshTinyIoCContainer.Current.Resolve<ResolveType>();
+            BuildUp(ref result);
+            return result;
         }
 
         public IRegisterOptions Register<RegisterType, RegisterImplementation> ()
@@ -45,7 +49,14 @@ namespace FreshMvvm
 
         public object Resolve(Type resolveType)
         {
-            return FreshTinyIoCContainer.Current.Resolve (resolveType);
+            var result = FreshTinyIoCContainer.Current.Resolve (resolveType);
+            BuildUp(ref result);
+            return result;
+        }
+
+        public void BuildUp<ResolveType>(ref ResolveType input) where ResolveType : class
+        {
+            FreshTinyIoCContainer.Current.BuildUp(input);
         }
 
         public void Unregister<RegisterType>()

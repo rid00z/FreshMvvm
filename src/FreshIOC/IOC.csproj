@@ -10,6 +10,7 @@
     <AssemblyName>FreshIOC</AssemblyName>
     <TargetFrameworkProfile>Profile14</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ReleaseVersion>2.2.0</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,6 +33,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FreshTinyIOC.cs" />
     <Compile Include="IRegisterOptions.cs" />
+    <Compile Include="TinyIocInjectAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

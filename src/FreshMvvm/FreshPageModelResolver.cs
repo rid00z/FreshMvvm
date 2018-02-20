@@ -15,7 +15,6 @@ namespace FreshMvvm
         public static Page ResolvePageModel<T> (object initData) where T : FreshBasePageModel
         {
             var pageModel = FreshIOC.Container.Resolve<T> ();
-
             return ResolvePageModel<T> (initData, pageModel);
         }
 
@@ -33,6 +32,7 @@ namespace FreshMvvm
 
         public static Page ResolvePageModel (Type type, object data, FreshBasePageModel pageModel)
         {
+            FreshIOC.Container.BuildUp(ref pageModel);
             var name = PageModelMapper.GetPageTypeName (type);
             var pageType = Type.GetType (name);
             if (pageType == null)

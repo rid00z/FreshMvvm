@@ -8,12 +8,10 @@ namespace FreshMvvmSampleApp
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class ContactPageModel : FreshBasePageModel
     {
-        IDatabaseService _dataService;
+        public IDatabaseService _dataService { get; set; }
 
-        public ContactPageModel (IDatabaseService dataService)
+        public ContactPageModel ()
         {
-            _dataService = dataService;
-
             this.WhenAny(HandleContactChanged, o => o.Contact);
         }
 
