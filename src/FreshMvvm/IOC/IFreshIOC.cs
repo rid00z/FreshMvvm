@@ -5,6 +5,7 @@ namespace FreshMvvm
     public interface IFreshIOC
     {
         object Resolve(Type resolveType);
+        void BuildUp<ResolveType>(ref ResolveType input) where ResolveType : class;
         IRegisterOptions Register<RegisterType>(RegisterType instance) where RegisterType : class;
         IRegisterOptions Register<RegisterType>(RegisterType instance, string name) where RegisterType : class;
         ResolveType Resolve<ResolveType>() where ResolveType : class;

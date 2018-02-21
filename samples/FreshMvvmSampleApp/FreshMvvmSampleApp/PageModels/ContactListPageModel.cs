@@ -6,18 +6,15 @@ using FreshMvvm;
 using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Windows.Input;
+using FreshTinyIoC;
 
 namespace FreshMvvmSampleApp
 {
     [PropertyChanged.AddINotifyPropertyChangedInterface]
     public class ContactListPageModel : FreshBasePageModel
     {
-        IDatabaseService _databaseService;
-
-        public ContactListPageModel (IDatabaseService databaseService)
-        {
-            _databaseService = databaseService;
-        }
+        [TinyIocInject]
+        public IDatabaseService _databaseService { get; set; }
 
         public ObservableCollection<Contact> Contacts { get; set; }
 
