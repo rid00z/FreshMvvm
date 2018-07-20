@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="FreshMvvmApp.QuotePage"
+	xmlns:local="clr-namespace:FreshMvvmApp;assembly=FreshMvvmApp" >
+	<local:BasePage.Content>
+		<StackLayout Padding="15">
+			<Label Text="Quote Amount" ></Label>
+			<Entry Text="{Binding Quote.Total}"></Entry>
+			<Label Text="Customer Name" ></Label>
+			<Entry Text="{Binding Quote.CustomerName}"></Entry>
+			<Button Text="Save" Command="{Binding SaveCommand}"></Button>
+			<BoxView HeightRequest="30"></BoxView>
+			<Button Text="Test Modal" Command="{Binding TestModal}"></Button>
+		</StackLayout>
+	</local:BasePage.Content>
+</local:BasePage>
