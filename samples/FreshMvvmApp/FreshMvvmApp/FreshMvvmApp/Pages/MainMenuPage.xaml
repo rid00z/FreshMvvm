@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<local:BasePage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="FreshMvvmApp.MainMenuPage"
+		xmlns:local="clr-namespace:FreshMvvmApp;assembly=FreshMvvmApp" >
+	<local:BasePage.Content>
+		<TableView>
+			<TableSection Title="Menu">     
+                <TextCell Text="Quotes" Command="{Binding ShowQuotes}"></TextCell>
+                <TextCell Text="Contacts" Command="{Binding ShowContacts}"></TextCell>
+            </TableSection>
+		</TableView>
+	</local:BasePage.Content>
+</local:BasePage>
