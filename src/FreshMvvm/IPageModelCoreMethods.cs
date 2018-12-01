@@ -26,6 +26,8 @@ namespace FreshMvvm
 
         Task PushPageModel (Type pageModelType, bool animate = true);
 
+        Task PushPageModel(Type pageModelType, object data, bool modal = false, bool animate = true);
+
         /// <summary>
         /// Removes current page/pagemodel from navigation
         /// </summary>
