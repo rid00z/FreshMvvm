@@ -39,6 +39,13 @@ namespace FreshMvvm
         void RemoveFromNavigation<TPageModel> (bool removeAll = false) where TPageModel : FreshBasePageModel;
 
         /// <summary>
+        /// Removes specific page/pagemodel from navigation
+        /// </summary>
+        /// <param name="removeAll">Will remove all, otherwise it will just remove first on from the top of the stack</param>
+        /// <param name="type">The 1st type parameter</param>
+        void RemoveFromNavigation (Type type, bool removeAll = false);
+
+        /// <summary>
         /// This method pushes a new PageModel modally with a new NavigationContainer
         /// </summary>
         /// <returns>Returns the name of the new service</returns>
