@@ -6,6 +6,7 @@
     <AssemblyVersion>1.0.*</AssemblyVersion>
     <Copyright>michaelridland</Copyright>
     <Deterministic>false</Deterministic>
+    <ReleaseVersion>2.2.0</ReleaseVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="backup-2019-01-17-093112\**" />
