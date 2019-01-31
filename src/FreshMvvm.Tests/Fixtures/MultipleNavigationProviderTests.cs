@@ -6,6 +6,7 @@ using System.Linq;
 using Xamarin.Forms;
 using NSubstitute;
 
+
 namespace FreshMvvm.Tests
 {
     /// <summary>
@@ -61,7 +62,7 @@ namespace FreshMvvm.Tests
             //standard navigation should throw exception when binding context isn't a FreshBasePageModel
             var pageEx = new Page();
             Action standardNavExeption = () => new FreshNavigationContainer(pageEx, "testingLinking");
-            standardNavExeption.ShouldThrow<Exception> ().WithMessage ("BindingContext was not a FreshBasePageModel on this Page");
+            standardNavExeption.Should().Throw<Exception> ().WithMessage ("BindingContext was not a FreshBasePageModel on this Page");
         }
 
         /// <summary>

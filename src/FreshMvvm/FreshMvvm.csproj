@@ -1,87 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{ACBA1111-2C39-4126-B60A-51EE9D0C734B}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>FreshMvvm</RootNamespace>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>FreshMvvm</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
-    <ReleaseVersion>2.2.0</ReleaseVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
+    <RootNamespace>FreshMvvm</RootNamespace>
+    <AssemblyVersion>1.0.*</AssemblyVersion>
+    <Copyright>michaelridland</Copyright>
+    <Deterministic>false</Deterministic>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FreshBasePageModel.cs" />
-    <Compile Include="IFreshNavigationService.cs" />
-    <Compile Include="IPageModelCoreMethods.cs" />
-    <Compile Include="PageModelCoreMethods.cs" />
-    <Compile Include="FreshPageModelResolver.cs" />
-    <Compile Include="FreshTinyIOCBuiltIn.cs" />
-    <Compile Include="Constants.cs" />
-    <Compile Include="PageExtensions.cs" />
-    <Compile Include="FreshBaseContentPage.cs" />
-    <Compile Include="PropertyChangedExtensions.cs" />
-    <Compile Include="IFreshPageModelMapper.cs" />
-    <Compile Include="FreshPageModelMapper.cs" />
-    <Compile Include="NavigationContainers\FreshMasterDetailNavigationContainer.cs" />
-    <Compile Include="NavigationContainers\FreshTabbedFONavigationContainer.cs" />
-    <Compile Include="NavigationContainers\FreshTabbedNavigationContainer.cs" />
-    <Compile Include="NavigationContainers\FreshNavigationContainer.cs" />
-    <Compile Include="IOC\FreshIOC.cs" />
-    <Compile Include="IOC\IFreshIOC.cs" />
-    <Compile Include="FreshAwaitCommand.cs" />
-    <Compile Include="WeakEventHandler.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <Import Project="..\packages\Xamarin.Forms.2.0.1.6505\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.0.1.6505\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
-  <Import Project="..\..\..\InvestSmart\src\InvestSmart\packages\Xamarin.Forms.2.1.0.6524\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\..\InvestSmart\src\InvestSmart\packages\Xamarin.Forms.2.1.0.6524\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
-  <Import Project="..\packages\Xamarin.Forms.2.2.0.31\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.2.0.31\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
-  <Import Project="..\..\..\60seconds\source\60SMobile\SixtySeconds\packages\Xamarin.Forms.2.2.0.45\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\..\60seconds\source\60SMobile\SixtySeconds\packages\Xamarin.Forms.2.2.0.45\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
-  <ItemGroup>
-    <ProjectReference Include="..\FreshIOC\IOC.csproj">
-      <Project>{CE6AA8F2-BD67-4051-8AE6-9FFCA9E663FE}</Project>
-      <Name>IOC</Name>
-    </ProjectReference>
+    <Compile Remove="backup-2019-01-17-093112\**" />
+    <EmbeddedResource Remove="backup-2019-01-17-093112\**" />
+    <None Remove="backup-2019-01-17-093112\**" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="FreshMvvm.nuspec" />
-    <None Include="packages.config" />
+    <PackageReference Include="System.Reactive" Version="4.0.0" />
+    <PackageReference Include="Xamarin.Forms" Version="3.4.0.1009999" />
   </ItemGroup>
+  
   <ItemGroup>
-    <Folder Include="NavigationContainers\" />
-    <Folder Include="IOC\" />
+    <ProjectReference Include="../FreshIOC/IOC.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Xamarin.Forms.Core">
-      <HintPath>..\packages\Xamarin.Forms.2.5.0.122203\lib\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Platform">
-      <HintPath>..\packages\Xamarin.Forms.2.5.0.122203\lib\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.Platform.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Xaml">
-      <HintPath>..\packages\Xamarin.Forms.2.5.0.122203\lib\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.Xaml.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <Import Project="..\packages\Xamarin.Forms.2.5.0.122203\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.122203\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />
 </Project>
