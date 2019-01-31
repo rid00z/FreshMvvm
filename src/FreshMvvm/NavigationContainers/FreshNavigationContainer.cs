@@ -15,6 +15,9 @@ namespace FreshMvvm
             : base (page)
         {
             var pageModel = page.GetModel ();
+            if (pageModel == null)
+                throw new InvalidCastException("BindingContext was not a FreshBasePageModel on this Page");
+
             pageModel.CurrentNavigationServiceName = navigationPageName;
             NavigationServiceName = navigationPageName;
             RegisterNavigation ();

@@ -11,10 +11,11 @@ namespace FreshMvvm.Tests.Fixtures
 		[Test]
 		public void Test_Register_IFreshNavigationService()
 		{
-            var page = new MockContentPage(new MockContentPageModel());
+            var page = new MockContentPage();
+            page.BindingContext = new MockContentPageModel();
 
 			var navigation = new FreshNavigationContainer(page);
-			var navigationService = FreshIOC.Container.Resolve<IFreshNavigationService>();
+			var navigationService = FreshIOC.Container.Resolve<IFreshNavigationService>(Constants.DefaultNavigationServiceName);
 
 			Assert.IsNotNull(navigationService);
 			Assert.AreEqual(navigation, navigationService);
@@ -24,9 +25,13 @@ namespace FreshMvvm.Tests.Fixtures
 		public async Task Test_PushPage()
 		{
 			var mainPageViewModel = new MockFreshBasePageModel();
-			var mainPage = new MockContentPage(mainPageViewModel);
-			var detailsPage = new MockContentPage(mainPageViewModel);
-			var navigation = new FreshNavigationContainer(mainPage);
+			var mainPage = new MockContentPage();
+            mainPage.BindingContext = new MockContentPageModel();
+
+			var detailsPage = new MockContentPage();
+            detailsPage.BindingContext = new MockContentPageModel();
+
+            var navigation = new FreshNavigationContainer(mainPage);
 
 			await navigation.PushPage(detailsPage, mainPageViewModel);
 
@@ -40,8 +45,12 @@ namespace FreshMvvm.Tests.Fixtures
 		public async Task Test_PushPage_Modal()
 		{
 			var mainPageViewModel = new MockFreshBasePageModel();
-			var mainPage = new MockContentPage(mainPageViewModel);
-			var detailsPage = new MockContentPage(mainPageViewModel);
+			var mainPage = new MockContentPage();
+            mainPage.BindingContext = new MockContentPageModel();
+
+			var detailsPage = new MockContentPage();
+            detailsPage.BindingContext = new MockContentPageModel();
+
 			var navigation = new FreshNavigationContainer(mainPage);
 
 			Assert.That(navigation.Navigation.ModalStack.Count, Is.EqualTo(0));
@@ -55,8 +64,12 @@ namespace FreshMvvm.Tests.Fixtures
 		public async Task Test_PopPage()
 		{
 			var mainPageViewModel = new MockFreshBasePageModel();
-			var mainPage = new MockContentPage(mainPageViewModel);
-			var detailsPage = new MockContentPage(mainPageViewModel);
+			var mainPage = new MockContentPage();
+            mainPage.BindingContext = new MockContentPageModel();
+
+			var detailsPage = new MockContentPage();
+            detailsPage.BindingContext = new MockContentPageModel();
+
 			var navigation = new FreshNavigationContainer(mainPage);
 
 			await navigation.PushPage(detailsPage, mainPageViewModel);
@@ -74,8 +87,12 @@ namespace FreshMvvm.Tests.Fixtures
 		public async Task Test_PopPage_Modal()
 		{
 			var mainPageViewModel = new MockFreshBasePageModel();
-			var mainPage = new MockContentPage(mainPageViewModel);
-			var detailsPage = new MockContentPage(mainPageViewModel);
+			var mainPage = new MockContentPage();
+            mainPage.BindingContext = new MockContentPageModel();
+
+			var detailsPage = new MockContentPage();
+            detailsPage.BindingContext = new MockContentPageModel();
+
 			var navigation = new FreshNavigationContainer(mainPage);
 
 			await navigation.PushPage(detailsPage, mainPageViewModel, true);
@@ -90,11 +107,12 @@ namespace FreshMvvm.Tests.Fixtures
 		[Test]
 		public async Task Test_PopToRoot()
 		{
-            var mainPage = new MockContentPage(new MockContentPageModel());
+            var mainPage = new MockContentPage();
+            mainPage.BindingContext = new MockContentPageModel();
 			var navigation = new FreshNavigationContainer(mainPage);
-
-			await navigation.PushPage(new MockContentPage(new MockContentPageModel()), new MockFreshBasePageModel());
-			await navigation.PushPage(new MockContentPage(new MockContentPageModel()), new MockFreshBasePageModel());
+            
+			await navigation.PushPage(new MockContentPage {BindingContext = new MockContentPageModel() }, new MockFreshBasePageModel());
+			await navigation.PushPage(new MockContentPage { BindingContext = new MockContentPageModel() }, new MockFreshBasePageModel());
 			await navigation.PopToRoot();
 
 			var firstPage = navigation.Navigation.NavigationStack.FirstOrDefault();
