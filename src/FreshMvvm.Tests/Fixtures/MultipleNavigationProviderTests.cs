@@ -28,8 +28,8 @@ namespace FreshMvvm.Tests
         {
             //master detail navigation
             var masterDetailNavigation = new FreshMasterDetailNavigationContainer("TestingLinking");
-            masterDetailNavigation.AddPage<MockContentPageModel> ("Page1", null);
-            masterDetailNavigation.AddPage<MockContentPageModel> ("Page2", null);
+            masterDetailNavigation.AddPage<MockContentPageModel> ("Page1");
+            masterDetailNavigation.AddPage<MockContentPageModel> ("Page2");
             var pageModel1 = masterDetailNavigation.Pages ["Page1"].GetPageFromNav().GetModel ();
             var pageModel2 = masterDetailNavigation.Pages ["Page2"].GetPageFromNav().GetModel();
             pageModel1.CurrentNavigationServiceName.Should ().Be ("TestingLinking");
@@ -62,7 +62,7 @@ namespace FreshMvvm.Tests
             //standard navigation should throw exception when binding context isn't a FreshBasePageModel
             var pageEx = new Page();
             Action standardNavExeption = () => new FreshNavigationContainer(pageEx, "testingLinking");
-            standardNavExeption.Should().Throw<Exception> ().WithMessage ("BindingContext was not a FreshBasePageModel on this Page");
+            standardNavExeption.Should().Throw<InvalidCastException> ().WithMessage ("BindingContext was not a FreshBasePageModel on this Page");
         }
 
         /// <summary>
