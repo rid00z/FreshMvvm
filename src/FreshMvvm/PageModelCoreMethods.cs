@@ -36,9 +36,18 @@ namespace FreshMvvm
             return false;
         }
 
-        public async Task PushPageModel<T> (object data, bool modal = false, bool animate = true) where T : FreshBasePageModel
+        public async Task PushPageModel<T>(Action<T> setPageModel, bool modal = false, bool animate = true) where T : FreshBasePageModel
         {
-            T pageModel = FreshIOC.Container.Resolve<T> ();
+            T pageModel = FreshIOC.Container.Resolve<T>();
+
+            setPageModel?.Invoke(pageModel);
+
+            await PushPageModel(pageModel, null, modal, animate);
+        }
+
+        public async Task PushPageModel<T>(object data, bool modal = false, bool animate = true) where T : FreshBasePageModel
+        {
+            T pageModel = FreshIOC.Container.Resolve<T>();
 
             await PushPageModel(pageModel, data, modal, animate);
         }

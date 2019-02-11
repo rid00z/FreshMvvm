@@ -1,5 +1,4 @@
 ﻿using Xamarin.Forms;
-using PropertyChanged;
 using FreshMvvm;
 
 namespace FreshMvvmApp
@@ -14,13 +13,6 @@ namespace FreshMvvmApp
         public QuotePageModel (IDatabaseService databaseService)
         {
             _databaseService = databaseService;
-        }
-
-        public override void Init (object initData)
-        {			
-            Quote = initData as Quote;
-            if (Quote == null)
-                Quote = new Quote ();
         }
 
         public Command SaveCommand {
