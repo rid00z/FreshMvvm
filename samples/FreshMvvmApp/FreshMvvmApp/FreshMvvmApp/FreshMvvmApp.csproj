@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <ReleaseVersion>2.2.0</ReleaseVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -9,7 +10,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="FreshMvvm" Version="1.0.0" />
     <PackageReference Include="PropertyChanged.Fody" Version="2.6.0" />
     <PackageReference Include="Xamarin.Forms" Version="3.4.0.1009999" />
   </ItemGroup>
@@ -33,5 +33,8 @@
     <EmbeddedResource Update="Pages\QuotePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\src\FreshMvvm\FreshMvvm.csproj" />
   </ItemGroup>
 </Project>
