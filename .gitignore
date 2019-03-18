@@ -162,6 +162,7 @@ ClientBin/
 *.publishsettings
 node_modules/
 bower_components/
+.idea
 
 # RIA/Silverlight projects
 Generated_Code/
@@ -196,4 +197,6 @@ FakesAssemblies/
 *.opt
 /samples/FreshMvvmSampleApp/Droid/FreshMvvmSampleApp.Droid.csproj.bak
 
-.idea
+# NuGet
+.nuget/
+nuget.exe
