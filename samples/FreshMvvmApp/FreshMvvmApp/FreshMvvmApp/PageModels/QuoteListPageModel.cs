@@ -66,7 +66,7 @@ namespace FreshMvvmApp
         public Command<Quote> QuoteSelected {
             get {
                 return new Command<Quote> (async (quote) => {
-                    await CoreMethods.PushPageModel<QuotePageModel> (quote);
+                    await CoreMethods.PushPageModel<QuotePageModel> (pm => pm.Quote = quote);
                 });
             }
         }

@@ -51,6 +51,7 @@ So to Navigate between PageModels use:
 ```csharp
 await CoreMethods.PushPageModel<QuotePageModel>(); // Pushes navigation stack
 await CoreMethods.PushPageModel<QuotePageModel>(null, true); // Pushes a Modal
+await CoreMethods.PushPageModel<QuotePageModel> (pm => pm.Quote = "Quote 23") // Pushes Navigation Stack and initializes the property 'Quote' with  value 'Quote 23'
 ```
 
 The engine for Navigation in FreshMvvm is done via a simple interface, with methods for Push and Pop. Essentially these methods can control the Navigation of the application in any way they like.

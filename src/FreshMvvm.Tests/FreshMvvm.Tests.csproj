@@ -84,6 +84,8 @@
     <Compile Include="Fixtures\PageModelCoreMethodsFixture.cs" />
     <Compile Include="Mocks\MockContentPage.cs" />
     <Compile Include="Mocks\MockContentPageModel.cs" />
+    <Compile Include="Mocks\MockItemPage.cs" />
+    <Compile Include="Mocks\MockItemPageModel.cs" />
     <Compile Include="Mocks\MockPageModelCoreMethods.cs" />
     <Compile Include="Fixtures\FreshBasePageModelFixture.cs" />
     <Compile Include="Fixtures\FreshPageModelResolverFixture.cs" />

@@ -84,6 +84,7 @@ namespace FreshMvvm
 		void BatchBegin();
 
 		void BatchCommit();
+        Task PushPageModel<T>(Action<T> setPageModel, bool modal = false, bool animate = true) where T : FreshBasePageModel;
     }
 }
 
