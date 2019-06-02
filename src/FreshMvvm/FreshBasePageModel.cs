@@ -74,7 +74,7 @@ namespace FreshMvvm
         /// <summary>
         /// Is true when this model is the first of a new navigation stack
         /// </summary>
-        internal bool IsModalFirstChild;
+        public bool IsModalFirstChild;
 
         /// <summary>
         /// Used when a page is shown modal and wants a new Navigation Stack

@@ -26,6 +26,8 @@ namespace FreshMvvm
 
         Task PushPageModel (Type pageModelType, bool animate = true);
 
+        Task PushPageModel (Type pageModelType, object data, bool modal = false, bool animate = true);
+
         /// <summary>
         /// Removes current page/pagemodel from navigation
         /// </summary>
@@ -37,6 +39,13 @@ namespace FreshMvvm
         /// <param name="removeAll">Will remove all, otherwise it will just remove first on from the top of the stack</param>
         /// <typeparam name="TPageModel">The 1st type parameter.</typeparam>
         void RemoveFromNavigation<TPageModel> (bool removeAll = false) where TPageModel : FreshBasePageModel;
+
+        /// <summary>
+        /// Removes specific page/pagemodel from navigation
+        /// </summary>
+        /// <param name="removeAll">Will remove all, otherwise it will just remove first on from the top of the stack</param>
+        /// <param name="type">The 1st type parameter</param>
+        void RemoveFromNavigation (Type type, bool removeAll = false);
 
         /// <summary>
         /// This method pushes a new PageModel modally with a new NavigationContainer
@@ -82,6 +91,7 @@ namespace FreshMvvm
 		void BatchBegin();
 
 		void BatchCommit();
+        Task PushPageModel<T>(Action<T> setPageModel, bool modal = false, bool animate = true) where T : FreshBasePageModel;
     }
 }
 

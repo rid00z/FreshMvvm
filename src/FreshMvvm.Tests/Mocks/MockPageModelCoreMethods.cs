@@ -21,7 +21,12 @@ namespace FreshMvvm.Tests.Mocks
 			throw new NotImplementedException();
 		}
 
-		public Task<string> DisplayActionSheet(string title, string cancel, string destruction, params string[] buttons)
+	    public Task PushPageModel<T>(Action<T> setPageModel, bool modal = false, bool animate = true) where T : FreshBasePageModel
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public Task<string> DisplayActionSheet(string title, string cancel, string destruction, params string[] buttons)
 		{
 			throw new NotImplementedException();
 		}
