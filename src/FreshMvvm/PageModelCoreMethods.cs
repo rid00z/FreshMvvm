@@ -267,12 +267,17 @@ namespace FreshMvvm
         /// <summary>
         /// Removes specific page/pagemodel from navigation
         /// </summary>
-        public void RemoveFromNavigation<TPageModel> (bool removeAll = false) where TPageModel : FreshBasePageModel
+        public void RemoveFromNavigation<TPageModel> (bool removeAll = false) where TPageModel : FreshBasePageModel =>
+            RemoveFromNavigation (typeof(TPageModel), removeAll);
+
+        /// <summary>
+        /// Removes specific page/pagemodel from navigation
+        /// </summary>
+        public void RemoveFromNavigation (Type type, bool removeAll = false)
         {
-            //var pages = this._currentPage.Navigation.Where (o => o is TPageModel);
             foreach (var page in this._currentPage.Navigation.NavigationStack.Reverse().ToList()) 
             {
-                if (page.BindingContext is TPageModel) 
+                if (page.BindingContext?.GetType() == type) 
                 {
                     page.GetModel()?.RaisePageWasPopped ();
                     this._currentPage.Navigation.RemovePage (page);
