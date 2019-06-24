@@ -200,3 +200,4 @@ FakesAssemblies/
 # NuGet
 .nuget/
 nuget.exe
+samples/FreshMvvmApp/FreshMvvmApp/FreshMvvmApp.Android/Resources/Resource.designer.cs
