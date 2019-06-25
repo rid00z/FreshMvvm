@@ -6,7 +6,6 @@
     <AssemblyVersion>3.0.*</AssemblyVersion>
     <Copyright>michaelridland</Copyright>
     <Deterministic>false</Deterministic>
-    <ReleaseVersion>3.0.0</ReleaseVersion>
     <Version>3.0.0</Version>
   </PropertyGroup>
   <ItemGroup>

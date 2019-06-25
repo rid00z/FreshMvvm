@@ -14,6 +14,14 @@ namespace FreshMvvmApp
             MainPage = new NavigationPage(new LaunchPage(this));
         }
 
+        public void LoadShellSample()
+        {
+            //var page = FreshPageModelResolver.ResolvePageModel<MainMenuPageModel>();
+            //var basicNavContainer = new FreshNavigationContainer(page);
+            Routing.RegisterRoute("contactpage", typeof(ContactPage));
+            MainPage = new AppShell();
+        }
+
         public void LoadBasicNav()
         {
             var page = FreshPageModelResolver.ResolvePageModel<MainMenuPageModel>();

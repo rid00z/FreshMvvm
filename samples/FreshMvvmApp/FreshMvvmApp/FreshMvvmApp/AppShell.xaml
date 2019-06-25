@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:FreshMvvmApp"
+       FlyoutHeaderBehavior="CollapseOnScroll"
+       Title="Shell"
+       x:Name="self"
+       x:Class="FreshMvvmApp.AppShell">
+       
+    <!--Source="{local:ImageResource Gastropod.Images.shells_01.jpg}"-->
+    <Shell.FlyoutHeader>
+        <Grid HeightRequest="300">
+            <Image 
+                   
+                   Aspect="AspectFill"
+                   HeightRequest="300"
+                   HorizontalOptions="FillAndExpand" />
+            <Label Text="Gastropods"
+                   TextColor="White"
+                   FontSize="48"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center" />
+        </Grid>
+    </Shell.FlyoutHeader>
+    
+    <!--Style="{StaticResource SecondaryShell}"-->
+    <FlyoutItem FlyoutIcon="iconXamarin.png"
+                Title="Home"
+                >
+        <ShellContent Route="home"
+                      ContentTemplate="{DataTemplate local:ContactListPage}" />
+    </FlyoutItem>
+    
+    <!--Style="{StaticResource TertiaryShell}"-->
+    <FlyoutItem Route="tabsandwich"
+                Title="Tab Sandwich"
+                FlyoutIcon="iconXamarin.png"
+                >
+        <Tab Route="activity"
+             Title="Activity"
+             Icon="iconXamarin.png">
+            <ShellContent Route="shared"
+                          Title="Shared"
+                          ContentTemplate="{DataTemplate local:ContactListPage}" />
+            <ShellContent Route="notifications"
+                          Title="Notifications"
+                          ContentTemplate="{DataTemplate local:ContactListPage}" />
+        </Tab>
+        <Tab Route="updates"
+             Title="Updates"
+             Icon="iconXamarin.png">
+            <ShellContent Route="updates"
+                          Title="Updates"
+                          Icon="iconXamarin.png"
+                          ContentTemplate="{DataTemplate local:ContactListPage}" />
+            <ShellContent Route="home"
+                          Title="Home"
+                          Icon="iconXamarin.png"
+                          ContentTemplate="{DataTemplate local:ContactListPage}" />
+        </Tab>
+    </FlyoutItem>
+
+    <FlyoutItem Route="single"
+                Title="Single Page"
+                FlyoutIcon="iconXamarin.png">
+        <ShellContent Route="home"
+                      Title="Home"
+                      Icon="iconXamarin.png"
+                      ContentTemplate="{DataTemplate local:ContactListPage}" />
+    </FlyoutItem>
+    
+    <!--Style="{StaticResource QuaternaryShell}"-->
+    <FlyoutItem Route="toptabs"
+                Title="Top Tabs"
+                FlyoutIcon="iconXamarin.png"
+                >
+        <Tab Route="activity"
+             Title="Activity"
+             Icon="iconXamarin.png">
+            <ShellContent Route="shared"
+                          Title="Shared"
+                          ContentTemplate="{DataTemplate local:ContactListPage}" />
+            <ShellContent Route="notifications"
+                          Title="Notifications"
+                          ContentTemplate="{DataTemplate local:ContactListPage}" />
+            <ShellContent Route="photo"
+                          Title="Photo"
+                          ContentTemplate="{DataTemplate local:ContactListPage}" />
+        </Tab>
+    </FlyoutItem>
+
+   <FlyoutItem Route="bottomtabs"
+                Title="Bottom Tabs"
+                FlyoutIcon="iconXamarin.png">    
+            <Tab Route="contacts"
+                 Title="Contacts"
+                 Icon="contacts.png">
+                <ShellContent Route="contacts2" ContentTemplate="{DataTemplate local:ContactListPage}" />
+            </Tab>
+            <Tab Route="quotes"
+                 Title="Quotes"
+                 Icon="quotes.png">
+                <ShellContent Route="quotes2" ContentTemplate="{DataTemplate local:QuoteListPage}" />
+            </Tab>        
+   </FlyoutItem>
+   
+    <!--Command="{Binding TakePhotoCommand}"-->
+    <MenuItem Text="Take a Photo"
+              Icon="photo.png"
+              BindingContext="{x:Reference self}"
+               />
+    <!--Command="{Binding LoginCommand}"-->
+    <MenuItem Text="Login"
+              BindingContext="{x:Reference self}"
+               />
+
+
+</Shell>
