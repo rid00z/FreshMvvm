@@ -20,6 +20,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="../FreshIOC/IOC.csproj" />
+    <ProjectReference Include="../FreshTinyIoC/FreshTinyIoC.csproj" />
   </ItemGroup>
 </Project>
