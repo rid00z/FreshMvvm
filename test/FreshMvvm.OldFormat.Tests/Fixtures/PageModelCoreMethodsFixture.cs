@@ -17,7 +17,7 @@ namespace FreshMvvm.Tests.Fixtures
         void SetupFirstNavigationAndPage()
 	    {
 	        _navigationMock = Substitute.For<IFreshNavigationService>();
-	        FreshIOC.Container.Register<IFreshNavigationService>(_navigationMock, "firstNav");
+	        FreshIoc.Container.Register<IFreshNavigationService>(_navigationMock, "firstNav");
 
 	        _page = FreshPageModelResolver.ResolvePageModel<MockContentPageModel>();
 	        _pageModel = _page.BindingContext as MockContentPageModel;

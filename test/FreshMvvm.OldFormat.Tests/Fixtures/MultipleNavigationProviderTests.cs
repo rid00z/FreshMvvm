@@ -35,7 +35,7 @@ namespace FreshMvvm.Tests
             pageModel1.CurrentNavigationServiceName.Should ().Be ("TestingLinking");
             pageModel2.CurrentNavigationServiceName.Should ().Be ("TestingLinking");
 
-            if (FreshIOC.Container.Resolve<IFreshNavigationService> ("TestingLinking") == null)
+            if (FreshIoc.Container.Resolve<IFreshNavigationService> ("TestingLinking") == null)
                 throw new Exception ("Should contain navigation service");
 
             //tabbed navigation 
@@ -47,7 +47,7 @@ namespace FreshMvvm.Tests
             tabbedPageModel1.CurrentNavigationServiceName.Should ().Be ("TestingLinking2");
             tabbedPageModel2.CurrentNavigationServiceName.Should ().Be ("TestingLinking2");
 
-            if (FreshIOC.Container.Resolve<IFreshNavigationService> ("TestingLinking2") == null)
+            if (FreshIoc.Container.Resolve<IFreshNavigationService> ("TestingLinking2") == null)
                 throw new Exception ("Should contain navigation service");
             
             //standard navigation should set named navigation
@@ -56,7 +56,7 @@ namespace FreshMvvm.Tests
             new FreshNavigationContainer(page, "testingLinking3");
             pageModel.CurrentNavigationServiceName.Should ().Be ("testingLinking3");
 
-            if (FreshIOC.Container.Resolve<IFreshNavigationService> ("testingLinking3") == null)
+            if (FreshIoc.Container.Resolve<IFreshNavigationService> ("testingLinking3") == null)
                 throw new Exception ("Should contain navigation service");
             
             //standard navigation should throw exception when binding context isn't a FreshBasePageModel
@@ -194,7 +194,7 @@ namespace FreshMvvm.Tests
         void SetupFirstNavigationAndPage()
         {
             _navigationMock = Substitute.For<IFreshNavigationService> ();                
-            FreshIOC.Container.Register<IFreshNavigationService> (_navigationMock, "firstNav");
+            FreshIoc.Container.Register<IFreshNavigationService> (_navigationMock, "firstNav");
 
             _page = FreshPageModelResolver.ResolvePageModel<MockContentPageModel>();
             _pageModel = _page.BindingContext as MockContentPageModel;   

@@ -15,7 +15,7 @@ namespace FreshMvvm.Tests.Fixtures
             page.BindingContext = new MockContentPageModel();
 
 			var navigation = new FreshNavigationContainer(page);
-			var navigationService = FreshIOC.Container.Resolve<IFreshNavigationService>(Constants.DefaultNavigationServiceName);
+			var navigationService = FreshIoc.Container.Resolve<IFreshNavigationService>(Constants.DefaultNavigationServiceName);
 
 			Assert.IsNotNull(navigationService);
 			Assert.AreEqual(navigation, navigationService);
