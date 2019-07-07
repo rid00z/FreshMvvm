@@ -6,7 +6,7 @@ using Xunit;
 using System.Linq;
 using Xamarin.Forms;
 using NSubstitute;
-
+using FreshMvvm.Ioc;
 
 namespace FreshMvvm.Tests
 {
@@ -14,7 +14,6 @@ namespace FreshMvvm.Tests
     /// Need the ability to have two different NavigationServices running at same time
     /// </summary>
 
-    [TestFixture]
     public class MultipleNavigationProviderTests
     {
         public MultipleNavigationProviderTests ()

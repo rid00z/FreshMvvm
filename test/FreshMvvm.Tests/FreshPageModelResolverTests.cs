@@ -4,7 +4,6 @@ using Xunit;
 
 namespace FreshMvvm.Tests
 {
-	[TestFixture]
 	public class FreshPageModelResolverTests
 	{
 		[Theory]

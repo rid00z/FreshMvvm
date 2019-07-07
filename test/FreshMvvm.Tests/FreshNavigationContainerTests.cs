@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using FreshMvvm.Ioc;
 using FreshMvvm.TestHelpers.Mocks;
 using Xunit;
 
