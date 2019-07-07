@@ -7,29 +7,29 @@ namespace FreshMvvm
 {
     public class FreshNavigationContainer : Xamarin.Forms.NavigationPage, IFreshNavigationService
     {
-        public FreshNavigationContainer (Page page) 
-            : this (page, Constants.DefaultNavigationServiceName)
+        public FreshNavigationContainer(Page page)
+            : this(page, Constants.DefaultNavigationServiceName)
         {
         }
 
-        public FreshNavigationContainer (Page page, string navigationPageName) 
-            : base (page)
+        public FreshNavigationContainer(Page page, string navigationPageName)
+            : base(page)
         {
-            var pageModel = page.GetModel ();
+            var pageModel = page.GetModel();
             if (pageModel == null)
                 throw new InvalidCastException("BindingContext was not a FreshBasePageModel on this Page");
 
             pageModel.CurrentNavigationServiceName = navigationPageName;
             NavigationServiceName = navigationPageName;
-            RegisterNavigation ();
+            RegisterNavigation();
         }
 
-        protected void RegisterNavigation ()
+        protected void RegisterNavigation()
         {
-            FreshIoc.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
+            FreshIoc.Container.Register<IFreshNavigationService>(this, NavigationServiceName);
         }
 
-        internal Page CreateContainerPageSafe (Page page)
+        internal Page CreateContainerPageSafe(Page page)
         {
             if (page is NavigationPage || page is MasterDetailPage || page is TabbedPage)
                 return page;
@@ -37,28 +37,28 @@ namespace FreshMvvm
             return CreateContainerPage(page);
         }
 
-        protected virtual Page CreateContainerPage (Page page)
+        protected virtual Page CreateContainerPage(Page page)
         {
-            return new NavigationPage (page);
+            return new NavigationPage(page);
         }
 
-        public virtual Task PushPage (Xamarin.Forms.Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
+        public virtual Task PushPage(Xamarin.Forms.Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
         {
             if (modal)
-                return Navigation.PushModalAsync (CreateContainerPageSafe (page), animate);
-            return Navigation.PushAsync (page, animate);
+                return Navigation.PushModalAsync(CreateContainerPageSafe(page), animate);
+            return Navigation.PushAsync(page, animate);
         }
 
-        public virtual Task PopPage (bool modal = false, bool animate = true)
+        public virtual Task PopPage(bool modal = false, bool animate = true)
         {
             if (modal)
-                return Navigation.PopModalAsync (animate);
-            return Navigation.PopAsync (animate);
+                return Navigation.PopModalAsync(animate);
+            return Navigation.PopAsync(animate);
         }
 
-        public Task PopToRoot (bool animate = true)
+        public Task PopToRoot(bool animate = true)
         {
-            return Navigation.PopToRootAsync (animate); 
+            return Navigation.PopToRootAsync(animate);
         }
 
         public string NavigationServiceName { get; private set; }

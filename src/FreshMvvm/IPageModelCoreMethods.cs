@@ -6,60 +6,60 @@ namespace FreshMvvm
 {
     public interface IPageModelCoreMethods
     {
-        Task DisplayAlert (string title, string message, string cancel);
+        Task DisplayAlert(string title, string message, string cancel);
 
-        Task<string> DisplayActionSheet (string title, string cancel, string destruction, params string[] buttons);
+        Task<string> DisplayActionSheet(string title, string cancel, string destruction, params string[] buttons);
 
-        Task<bool> DisplayAlert (string title, string message, string accept, string cancel);
+        Task<bool> DisplayAlert(string title, string message, string accept, string cancel);
 
-        Task PushPageModel<T> (object data, bool modal = false, bool animate = true) where T : FreshBasePageModel;
+        Task PushPageModel<T>(object data, bool modal = false, bool animate = true) where T : FreshBasePageModel;
 
-        Task PushPageModel<T, TPage> (object data, bool modal = false, bool animate = true) where T : FreshBasePageModel where TPage : Page;
+        Task PushPageModel<T, TPage>(object data, bool modal = false, bool animate = true) where T : FreshBasePageModel where TPage : Page;
 
-        Task PopPageModel (bool modal = false, bool animate = true);
+        Task PopPageModel(bool modal = false, bool animate = true);
 
-        Task PopPageModel (object data, bool modal = false, bool animate = true);
+        Task PopPageModel(object data, bool modal = false, bool animate = true);
 
-        Task PushPageModel<T> (bool animate = true) where T : FreshBasePageModel;
+        Task PushPageModel<T>(bool animate = true) where T : FreshBasePageModel;
 
-        Task PushPageModel<T, TPage> (bool animate = true) where T : FreshBasePageModel where TPage : Page;
+        Task PushPageModel<T, TPage>(bool animate = true) where T : FreshBasePageModel where TPage : Page;
 
-        Task PushPageModel (Type pageModelType, bool animate = true);
+        Task PushPageModel(Type pageModelType, bool animate = true);
 
-        Task PushPageModel (Type pageModelType, object data, bool modal = false, bool animate = true);
+        Task PushPageModel(Type pageModelType, object data, bool modal = false, bool animate = true);
 
         /// <summary>
         /// Removes current page/pagemodel from navigation
         /// </summary>
-        void RemoveFromNavigation ();
+        void RemoveFromNavigation();
 
         /// <summary>
         /// Removes specific page/pagemodel from navigation
         /// </summary>
         /// <param name="removeAll">Will remove all, otherwise it will just remove first on from the top of the stack</param>
         /// <typeparam name="TPageModel">The 1st type parameter.</typeparam>
-        void RemoveFromNavigation<TPageModel> (bool removeAll = false) where TPageModel : FreshBasePageModel;
+        void RemoveFromNavigation<TPageModel>(bool removeAll = false) where TPageModel : FreshBasePageModel;
 
         /// <summary>
         /// Removes specific page/pagemodel from navigation
         /// </summary>
         /// <param name="removeAll">Will remove all, otherwise it will just remove first on from the top of the stack</param>
         /// <param name="type">The 1st type parameter</param>
-        void RemoveFromNavigation (Type type, bool removeAll = false);
+        void RemoveFromNavigation(Type type, bool removeAll = false);
 
         /// <summary>
         /// This method pushes a new PageModel modally with a new NavigationContainer
         /// </summary>
         /// <returns>Returns the name of the new service</returns>
-        Task<string> PushPageModelWithNewNavigation<T> (object data, bool animate = true) where T : FreshBasePageModel;
+        Task<string> PushPageModelWithNewNavigation<T>(object data, bool animate = true) where T : FreshBasePageModel;
 
-        Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel[] basePageModels, bool animate = true);
+        Task PushNewNavigationServiceModal(IFreshNavigationService newNavigationService, FreshBasePageModel[] basePageModels, bool animate = true);
 
-        Task PushNewNavigationServiceModal (FreshTabbedNavigationContainer tabbedNavigationContainer, FreshBasePageModel basePageModel = null, bool animate = true);
+        Task PushNewNavigationServiceModal(FreshTabbedNavigationContainer tabbedNavigationContainer, FreshBasePageModel basePageModel = null, bool animate = true);
 
-        Task PushNewNavigationServiceModal (FreshMasterDetailNavigationContainer masterDetailContainer, FreshBasePageModel basePageModel = null, bool animate = true);
+        Task PushNewNavigationServiceModal(FreshMasterDetailNavigationContainer masterDetailContainer, FreshBasePageModel basePageModel = null, bool animate = true);
 
-        Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel basePageModels, bool animate = true);
+        Task PushNewNavigationServiceModal(IFreshNavigationService newNavigationService, FreshBasePageModel basePageModels, bool animate = true);
 
         Task PopModalNavigationService(bool animate = true);
 
@@ -84,7 +84,7 @@ namespace FreshMvvm
         /// </summary>
         /// <returns>The BagePageModel, allows you to PopToRoot, Pass Data</returns>
         /// <param name="newSelectedMaster">The pagemodel of the root you want to change</param>
-        Task<FreshBasePageModel> SwitchSelectedMaster<T>()where T : FreshBasePageModel;
+        Task<FreshBasePageModel> SwitchSelectedMaster<T>() where T : FreshBasePageModel;
 
         Task PopToRoot(bool animate);
 

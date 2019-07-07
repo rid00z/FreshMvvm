@@ -110,8 +110,8 @@ namespace FreshMvvm.Tests
             var mainPage = new MockContentPage();
             mainPage.BindingContext = new MockContentPageModel();
             var navigation = new FreshNavigationContainer(mainPage);
-            
-            await navigation.PushPage(new MockContentPage {BindingContext = new MockContentPageModel() }, new MockFreshBasePageModel());
+
+            await navigation.PushPage(new MockContentPage { BindingContext = new MockContentPageModel() }, new MockFreshBasePageModel());
             await navigation.PushPage(new MockContentPage { BindingContext = new MockContentPageModel() }, new MockFreshBasePageModel());
             await navigation.PopToRoot();
 

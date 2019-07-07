@@ -28,7 +28,7 @@ namespace FreshMvvm.Tests
         }
 
         [Fact]
-        
+
         public async Task model_property_populated_by_action()
         {
             SetupFirstNavigationAndPage();

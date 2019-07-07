@@ -8,16 +8,19 @@ namespace FreshMvvm
 {
     public static class PropertyChangedExtensions
     {
-        public static void WhenAny<T, TProperty> (this T source, Action<string> action, params Expression<Func<T, TProperty>>[] properties) where T : INotifyPropertyChanged
+        public static void WhenAny<T, TProperty>(this T source, Action<string> action, params Expression<Func<T, TProperty>>[] properties) where T : INotifyPropertyChanged
         {
-            Dictionary<string, Func<T, TProperty>> propertyNames = new Dictionary<string, Func<T, TProperty>> ();
+            Dictionary<string, Func<T, TProperty>> propertyNames = new Dictionary<string, Func<T, TProperty>>();
             Expression<Func<T, TProperty>>[] properties2 = properties;
-            for (int i = 0; i < properties2.Length; i++) {
-                Expression<Func<T, TProperty>> expression = properties2 [i];
-                propertyNames.Add (expression.GetPropertyInfo<T, TProperty> ().Name, expression.Compile ());
+            for (int i = 0; i < properties2.Length; i++)
+            {
+                Expression<Func<T, TProperty>> expression = properties2[i];
+                propertyNames.Add(expression.GetPropertyInfo<T, TProperty>().Name, expression.Compile());
             }
-            source.PropertyChanged += (object sender, PropertyChangedEventArgs e) => {
-                if (propertyNames.ContainsKey (e.PropertyName)) {
+            source.PropertyChanged += (object sender, PropertyChangedEventArgs e) =>
+            {
+                if (propertyNames.ContainsKey(e.PropertyName))
+                {
                     action(e.PropertyName);
                 }
             };

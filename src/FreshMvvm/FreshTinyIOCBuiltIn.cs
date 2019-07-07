@@ -11,7 +11,7 @@ namespace FreshMvvm
     {
         public static FreshTinyIocContainer Current
         {
-            get 
+            get
             {
                 return FreshTinyIocContainer.Current;
             }
@@ -19,25 +19,25 @@ namespace FreshMvvm
 
         public IRegisterOptions Register<RegisterType>(RegisterType instance, string name) where RegisterType : class
         {
-            return FreshTinyIocContainer.Current.Register (instance, name);
+            return FreshTinyIocContainer.Current.Register(instance, name);
         }
 
         public IRegisterOptions Register<RegisterType>(RegisterType instance) where RegisterType : class
         {
-            return FreshTinyIocContainer.Current.Register (instance);
+            return FreshTinyIocContainer.Current.Register(instance);
         }
 
         public ResolveType Resolve<ResolveType>(string name) where ResolveType : class
         {
-            return FreshTinyIocContainer.Current.Resolve<ResolveType> (name);
+            return FreshTinyIocContainer.Current.Resolve<ResolveType>(name);
         }
 
         public ResolveType Resolve<ResolveType>() where ResolveType : class
         {
-            return FreshTinyIocContainer.Current.Resolve<ResolveType> ();
+            return FreshTinyIocContainer.Current.Resolve<ResolveType>();
         }
 
-        public IRegisterOptions Register<RegisterType, RegisterImplementation> ()
+        public IRegisterOptions Register<RegisterType, RegisterImplementation>()
             where RegisterType : class
             where RegisterImplementation : class, RegisterType
         {
@@ -46,7 +46,7 @@ namespace FreshMvvm
 
         public object Resolve(Type resolveType)
         {
-            return FreshTinyIocContainer.Current.Resolve (resolveType);
+            return FreshTinyIocContainer.Current.Resolve(resolveType);
         }
 
         public void Unregister<RegisterType>()

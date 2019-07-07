@@ -19,7 +19,7 @@ namespace FreshMvvm
         /// This event is raise when a page is Popped, this might not be raise everytime a page is Popped. 
         /// Note* this might be raised multiple times. 
         /// </summary>
-        public event EventHandler PageWasPopped; 
+        public event EventHandler PageWasPopped;
 
         /// <summary>
         /// This property is used by the FreshBaseContentPage and allows you to set the toolbar items on the page.
@@ -45,7 +45,7 @@ namespace FreshMvvm
         /// This method is called when a page is Pop'd, it also allows for data to be returned.
         /// </summary>
         /// <param name="returnedData">This data that's returned from </param>
-        public virtual void ReverseInit (object returnedData)
+        public virtual void ReverseInit(object returnedData)
         {
         }
 
@@ -53,19 +53,20 @@ namespace FreshMvvm
         /// This method is called when the PageModel is loaded, the initData is the data that's sent from pagemodel before
         /// </summary>
         /// <param name="initData">Data that's sent to this PageModel from the pusher</param>
-        public virtual void Init (object initData)
-        {            
+        public virtual void Init(object initData)
+        {
         }
 
-        protected void RaisePropertyChanged ([CallerMemberName] string propertyName = null)
+        protected void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanged;
-            if (handler != null) {
-                handler (this, new PropertyChangedEventArgs (propertyName));
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 
-        internal void WireEvents (Page page)
+        internal void WireEvents(Page page)
         {
             page.Appearing += new WeakEventHandler<EventArgs>(ViewIsAppearing).Handler;
             page.Disappearing += new WeakEventHandler<EventArgs>(ViewIsDisappearing).Handler;
@@ -91,13 +92,13 @@ namespace FreshMvvm
         /// </summary>
         public bool IsModalAndHasPreviousNavigationStack()
         {
-            return !string.IsNullOrWhiteSpace (PreviousNavigationServiceName) && PreviousNavigationServiceName != CurrentNavigationServiceName;
+            return !string.IsNullOrWhiteSpace(PreviousNavigationServiceName) && PreviousNavigationServiceName != CurrentNavigationServiceName;
         }
 
         /// <summary>
         /// This method is called when the view is disappearing. 
         /// </summary>
-        protected virtual void ViewIsDisappearing (object sender, EventArgs e)
+        protected virtual void ViewIsDisappearing(object sender, EventArgs e)
         {
 
         }
@@ -105,7 +106,7 @@ namespace FreshMvvm
         /// <summary>
         /// This methods is called when the View is appearing
         /// </summary>
-        protected virtual void ViewIsAppearing (object sender, EventArgs e)
+        protected virtual void ViewIsAppearing(object sender, EventArgs e)
         {
             if (!_alreadyAttached)
                 AttachPageWasPoppedEvent();

@@ -29,7 +29,7 @@ namespace FreshTinyIoc
 
         public TinyIocResolutionException(Type type, Exception innerException)
             : base(String.Format(ERROR_TEXT_WITHINNER, type.Name, innerException.Message), innerException)
-        {            
+        {
         }
     }
 }

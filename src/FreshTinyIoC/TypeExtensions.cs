@@ -58,7 +58,7 @@ namespace FreshTinyIoc
 
         public static PropertyInfo GetProperty(Type sourceType, string propertyName)
         {
-            var allProperties = sourceType.GetProperties (BindingFlags.Public | BindingFlags.Instance);
+            var allProperties = sourceType.GetProperties(BindingFlags.Public | BindingFlags.Instance);
             var property = allProperties.Where(
                 mi => string.Equals(propertyName, mi.Name, StringComparison.Ordinal)).ToList();
 
@@ -72,7 +72,7 @@ namespace FreshTinyIoc
 
         public static MethodInfo GetMethod(Type sourceType, string methodName)
         {
-            var allMethods = sourceType.GetMethods (BindingFlags.Public | BindingFlags.Instance);
+            var allMethods = sourceType.GetMethods(BindingFlags.Public | BindingFlags.Instance);
             var methods = allMethods.Where(
                 mi => string.Equals(methodName, mi.Name, StringComparison.Ordinal)).ToList();
 

@@ -19,7 +19,7 @@ namespace FreshMvvm
         {
             var target = _targetReference.Target;
             if (target != null)
-            {                
+            {
                 var callback = (Action<object, TEventArgs>)_method.CreateDelegate(typeof(Action<object, TEventArgs>), target);
                 if (callback != null)
                 {

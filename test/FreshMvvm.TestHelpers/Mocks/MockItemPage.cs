@@ -6,7 +6,7 @@ namespace FreshMvvm.TestHelpers.Mocks
     {
         public MockItemPage()
         {
-            
+
         }
     }
 }

@@ -96,29 +96,29 @@ namespace FreshMvvm.TestHelpers.Mocks
             throw new NotImplementedException();
         }
 
-        public Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel[] basePageModels)
+        public Task PushNewNavigationServiceModal(IFreshNavigationService newNavigationService, FreshBasePageModel[] basePageModels)
         {
-            throw new NotImplementedException ();
+            throw new NotImplementedException();
         }
 
-        public Task PopModalNavigationService ()
+        public Task PopModalNavigationService()
         {
-            throw new NotImplementedException ();
+            throw new NotImplementedException();
         }
 
-        public Task PushNewNavigationServiceModal (FreshTabbedNavigationContainer tabbedNavigationContainer)
+        public Task PushNewNavigationServiceModal(FreshTabbedNavigationContainer tabbedNavigationContainer)
         {
-            throw new NotImplementedException ();
+            throw new NotImplementedException();
         }
 
-        public Task PushNewNavigationServiceModal (FreshMasterDetailNavigationContainer masterDetailContainer)
+        public Task PushNewNavigationServiceModal(FreshMasterDetailNavigationContainer masterDetailContainer)
         {
-            throw new NotImplementedException ();
+            throw new NotImplementedException();
         }
 
-        public Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel basePageModels)
+        public Task PushNewNavigationServiceModal(IFreshNavigationService newNavigationService, FreshBasePageModel basePageModels)
         {
-            throw new NotImplementedException ();
+            throw new NotImplementedException();
         }
 
         public Task PushPageModel<T>(object data, bool modal = false, bool animate = true) where T : FreshBasePageModel
