@@ -39,17 +39,17 @@
     Adds ability to control pagemodel mapping via PageModelMapper
     Adds ability to navigate without animation
     Better cleanup of objects
-    IOC now has unregister feature
+    Ioc now has unregister feature
     Add First Only Tabbed Navigation Container
 
     2.0.1
     Support for Xamarin.Forms 2.2.
 
     2.0
-    IOC Container Lifetime Registration Options
+    Ioc Container Lifetime Registration Options
     Switching out NavigationStacks on the Xamarin.Forms MainPage
     Multiple Navigation Services
-    Custom IOC Containers
+    Custom Ioc Containers
     WhenAny
     Control over which Models and Views are linked
     Events when page is popped (for disposal)

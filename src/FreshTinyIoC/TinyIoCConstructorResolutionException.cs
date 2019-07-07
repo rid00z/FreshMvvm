@@ -1,10 +1,10 @@
 //===============================================================================
-// TinyIoC
+// TinyIoc
 //
 // An easy to use, hassle free, Inversion of Control Container for small projects
 // and beginners alike.
 //
-// https://github.com/grumpydev/TinyIoC
+// https://github.com/grumpydev/TinyIoc
 //===============================================================================
 // Copyright © Steven Robbins.  All rights reserved.
 // THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY
@@ -14,29 +14,29 @@
 //===============================================================================
 using System;
 
-namespace FreshTinyIoC
+namespace FreshTinyIoc
 {
 
-    public class TinyIoCConstructorResolutionException : Exception
+    public class TinyIocConstructorResolutionException : Exception
     {
         private const string ERROR_TEXT = "Unable to resolve constructor for {0} using provided Expression.";
 
-        public TinyIoCConstructorResolutionException(Type type)
+        public TinyIocConstructorResolutionException(Type type)
             : base(String.Format(ERROR_TEXT, type.FullName))
         {
         }
 
-        public TinyIoCConstructorResolutionException(Type type, Exception innerException)
+        public TinyIocConstructorResolutionException(Type type, Exception innerException)
             : base(String.Format(ERROR_TEXT, type.FullName), innerException)
         {
         }
 
-        public TinyIoCConstructorResolutionException(string message, Exception innerException)
+        public TinyIocConstructorResolutionException(string message, Exception innerException)
             : base(message, innerException)
         {
         }
 
-        public TinyIoCConstructorResolutionException(string message)
+        public TinyIocConstructorResolutionException(string message)
             : base(message)
         {
         }

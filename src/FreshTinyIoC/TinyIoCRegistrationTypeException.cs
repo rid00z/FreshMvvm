@@ -1,10 +1,10 @@
 //===============================================================================
-// TinyIoC
+// TinyIoc
 //
 // An easy to use, hassle free, Inversion of Control Container for small projects
 // and beginners alike.
 //
-// https://github.com/grumpydev/TinyIoC
+// https://github.com/grumpydev/TinyIoc
 //===============================================================================
 // Copyright © Steven Robbins.  All rights reserved.
 // THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY
@@ -13,20 +13,20 @@
 // FITNESS FOR A PARTICULAR PURPOSE.
 //===============================================================================
 
-namespace FreshTinyIoC
+namespace FreshTinyIoc
 {
     using System;
 
-    public class TinyIoCRegistrationTypeException : Exception
+    public class TinyIocRegistrationTypeException : Exception
     {
         private const string REGISTER_ERROR_TEXT = "Cannot register type {0} - abstract classes or interfaces are not valid implementation types for {1}.";
 
-        public TinyIoCRegistrationTypeException(Type type, string factory)
+        public TinyIocRegistrationTypeException(Type type, string factory)
             : base(String.Format(REGISTER_ERROR_TEXT, type.FullName, factory))
         {
         }
 
-        public TinyIoCRegistrationTypeException(Type type, string factory, Exception innerException)
+        public TinyIocRegistrationTypeException(Type type, string factory, Exception innerException)
             : base(String.Format(REGISTER_ERROR_TEXT, type.FullName, factory), innerException)
         {
         }

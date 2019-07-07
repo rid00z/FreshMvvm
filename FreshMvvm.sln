@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D5C87614-152
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreshMvvm", "src\FreshMvvm\FreshMvvm.csproj", "{0E4EE4A6-B1EF-4DEF-B8B7-2E391B5C424F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreshTinyIoC", "src\FreshTinyIoC\FreshTinyIoC.csproj", "{34770E63-CB62-4506-BEE4-59F337E26D7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreshTinyIoc", "src\FreshTinyIoc\FreshTinyIoc.csproj", "{34770E63-CB62-4506-BEE4-59F337E26D7D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{19D7160B-B33F-4200-B248-FC1B7BF8D815}"
 EndProject

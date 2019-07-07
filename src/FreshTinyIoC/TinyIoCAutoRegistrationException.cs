@@ -1,10 +1,10 @@
 //===============================================================================
-// TinyIoC
+// TinyIoc
 //
 // An easy to use, hassle free, Inversion of Control Container for small projects
 // and beginners alike.
 //
-// https://github.com/grumpydev/TinyIoC
+// https://github.com/grumpydev/TinyIoc
 //===============================================================================
 // Copyright © Steven Robbins.  All rights reserved.
 // THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY
@@ -17,19 +17,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FreshTinyIoC
+namespace FreshTinyIoc
 {
 
-    public class TinyIoCAutoRegistrationException : Exception
+    public class TinyIocAutoRegistrationException : Exception
     {
         private const string ERROR_TEXT = "Duplicate implementation of type {0} found ({1}).";
 
-        public TinyIoCAutoRegistrationException(Type registerType, IEnumerable<Type> types)
+        public TinyIocAutoRegistrationException(Type registerType, IEnumerable<Type> types)
             : base(String.Format(ERROR_TEXT, registerType, GetTypesString(types)))
         {
         }
 
-        public TinyIoCAutoRegistrationException(Type registerType, IEnumerable<Type> types, Exception innerException)
+        public TinyIocAutoRegistrationException(Type registerType, IEnumerable<Type> types, Exception innerException)
             : base(String.Format(ERROR_TEXT, registerType, GetTypesString(types)), innerException)
         {
         }

@@ -4,20 +4,20 @@ namespace FreshMvvm.Ioc
 {
     public class FreshIoc
     {
-        static IFreshIoc _freshIOCContainer;
+        static IFreshIoc _freshIocContainer;
 
         public static IFreshIoc Container { 
             get {
-                if (_freshIOCContainer == null)
-                    _freshIOCContainer = new FreshTinyIocBuiltIn ();
+                if (_freshIocContainer == null)
+                    _freshIocContainer = new FreshTinyIocBuiltIn ();
 
-                return _freshIOCContainer;
+                return _freshIocContainer;
             } 
         }
 
         public static void OverrideContainer(IFreshIoc overrideContainer)
         {
-            _freshIOCContainer = overrideContainer;
+            _freshIocContainer = overrideContainer;
         }
     }
 }

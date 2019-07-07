@@ -1,10 +1,10 @@
 //===============================================================================
-// TinyIoC
+// TinyIoc
 //
 // An easy to use, hassle free, Inversion of Control Container for small projects
 // and beginners alike.
 //
-// https://github.com/grumpydev/TinyIoC
+// https://github.com/grumpydev/TinyIoc
 //===============================================================================
 // Copyright © Steven Robbins.  All rights reserved.
 // THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY
@@ -13,7 +13,7 @@
 // FITNESS FOR A PARTICULAR PURPOSE.
 //===============================================================================
 
-namespace FreshTinyIoC
+namespace FreshTinyIoc
 {
     public enum NamedResolutionFailureActions
     {

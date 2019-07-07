@@ -1,10 +1,10 @@
 //===============================================================================
-// TinyIoC
+// TinyIoc
 //
 // An easy to use, hassle free, Inversion of Control Container for small projects
 // and beginners alike.
 //
-// https://github.com/grumpydev/TinyIoC
+// https://github.com/grumpydev/TinyIoc
 //===============================================================================
 // Copyright © Steven Robbins.  All rights reserved.
 // THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY
@@ -13,21 +13,21 @@
 // FITNESS FOR A PARTICULAR PURPOSE.
 //===============================================================================
 
-namespace FreshTinyIoC
+namespace FreshTinyIoc
 {
     using System;
 
-    public class TinyIoCResolutionException : Exception
+    public class TinyIocResolutionException : Exception
     {
         private const string ERROR_TEXT = "Resolve failed: {0}";
         private const string ERROR_TEXT_WITHINNER = "Resolve failed: {0} - Reason: {1}";
 
-        public TinyIoCResolutionException(Type type)
+        public TinyIocResolutionException(Type type)
             : base(String.Format(ERROR_TEXT, type.Name))
         {
         }
 
-        public TinyIoCResolutionException(Type type, Exception innerException)
+        public TinyIocResolutionException(Type type, Exception innerException)
             : base(String.Format(ERROR_TEXT_WITHINNER, type.Name, innerException.Message), innerException)
         {            
         }

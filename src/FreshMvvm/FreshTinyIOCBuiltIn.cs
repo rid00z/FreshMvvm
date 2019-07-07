@@ -1,11 +1,11 @@
 ﻿using System;
 using FreshMvvm.Ioc;
-using FreshTinyIoC;
+using FreshTinyIoc;
 
 namespace FreshMvvm
 {
     /// <summary>
-    /// Built in TinyIOC for ease of use
+    /// Built in TinyIoc for ease of use
     /// </summary>
     public class FreshTinyIocBuiltIn : IFreshIoc
     {

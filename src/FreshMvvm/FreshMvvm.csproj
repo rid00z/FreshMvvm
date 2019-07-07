@@ -15,6 +15,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="../FreshTinyIoC/FreshTinyIoC.csproj" />
+    <ProjectReference Include="../FreshTinyIoc/FreshTinyIoc.csproj" />
   </ItemGroup>
 </Project>

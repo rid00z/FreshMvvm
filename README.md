@@ -15,7 +15,7 @@ FreshMvvm is a super light Mvvm Framework designed specifically for Xamarin.Form
 * Automatic wiring of BindingContext
 * Automatic wiring of Page events (eg. appearing)
 * Basic methods (with values) on PageModel (init, reverseinit)
-* Built in IOC Container
+* Built in Ioc Container
 * PageModel Constructor Injection 
 * Basic methods available in Model, like Alert
 * Built in Navigation types for SimpleNavigation, Tabbed and MasterDetail 
@@ -106,9 +106,9 @@ It's possible to setup any type of Navigation by implementing IFreshNavigationSe
 * MasterDetail Navigation Sample
 * Tabbed Navigation with MasterDetail Popover Sample (This is called the CustomImplementedNav in the Sample App)
 
-### Inversion of Control (IOC)
+### Inversion of Control (Ioc)
 
-So that you don't need to include your own IOC container, FreshMvvm comes with a IOC container built in. It's using TinyIOC underneith, but with different naming to avoid conflicts. 
+So that you don't need to include your own Ioc container, FreshMvvm comes with a Ioc container built in. It's using TinyIoc underneith, but with different naming to avoid conflicts. 
 
 To Register services in the container use Register: 
 
@@ -124,9 +124,9 @@ FreshIoc.Container.Resolve<IDatabaseService>();
 
 *This is also what drives constructor injection. 
 
-### IOC Container Lifetime Registration Options
+### Ioc Container Lifetime Registration Options
 
-We now support a fluent API for setting the object lifetime of object inside the IOC Container.
+We now support a fluent API for setting the object lifetime of object inside the Ioc Container.
 ```csharp
 // By default we register concrete types as 
 // multi-instance, and interfaces as singletons
@@ -137,10 +137,10 @@ FreshIoc.Container.Register<IMyInterface, MyConcreteType>(); // Singleton
 FreshIoc.Container.Register<MyConcreteType>().AsSingleton(); // Singleton
 FreshIoc.Container.Register<IMyInterface, MyConcreteType>().AsMultiInstance(); // Multi-instance
 ```
-As you can see below the IFreshIOC interface methods return the IRegisterOptions interface.
+As you can see below the IFreshIoc interface methods return the IRegisterOptions interface.
 
 ```csharp
-public interface IFreshIOC
+public interface IFreshIoc
 {
     object Resolve(Type resolveType);
     IRegisterOptions Register<RegisterType>(RegisterType instance) where RegisterType : class;
@@ -167,7 +167,7 @@ public interface IRegisterOptions
 
 ### PageModel - Constructor Injection
 
-When PageModels are pushed services that are in the IOC container can be pushed into the Constructor. 
+When PageModels are pushed services that are in the Ioc container can be pushed into the Constructor. 
 
 ```csharp
 FreshIoc.Container.Register<IDatabaseService, DatabaseService>();
@@ -249,7 +249,7 @@ public class QuoteListPageModel : FreshBasePageModel
 {
 	IDatabaseService _databaseService;
 	
-	//These are automatically filled via Constructor Injection IOC
+	//These are automatically filled via Constructor Injection Ioc
 	public QuoteListPageModel (IDatabaseService databaseService) 
 	{
 		_databaseService = databaseService;
@@ -419,14 +419,14 @@ public void SwitchOutRootNavigation (string navigationServiceName)
 }
 ```
 
-## Custom IOC Containers
+## Custom Ioc Containers
 
-The second major request for FreshMvvm 1.0 was to allow custom IOC containers. In the case that your application already has a container that you want to leverage.
+The second major request for FreshMvvm 1.0 was to allow custom Ioc containers. In the case that your application already has a container that you want to leverage.
 
-Using a custom IOC container is very simple in that you only need to implement a single interface.
+Using a custom Ioc container is very simple in that you only need to implement a single interface.
 
 ```csharp
-public interface IFreshIOC
+public interface IFreshIoc
 {
     object Resolve(Type resolveType);
     void Register<RegisterType>(RegisterType instance) where RegisterType : class;
@@ -438,10 +438,10 @@ public interface IFreshIOC
         where RegisterImplementation : class, RegisterType;
 ```
 
-And then set the IOC container in the System.
+And then set the Ioc container in the System.
 
 ```csharp
-FreshIOC.OverrideContainer(myContainer);
+FreshIoc.OverrideContainer(myContainer);
 ```
 
 ### Other Features
@@ -475,7 +475,7 @@ public class ContactPageModel : FreshBasePageModel
 
 [FreshMvvm n=1 : Your first FreshMvvm Application](http://www.michaelridland.com/xamarin/xamarinforms-mvvm-first-freshmvvm-application/)
 
-[FreshMvvm n=2 – IOC and Constructor Injection](http://www.michaelridland.com/xamarin/freshmvvm-n2-ioc-constructor-injection/)
+[FreshMvvm n=2 – Ioc and Constructor Injection](http://www.michaelridland.com/xamarin/freshmvvm-n2-Ioc-constructor-injection/)
 
 [FreshMvvm n=3: Navigation in FreshMvvm](http://www.michaelridland.com/xamarin/freshmvvm-n3-navigation-in-freshmvvm/)
 

@@ -1,10 +1,10 @@
 //===============================================================================
-// TinyIoC
+// TinyIoc
 //
 // An easy to use, hassle free, Inversion of Control Container for small projects
 // and beginners alike.
 //
-// https://github.com/grumpydev/TinyIoC
+// https://github.com/grumpydev/TinyIoc
 //===============================================================================
 // Copyright © Steven Robbins.  All rights reserved.
 // THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY
@@ -13,20 +13,20 @@
 // FITNESS FOR A PARTICULAR PURPOSE.
 //===============================================================================
 
-namespace FreshTinyIoC
+namespace FreshTinyIoc
 {
     using System;
 
-    public class TinyIoCWeakReferenceException : Exception
+    public class TinyIocWeakReferenceException : Exception
     {
         private const string ERROR_TEXT = "Unable to instantiate {0} - referenced object has been reclaimed";
 
-        public TinyIoCWeakReferenceException(Type type)
+        public TinyIocWeakReferenceException(Type type)
             : base(String.Format(ERROR_TEXT, type.FullName))
         {
         }
 
-        public TinyIoCWeakReferenceException(Type type, Exception innerException)
+        public TinyIocWeakReferenceException(Type type, Exception innerException)
             : base(String.Format(ERROR_TEXT, type.FullName), innerException)
         {
         }
