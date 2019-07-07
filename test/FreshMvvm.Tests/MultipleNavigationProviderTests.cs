@@ -7,6 +7,7 @@ using System.Linq;
 using Xamarin.Forms;
 using NSubstitute;
 using FreshMvvm.Ioc;
+using System.Threading.Tasks;
 
 namespace FreshMvvm.Tests
 {
@@ -84,23 +85,23 @@ namespace FreshMvvm.Tests
         /// The correct IFreshNavigationService should always be resolved name
         /// </summary>
         [Fact]
-        public void navigationservice_should_be_resolved_via_name()
+        public async Task navigationservice_should_be_resolved_via_nameAsync()
         {
             SetupFirstNavigationAndPage();
 
             var coreMethods = new PageModelCoreMethods(_page, _pageModel);
-            coreMethods.PushPageModel<MockContentPageModel>();
-            coreMethods.PushPageModel<MockContentPageModel>();
+            await coreMethods.PushPageModel<MockContentPageModel>();
+            await coreMethods.PushPageModel<MockContentPageModel>();
 
             _navigationMock.ReceivedCalls();
             _navigationMock.ClearReceivedCalls();
 
-            coreMethods.PopPageModel();
+            await coreMethods.PopPageModel();
 
             _navigationMock.ReceivedCalls();
             _navigationMock.ClearReceivedCalls();
 
-            coreMethods.PopToRoot(false);
+            await coreMethods.PopToRoot(false);
         }
 
         /// People want the ability to modal with new NavigationService, this is the case where a ModalScreen also has
@@ -108,23 +109,23 @@ namespace FreshMvvm.Tests
 
         ///   - needs ability to push modally with a new navigation service
         [Fact]
-        public void push_modally_new_navigation_service()
+        public async Task push_modally_new_navigation_serviceAsync()
         {
             SetupFirstNavigationAndPage();
 
-            PushSecondNavigationStack();
+            await PushSecondNavigationStackAsync();
 
             //navigationService has push modal with new navigation service
-            _navigationMock.Received().PushPage(_secondNavService, Arg.Any<FreshBasePageModel>(), true);
+            await _navigationMock.Received().PushPage(_secondNavService, Arg.Any<FreshBasePageModel>(), true);
         }
 
         ///   - when a new navigation service is pushed then models stores the previous navigationname
         [Fact]
-        public void new_navigationservice_the_model_stores_previous_navigationname()
+        public async Task new_navigationservice_the_model_stores_previous_navigationnameAsync()
         {
             SetupFirstNavigationAndPage();
 
-            PushSecondNavigationStack();
+            await PushSecondNavigationStackAsync();
 
             _pageModelSecond.CurrentNavigationServiceName.Should().Be("secondNav");
             _pageModelSecond.PreviousNavigationServiceName.Should().Be("firstNav");
@@ -133,13 +134,13 @@ namespace FreshMvvm.Tests
 
         ///   - when model are pushed then we need to keep a reference to previous navigationname
         [Fact]
-        public void model_pushed_store_previous_navigationname()
+        public async Task model_pushed_store_previous_navigationnameAsync()
         {
             SetupFirstNavigationAndPage();
 
-            PushSecondNavigationStack();
+            await PushSecondNavigationStackAsync();
 
-            _coreMethods.PushPageModel<MockContentPageModel>();
+            await _coreMethods.PushPageModel<MockContentPageModel>();
 
             var pageModelLatest = _secondNavService.CurrentPage.BindingContext as FreshBasePageModel;
 
@@ -148,35 +149,35 @@ namespace FreshMvvm.Tests
 
         ///   - when the first new page is pop'd we pop from older navigation service
         [Fact]
-        public void firstmodelchild_poped_popfrom_previous_navigation()
+        public async Task firstmodelchild_poped_popfrom_previous_navigationAsync()
         {
             SetupFirstNavigationAndPage();
 
-            PushSecondNavigationStack();
+            await PushSecondNavigationStackAsync();
 
-            _coreMethodsSecondPage.PopPageModel(true);
+            await _coreMethodsSecondPage.PopPageModel(true);
 
             //previousNavigation has pop modal called
-            _navigationMock.Received().PopPage(true);
+            await _navigationMock.Received().PopPage(true);
         }
 
 
         ///   - when is someone pushes a new MasterDetail or TabbedPages, how do we go back, we need like a PopModalNavigation
         [Fact]
-        public void should_allow_popmodalnavigation()
+        public async Task should_allow_popmodalnavigationAsync()
         {
             SetupFirstNavigationAndPage();
 
-            PushSecondNavigationStack();
+            await PushSecondNavigationStackAsync();
 
-            _coreMethodsSecondPage.PushPageModel<MockContentPageModel>();
+            await _coreMethodsSecondPage.PushPageModel<MockContentPageModel>();
 
             var pageModelLatest = _secondNavService.CurrentPage.BindingContext as FreshBasePageModel;
 
-            pageModelLatest.CoreMethods.PopModalNavigationService();
+            await pageModelLatest.CoreMethods.PopModalNavigationService();
 
             //previousNavigation has pop modal called
-            _navigationMock.Received().PopPage(true);
+            await _navigationMock.Received().PopPage(true);
         }
 
         //TODO: test for this
@@ -207,17 +208,17 @@ namespace FreshMvvm.Tests
         FreshBasePageModel _pageModelSecond;
         FreshNavigationContainer _secondNavService;
 
-        void PushSecondNavigationStack()
+        async Task PushSecondNavigationStackAsync()
         {
             _coreMethods = new PageModelCoreMethods(_page, _pageModel);
-            _coreMethods.PushPageModel<MockContentPageModel>();
+            await _coreMethods.PushPageModel<MockContentPageModel>();
 
             _pageSecond = FreshPageModelResolver.ResolvePageModel<MockContentPageModel>();
             _pageModelSecond = _pageSecond.BindingContext as MockContentPageModel;
             _coreMethodsSecondPage = new PageModelCoreMethods(_pageSecond, _pageModelSecond);
             _secondNavService = new FreshNavigationContainer(_pageSecond, "secondNav");
 
-            _coreMethods.PushNewNavigationServiceModal(_secondNavService, new FreshBasePageModel[] { _pageModelSecond });
+            await _coreMethods.PushNewNavigationServiceModal(_secondNavService, new FreshBasePageModel[] { _pageModelSecond });
         }
     }
 }
