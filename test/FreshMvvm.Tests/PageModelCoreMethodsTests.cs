@@ -7,7 +7,7 @@ using FreshMvvm.Ioc;
 
 namespace FreshMvvm.Tests
 {
-	class PageModelCoreMethodsTests
+	public class PageModelCoreMethodsTests
 	{
 	    PageModelCoreMethods _coreMethods;
 	    IFreshNavigationService _navigationMock;
@@ -27,7 +27,8 @@ namespace FreshMvvm.Tests
 	        _coreMethods = new PageModelCoreMethods(_page, _pageModel);
         }
 
-        [Test]
+        [Fact]
+        
 	    public async Task model_property_populated_by_action()
 	    {
             SetupFirstNavigationAndPage();

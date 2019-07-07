@@ -6,7 +6,7 @@ namespace FreshMvvm.Tests
 {
 	public class FreshBasePageModelTests
 	{
-		[Test]
+		[Fact]
 		public void Test_ImplementationINotifyPropertyChanged()
 		{
 			var viewModel = new MockFreshBasePageModel();
@@ -14,7 +14,8 @@ namespace FreshMvvm.Tests
 			Assert.IsInstanceOf<INotifyPropertyChanged>(viewModel);
 		}
 
-		[TestCase("test name")]
+		[Theory]
+        [InlineData("test name")]
 		public void Test_RaisePropertyChanged(string name)
 		{
 			string actual = null;
@@ -31,7 +32,8 @@ namespace FreshMvvm.Tests
 			Assert.AreEqual(name, viewModel.Name);
 		}
 
-		[TestCase("default name", "new name")]
+		[Theory]
+        [InlineData("default name", "new name")]
 		public void Test_Init(string defaultValue, string newValue)
 		{
 			var viewModel = new MockFreshBasePageModel { Name = defaultValue };
@@ -41,7 +43,8 @@ namespace FreshMvvm.Tests
 			Assert.AreEqual(newValue, viewModel.Name);
 		}
 
-		[TestCase("default name", "new name")]
+		[Theory]
+        [InlineData("default name", "new name")]
 		public void Test_ReverseInit(string defaultValue, string newValue)
 		{
 			var viewModel = new MockFreshBasePageModel { Name = defaultValue };
@@ -51,7 +54,7 @@ namespace FreshMvvm.Tests
 			Assert.AreEqual(newValue, viewModel.Name);
 		}
 
-		[Test]
+		[Fact]
 		public void Test_CurrentPage_Property()
 		{
 			var viewModel = new MockFreshBasePageModel();
@@ -64,7 +67,7 @@ namespace FreshMvvm.Tests
 			Assert.AreEqual(page, viewModel.CurrentPage);
 		}
 
-		[Test]
+		[Fact]
 		public void Test_PreviousPageModel_Property()
 		{
 			var viewModel = new MockFreshBasePageModel();
@@ -76,7 +79,7 @@ namespace FreshMvvm.Tests
 			Assert.AreEqual(prevViewModel, viewModel.PreviousPageModel);
 		}
 
-		[Test]
+		[Fact]
 		public void Test_CoreMethods_Property()
 		{
 			var viewModel = new MockFreshBasePageModel();

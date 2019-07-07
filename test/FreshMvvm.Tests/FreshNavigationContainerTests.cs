@@ -5,10 +5,9 @@ using Xunit;
 
 namespace FreshMvvm.Tests
 {
-	[TestFixture]
-	class FreshNavigationContainerTests
+	public class FreshNavigationContainerTests
 	{
-		[Test]
+		[Fact]
 		public void Test_Register_IFreshNavigationService()
 		{
             var page = new MockContentPage();
@@ -21,7 +20,7 @@ namespace FreshMvvm.Tests
 			Assert.AreEqual(navigation, navigationService);
 		}
 
-		[Test]
+		[Fact]
 		public async Task Test_PushPage()
 		{
 			var mainPageViewModel = new MockFreshBasePageModel();
@@ -41,7 +40,7 @@ namespace FreshMvvm.Tests
 			Assert.AreSame(detailsPage, page);
 		}
 
-		[Test]
+		[Fact]
 		public async Task Test_PushPage_Modal()
 		{
 			var mainPageViewModel = new MockFreshBasePageModel();
@@ -60,7 +59,7 @@ namespace FreshMvvm.Tests
 			Assert.That(navigation.Navigation.ModalStack.Count, Is.EqualTo(1));
 		}
 
-		[Test]
+		[Fact]
 		public async Task Test_PopPage()
 		{
 			var mainPageViewModel = new MockFreshBasePageModel();
@@ -83,7 +82,7 @@ namespace FreshMvvm.Tests
 			Assert.AreSame(mainPage, firstPage);
 		}
 
-		[Test]
+		[Fact]
 		public async Task Test_PopPage_Modal()
 		{
 			var mainPageViewModel = new MockFreshBasePageModel();
@@ -104,7 +103,7 @@ namespace FreshMvvm.Tests
 			Assert.That(navigation.Navigation.ModalStack.Count, Is.EqualTo(0));
 		}
 
-		[Test]
+		[Fact]
 		public async Task Test_PopToRoot()
 		{
             var mainPage = new MockContentPage();

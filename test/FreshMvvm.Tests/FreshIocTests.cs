@@ -1,12 +1,12 @@
-﻿using FreshTinyIoc;
+﻿using FluentAssertions;
+using FreshTinyIoc;
 using Xunit;
 
 namespace FreshMvvm.Tests
 {
-	[TestFixture]
-	class FreshIocTests
+	public class FreshIocTests
 	{
-		[Test]
+		[Fact]
 		public void Test_Get_Ioc_Container()
 		{
 			var container = FreshIoc.Container;

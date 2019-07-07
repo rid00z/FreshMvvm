@@ -1,6 +1,6 @@
 ﻿namespace FreshMvvm.TestHelpers.Mocks
 {
-	class MockContentPageModel : MockFreshBasePageModel
+	public class MockContentPageModel : MockFreshBasePageModel
 	{
 		public object Data { get; set; }
 

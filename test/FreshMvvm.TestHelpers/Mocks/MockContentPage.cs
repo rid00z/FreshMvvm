@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace FreshMvvm.TestHelpers.Mocks
 {
-    class MockContentPage : ContentPage
+    public class MockContentPage : ContentPage
 	{
         public MockContentPage()
         {

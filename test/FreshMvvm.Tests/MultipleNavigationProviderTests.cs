@@ -24,7 +24,7 @@ namespace FreshMvvm.Tests
         /// <summary>
         /// This test ensures the first pagemodels are created with a link to the named navigation service
         /// </summary>
-        [Test]
+        [Fact]
         public void pagemodel_should_be_link_to_when_created_firsttime()
         {
             //master detail navigation
@@ -69,7 +69,7 @@ namespace FreshMvvm.Tests
         /// <summary>
         /// Each time a new PageModel is pushed, the NavigationServiceName is passed on
         /// </summary>
-        [Test]
+        [Fact]
         public void navigation_servicename_is_passed_on()
         {
             SetupFirstNavigationAndPage ();
@@ -84,7 +84,7 @@ namespace FreshMvvm.Tests
         /// <summary>
         /// The correct IFreshNavigationService should always be resolved name
         /// </summary>
-        [Test]
+        [Fact]
         public void navigationservice_should_be_resolved_via_name()
         {
             SetupFirstNavigationAndPage ();
@@ -108,7 +108,7 @@ namespace FreshMvvm.Tests
         ///         navigation stack
 
         ///   - needs ability to push modally with a new navigation service
-        [Test]
+        [Fact]
         public void push_modally_new_navigation_service()
         {
             SetupFirstNavigationAndPage ();
@@ -120,7 +120,7 @@ namespace FreshMvvm.Tests
         }
 
         ///   - when a new navigation service is pushed then models stores the previous navigationname
-        [Test]
+        [Fact]
         public void new_navigationservice_the_model_stores_previous_navigationname()
         {
             SetupFirstNavigationAndPage ();
@@ -133,7 +133,7 @@ namespace FreshMvvm.Tests
         }
 
         ///   - when model are pushed then we need to keep a reference to previous navigationname
-        [Test]
+        [Fact]
         public void model_pushed_store_previous_navigationname()
         {
             SetupFirstNavigationAndPage ();
@@ -148,7 +148,7 @@ namespace FreshMvvm.Tests
         }
 
         ///   - when the first new page is pop'd we pop from older navigation service
-        [Test]
+        [Fact]
         public void firstmodelchild_poped_popfrom_previous_navigation()
         {
             SetupFirstNavigationAndPage ();
@@ -163,7 +163,7 @@ namespace FreshMvvm.Tests
 
 
         ///   - when is someone pushes a new MasterDetail or TabbedPages, how do we go back, we need like a PopModalNavigation
-        [Test]
+        [Fact]
         public void should_allow_popmodalnavigation()
         {
             SetupFirstNavigationAndPage ();

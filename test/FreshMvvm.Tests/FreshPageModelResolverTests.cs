@@ -7,7 +7,8 @@ namespace FreshMvvm.Tests
 	[TestFixture]
 	public class FreshPageModelResolverTests
 	{
-		[TestCase]
+		[Theory]
+        [InlineData]
 		public void Test_ResolvePageModel_Not_Found()
 		{
 			Assert.Throws<Exception>(() =>
@@ -16,7 +17,8 @@ namespace FreshMvvm.Tests
 			});
 		}
 
-		[TestCase]
+		[Theory]
+        [InlineData]
 		public void Test_ResolvePageModel()
 		{
 			var page = FreshPageModelResolver.ResolvePageModel<MockContentPageModel>();
@@ -27,7 +29,8 @@ namespace FreshMvvm.Tests
 			Assert.IsNotNull(context.CoreMethods);
 		}
 
-		[TestCase("test data")]
+		[Theory]
+        [InlineData("test data")]
 		public void Test_ResolvePageModel_With_Init(object data)
 		{
 			var page = FreshPageModelResolver.ResolvePageModel<MockContentPageModel>(data);
