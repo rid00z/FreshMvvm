@@ -1,6 +1,6 @@
 ﻿using Xamarin.Forms;
 
-namespace FreshMvvm.Tests.Mocks
+namespace FreshMvvm.TestHelpers.Mocks
 {
     public class MockItemPage : ContentPage
     {

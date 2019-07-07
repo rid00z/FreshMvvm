@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using FreshMvvm.Tests.Mocks;
+using FreshMvvm.TestHelpers.Mocks;
 using Xunit;
 
 namespace FreshMvvm.Tests

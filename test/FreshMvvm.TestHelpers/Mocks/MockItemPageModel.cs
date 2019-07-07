@@ -1,4 +1,4 @@
-﻿namespace FreshMvvm.Tests.Mocks
+﻿namespace FreshMvvm.TestHelpers.Mocks
 {
     public class MockItemPageModel : MockFreshBasePageModel
     {

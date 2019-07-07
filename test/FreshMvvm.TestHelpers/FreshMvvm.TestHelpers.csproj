@@ -8,6 +8,10 @@
     <PackageReference Include="Xamarin.Forms" Version="4.1.0.555618" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\FreshMvvm\FreshMvvm.csproj" />
+  </ItemGroup>
+
 </Project>
 
 

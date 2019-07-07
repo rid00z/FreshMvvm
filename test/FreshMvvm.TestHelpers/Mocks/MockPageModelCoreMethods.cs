@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace FreshMvvm.Tests.Mocks
+namespace FreshMvvm.TestHelpers.Mocks
 {
     class MockPageModelCoreMethods : IPageModelCoreMethods
 	{

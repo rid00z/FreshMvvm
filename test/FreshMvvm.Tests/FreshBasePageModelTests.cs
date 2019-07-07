@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel;
-using FreshMvvm.Tests.Mocks;
+using FreshMvvm.TestHelpers.Mocks;
 using Xunit;
 
 namespace FreshMvvm.Tests
