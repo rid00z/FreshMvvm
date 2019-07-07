@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
 using FreshMvvm.Ioc;
-using FreshTinyIoc;
 using Xunit;
 
 namespace FreshMvvm.Tests
