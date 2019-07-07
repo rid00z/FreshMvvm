@@ -1,10 +1,9 @@
 ﻿using System.ComponentModel;
 using FreshMvvm.Tests.Mocks;
-using NUnit.Framework;
+using Xunit;
 
-namespace FreshMvvm.Tests.Fixtures
+namespace FreshMvvm.Tests
 {
-	[TestFixture]
 	public class FreshBasePageModelTests
 	{
 		[Test]

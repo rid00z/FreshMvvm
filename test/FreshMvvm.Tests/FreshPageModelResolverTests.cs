@@ -1,11 +1,11 @@
 ﻿using System;
 using FreshMvvm.Tests.Mocks;
-using NUnit.Framework;
+using Xunit;
 
-namespace FreshMvvm.Tests.Fixtures
+namespace FreshMvvm.Tests
 {
 	[TestFixture]
-	public class FreshPageModelResolverFixture
+	public class FreshPageModelResolverTests
 	{
 		[TestCase]
 		public void Test_ResolvePageModel_Not_Found()

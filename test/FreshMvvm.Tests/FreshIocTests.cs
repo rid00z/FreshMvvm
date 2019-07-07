@@ -1,7 +1,7 @@
 ﻿using FreshTinyIoc;
-using NUnit.Framework;
+using Xunit;
 
-namespace FreshMvvm.Tests.Fixtures
+namespace FreshMvvm.Tests
 {
 	[TestFixture]
 	class FreshIocTests

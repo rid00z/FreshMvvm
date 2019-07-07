@@ -1,13 +1,13 @@
 ﻿using System.Threading.Tasks;
-using FreshMvvm.Tests.Mocks;
+using FreshMvvm.TestHelpers.Mocks;
 using NSubstitute;
-using NUnit.Framework;
+using Xunit;
 using Xamarin.Forms;
+using FreshMvvm.Ioc;
 
-namespace FreshMvvm.Tests.Fixtures
+namespace FreshMvvm.Tests
 {
-	[TestFixture]
-	class PageModelCoreMethodsFixture
+	class PageModelCoreMethodsTests
 	{
 	    PageModelCoreMethods _coreMethods;
 	    IFreshNavigationService _navigationMock;

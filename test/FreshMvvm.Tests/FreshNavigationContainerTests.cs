@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using FreshMvvm.Tests.Mocks;
-using NUnit.Framework;
+using Xunit;
 
-namespace FreshMvvm.Tests.Fixtures
+namespace FreshMvvm.Tests
 {
 	[TestFixture]
-	class FreshNavigationContainerFixture
+	class FreshNavigationContainerTests
 	{
 		[Test]
 		public void Test_Register_IFreshNavigationService()

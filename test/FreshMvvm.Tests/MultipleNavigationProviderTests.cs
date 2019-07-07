@@ -1,7 +1,7 @@
 ﻿using System;
 using FluentAssertions;
 using FreshMvvm.Tests.Mocks;
-using NUnit.Framework;
+using Xunit;
 using System.Linq;
 using Xamarin.Forms;
 using NSubstitute;
