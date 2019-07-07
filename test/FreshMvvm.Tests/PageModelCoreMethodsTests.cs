@@ -20,7 +20,7 @@ namespace FreshMvvm.Tests
             FreshIoc.Container.Register<IFreshNavigationService>(_navigationMock, "firstNav");
 
             _page = FreshPageModelResolver.ResolvePageModel<MockContentPageModel>();
-            _pageModel = _page.BindingContext as MockContentPageModel;
+            _pageModel = (MockContentPageModel)_page.BindingContext;
             _pageModel.CurrentNavigationServiceName = "firstNav";
 
 
