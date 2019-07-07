@@ -2,7 +2,6 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Copyright>michaelridland</Copyright>
-    <Deterministic>false</Deterministic>
     <ReleaseVersion>2.2.0</ReleaseVersion>
   </PropertyGroup>
 </Project>
