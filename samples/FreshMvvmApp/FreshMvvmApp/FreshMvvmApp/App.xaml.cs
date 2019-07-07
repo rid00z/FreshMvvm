@@ -9,7 +9,7 @@ namespace FreshMvvmApp
     {
         public App()
         {
-            FreshIOC.Container.Register<IDatabaseService, DatabaseService>();
+            FreshIoc.Container.Register<IDatabaseService, DatabaseService>();
 
             MainPage = new NavigationPage(new LaunchPage(this));
         }

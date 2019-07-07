@@ -1,4 +1,5 @@
 ﻿using System;
+using FreshMvvm.Ioc;
 using FreshTinyIoC;
 
 namespace FreshMvvm
@@ -6,56 +7,56 @@ namespace FreshMvvm
     /// <summary>
     /// Built in TinyIOC for ease of use
     /// </summary>
-    public class FreshTinyIOCBuiltIn : IFreshIOC
+    public class FreshTinyIocBuiltIn : IFreshIoc
     {
-        public static FreshTinyIoCContainer Current
+        public static FreshTinyIocContainer Current
         {
             get 
             {
-                return FreshTinyIoCContainer.Current;
+                return FreshTinyIocContainer.Current;
             }
         }
 
         public IRegisterOptions Register<RegisterType>(RegisterType instance, string name) where RegisterType : class
         {
-            return FreshTinyIoCContainer.Current.Register (instance, name);
+            return FreshTinyIocContainer.Current.Register (instance, name);
         }
 
         public IRegisterOptions Register<RegisterType>(RegisterType instance) where RegisterType : class
         {
-            return FreshTinyIoCContainer.Current.Register (instance);
+            return FreshTinyIocContainer.Current.Register (instance);
         }
 
         public ResolveType Resolve<ResolveType>(string name) where ResolveType : class
         {
-            return FreshTinyIoCContainer.Current.Resolve<ResolveType> (name);
+            return FreshTinyIocContainer.Current.Resolve<ResolveType> (name);
         }
 
         public ResolveType Resolve<ResolveType>() where ResolveType : class
         {
-            return FreshTinyIoCContainer.Current.Resolve<ResolveType> ();
+            return FreshTinyIocContainer.Current.Resolve<ResolveType> ();
         }
 
         public IRegisterOptions Register<RegisterType, RegisterImplementation> ()
             where RegisterType : class
             where RegisterImplementation : class, RegisterType
         {
-            return FreshTinyIoCContainer.Current.Register<RegisterType, RegisterImplementation>();
+            return FreshTinyIocContainer.Current.Register<RegisterType, RegisterImplementation>();
         }
 
         public object Resolve(Type resolveType)
         {
-            return FreshTinyIoCContainer.Current.Resolve (resolveType);
+            return FreshTinyIocContainer.Current.Resolve (resolveType);
         }
 
         public void Unregister<RegisterType>()
         {
-            FreshTinyIoCContainer.Current.Unregister<RegisterType>();
+            FreshTinyIocContainer.Current.Unregister<RegisterType>();
         }
 
         public void Unregister<RegisterType>(string name)
         {
-            FreshTinyIoCContainer.Current.Unregister<RegisterType>(name);
+            FreshTinyIocContainer.Current.Unregister<RegisterType>(name);
         }
     }
 }

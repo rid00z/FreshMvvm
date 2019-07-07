@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Linq;
+using FreshMvvm.Ioc;
 
 namespace FreshMvvm
 {
@@ -30,7 +31,7 @@ namespace FreshMvvm
 
         protected void RegisterNavigation ()
         {
-            FreshIOC.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
+            FreshIoc.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
         }
 
         public virtual Page AddTab<T> (string title, string icon, object data = null) where T : FreshBasePageModel

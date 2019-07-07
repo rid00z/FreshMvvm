@@ -113,13 +113,13 @@ So that you don't need to include your own IOC container, FreshMvvm comes with a
 To Register services in the container use Register: 
 
 ```csharp
-FreshIOC.Container.Register<IDatabaseService, DatabaseService>();
+FreshIoc.Container.Register<IDatabaseService, DatabaseService>();
 ```
 
 To obtain a service use Resolve:
 
 ```csharp
-FreshIOC.Container.Resolve<IDatabaseService>();
+FreshIoc.Container.Resolve<IDatabaseService>();
 ```
 
 *This is also what drives constructor injection. 
@@ -130,12 +130,12 @@ We now support a fluent API for setting the object lifetime of object inside the
 ```csharp
 // By default we register concrete types as 
 // multi-instance, and interfaces as singletons
-FreshIOC.Container.Register<MyConcreteType>(); // Multi-instance
-FreshIOC.Container.Register<IMyInterface, MyConcreteType>(); // Singleton 
+FreshIoc.Container.Register<MyConcreteType>(); // Multi-instance
+FreshIoc.Container.Register<IMyInterface, MyConcreteType>(); // Singleton 
 
 // Fluent API allows us to change that behaviour
-FreshIOC.Container.Register<MyConcreteType>().AsSingleton(); // Singleton
-FreshIOC.Container.Register<IMyInterface, MyConcreteType>().AsMultiInstance(); // Multi-instance
+FreshIoc.Container.Register<MyConcreteType>().AsSingleton(); // Singleton
+FreshIoc.Container.Register<IMyInterface, MyConcreteType>().AsMultiInstance(); // Multi-instance
 ```
 As you can see below the IFreshIOC interface methods return the IRegisterOptions interface.
 
@@ -170,7 +170,7 @@ public interface IRegisterOptions
 When PageModels are pushed services that are in the IOC container can be pushed into the Constructor. 
 
 ```csharp
-FreshIOC.Container.Register<IDatabaseService, DatabaseService>();
+FreshIoc.Container.Register<IDatabaseService, DatabaseService>();
 ```
 
 ### PageModel Important Methods
@@ -402,7 +402,7 @@ public FreshTabbedNavigationContainer(string navigationServiceName)
 
 protected void RegisterNavigation ()
 {
-    FreshIOC.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
+    FreshIoc.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
 }
 ```
 
@@ -415,7 +415,7 @@ That name will be resolved in this method to find the correct Navigation Contain
 ```csharp
 public void SwitchOutRootNavigation (string navigationServiceName)
 {
-    IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (navigationServiceName);
+    IFreshNavigationService rootNavigation = FreshIoc.Container.Resolve<IFreshNavigationService> (navigationServiceName);
 }
 ```
 

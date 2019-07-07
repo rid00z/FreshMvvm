@@ -32,7 +32,7 @@ namespace FreshMvvmApp
 
 		protected void RegisterNavigation()
 		{
-            FreshIOC.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
+            FreshIoc.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
 		}
 
 		protected void CreateMenuPage(string menuPageTitle)

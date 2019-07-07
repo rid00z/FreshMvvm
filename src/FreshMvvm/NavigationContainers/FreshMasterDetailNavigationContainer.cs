@@ -4,6 +4,7 @@ using Xamarin.Forms;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using FreshMvvm.Ioc;
 
 namespace FreshMvvm
 {
@@ -36,7 +37,7 @@ namespace FreshMvvm
 
         protected virtual void RegisterNavigation ()
         {
-            FreshIOC.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
+            FreshIoc.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
         }
 
         public virtual void AddPage<T> (string title, object data = null) where T : FreshBasePageModel

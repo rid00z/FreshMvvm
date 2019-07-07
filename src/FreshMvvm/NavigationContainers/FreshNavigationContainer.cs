@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using FreshMvvm.Ioc;
 using Xamarin.Forms;
 
 namespace FreshMvvm
@@ -25,7 +26,7 @@ namespace FreshMvvm
 
         protected void RegisterNavigation ()
         {
-            FreshIOC.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
+            FreshIoc.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
         }
 
         internal Page CreateContainerPageSafe (Page page)
