@@ -1,25 +1,21 @@
-﻿using FreshTinyIoC;
+﻿using FreshMvvm;
 
-namespace FreshMvvm
+namespace FreshMvvm.Ioc
 {
-    public class FreshIOC
+    public class FreshIoc
     {
-        static FreshIOC ()
-        {
-        }
+        static IFreshIoc _freshIOCContainer;
 
-        static IFreshIOC _freshIOCContainer;
-
-        public static IFreshIOC Container { 
+        public static IFreshIoc Container { 
             get {
                 if (_freshIOCContainer == null)
-                    _freshIOCContainer = new FreshTinyIOCBuiltIn ();
+                    _freshIOCContainer = new FreshTinyIocBuiltIn ();
 
                 return _freshIOCContainer;
             } 
         }
 
-        public static void OverrideContainer(IFreshIOC overrideContainer)
+        public static void OverrideContainer(IFreshIoc overrideContainer)
         {
             _freshIOCContainer = overrideContainer;
         }

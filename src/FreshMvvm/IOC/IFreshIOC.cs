@@ -1,8 +1,9 @@
 ﻿using System;
+using FreshMvvm;
 
-namespace FreshMvvm
+namespace FreshMvvm.Ioc
 {
-    public interface IFreshIOC
+    public interface IFreshIoc
     {
         object Resolve(Type resolveType);
         IRegisterOptions Register<RegisterType>(RegisterType instance) where RegisterType : class;
