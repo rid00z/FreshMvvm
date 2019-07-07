@@ -11,10 +11,10 @@ namespace FreshMvvm
         Page _currentPage;
         FreshBasePageModel _currentPageModel;
 
-		public PageModelCoreMethods (Page currentPage, FreshBasePageModel pageModel)
+        public PageModelCoreMethods (Page currentPage, FreshBasePageModel pageModel)
         {
             _currentPage = currentPage;
-			_currentPageModel = pageModel;
+            _currentPageModel = pageModel;
         }
 
         public async Task DisplayAlert (string title, string message, string cancel)
@@ -33,7 +33,7 @@ namespace FreshMvvm
         public async Task<bool> DisplayAlert (string title, string message, string accept, string cancel)
         {
             if (_currentPage != null)
-                return await _currentPage.DisplayAlert (title, message, accept, cancel);	
+                return await _currentPage.DisplayAlert (title, message, accept, cancel);    
             return false;
         }
 
@@ -56,8 +56,8 @@ namespace FreshMvvm
         public async Task PushPageModel<T, TPage> (object data, bool modal = false, bool animate = true) where T : FreshBasePageModel where TPage : Page
         {
             T pageModel = FreshIoc.Container.Resolve<T> ();
-			TPage page = FreshIoc.Container.Resolve<TPage>();
-			FreshPageModelResolver.BindingPageModel(data, page, pageModel);
+            TPage page = FreshIoc.Container.Resolve<TPage>();
+            FreshPageModelResolver.BindingPageModel(data, page, pageModel);
             await PushPageModelWithPage(page, pageModel, data, modal, animate);
         }
 
@@ -246,15 +246,15 @@ namespace FreshMvvm
             return navigationName;
         }
 
-		public void BatchBegin()
-		{
-			_currentPage.BatchBegin ();
-		}
+        public void BatchBegin()
+        {
+            _currentPage.BatchBegin ();
+        }
 
-		public void BatchCommit()
-		{
-			_currentPage.BatchCommit ();
-		}
+        public void BatchCommit()
+        {
+            _currentPage.BatchCommit ();
+        }
 
         /// <summary>
         /// Removes current page/pagemodel from navigation

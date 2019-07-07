@@ -8,9 +8,9 @@ using Xamarin.Forms;
 namespace FreshMvvm.TestHelpers.Mocks
 {
     public class MockContentPage : ContentPage
-	{
+    {
         public MockContentPage()
         {
         }
-	}
+    }
 }

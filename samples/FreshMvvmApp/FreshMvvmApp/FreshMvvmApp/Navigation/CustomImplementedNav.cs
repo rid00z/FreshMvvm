@@ -6,84 +6,84 @@ using System.Threading.Tasks;
 
 namespace FreshMvvmApp
 {
-	/// <summary>
-	/// This is a sample custom implemented Navigation. It combines a MasterDetail and a TabbedPage.
-	/// </summary>
+    /// <summary>
+    /// This is a sample custom implemented Navigation. It combines a MasterDetail and a TabbedPage.
+    /// </summary>
     public class CustomImplementedNav : Xamarin.Forms.MasterDetailPage, IFreshNavigationService
-	{
-		FreshTabbedNavigationContainer _tabbedNavigationPage;
-		Page _contactsPage, _quotesPage;
+    {
+        FreshTabbedNavigationContainer _tabbedNavigationPage;
+        Page _contactsPage, _quotesPage;
 
-		public CustomImplementedNav ()
-		{	
+        public CustomImplementedNav ()
+        {    
             NavigationServiceName = "CustomImplementedNav";
-			SetupTabbedPage ();
-			CreateMenuPage ("Menu");
-			RegisterNavigation ();
-		}
+            SetupTabbedPage ();
+            CreateMenuPage ("Menu");
+            RegisterNavigation ();
+        }
 
-		void SetupTabbedPage()
-		{
-			_tabbedNavigationPage = new FreshTabbedNavigationContainer ();
-			_contactsPage = _tabbedNavigationPage.AddTab<ContactListPageModel> ("Contacts", "contacts.png");
-			_quotesPage = _tabbedNavigationPage.AddTab<QuoteListPageModel> ("Quotes", "document.png");
-			this.Detail = _tabbedNavigationPage;
-		}
+        void SetupTabbedPage()
+        {
+            _tabbedNavigationPage = new FreshTabbedNavigationContainer ();
+            _contactsPage = _tabbedNavigationPage.AddTab<ContactListPageModel> ("Contacts", "contacts.png");
+            _quotesPage = _tabbedNavigationPage.AddTab<QuoteListPageModel> ("Quotes", "document.png");
+            this.Detail = _tabbedNavigationPage;
+        }
 
-		protected void RegisterNavigation()
-		{
+        protected void RegisterNavigation()
+        {
             FreshIoc.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
-		}
+        }
 
-		protected void CreateMenuPage(string menuPageTitle)
-		{
-			var _menuPage = new ContentPage ();
-			_menuPage.Title = menuPageTitle;
-			var listView = new ListView();
+        protected void CreateMenuPage(string menuPageTitle)
+        {
+            var _menuPage = new ContentPage ();
+            _menuPage.Title = menuPageTitle;
+            var listView = new ListView();
 
-			listView.ItemsSource = new string[] { "Contacts", "Quotes", "Modal Demo" };
+            listView.ItemsSource = new string[] { "Contacts", "Quotes", "Modal Demo" };
 
-			listView.ItemSelected += async (sender, args) =>
-			{
+            listView.ItemSelected += async (sender, args) =>
+            {
 
-				switch ((string)args.SelectedItem) {
-				case "Contacts":
-					_tabbedNavigationPage.CurrentPage = _contactsPage;
-					break;
-				case "Quotes":
-					_tabbedNavigationPage.CurrentPage = _quotesPage;
-					break;
-				case "Modal Demo":
+                switch ((string)args.SelectedItem) {
+                case "Contacts":
+                    _tabbedNavigationPage.CurrentPage = _contactsPage;
+                    break;
+                case "Quotes":
+                    _tabbedNavigationPage.CurrentPage = _quotesPage;
+                    break;
+                case "Modal Demo":
                     var modalPage = FreshPageModelResolver.ResolvePageModel<ModalPageModel>();
-					await PushPage(modalPage, null, true);
-					break;
-				default:
-				break;
-				}
+                    await PushPage(modalPage, null, true);
+                    break;
+                default:
+                break;
+                }
 
-				IsPresented = false;
-			};
+                IsPresented = false;
+            };
 
-			_menuPage.Content = listView;
+            _menuPage.Content = listView;
 
-			Master = new NavigationPage(_menuPage) { Title = "Menu" };
-		}
+            Master = new NavigationPage(_menuPage) { Title = "Menu" };
+        }
 
         public virtual async Task PushPage (Xamarin.Forms.Page page, FreshBasePageModel model, bool modal = false, bool animated = true)
-		{
-			if (modal)
+        {
+            if (modal)
                 await Navigation.PushModalAsync (new NavigationPage(page), animated);
-			else
+            else
                 await ((NavigationPage)_tabbedNavigationPage.CurrentPage).PushAsync (page, animated); 
-		}
+        }
 
         public virtual async Task PopPage (bool modal = false, bool animate = true)
-		{
-			if (modal)
-				await Navigation.PopModalAsync ();
-			else
-				await ((NavigationPage)_tabbedNavigationPage.CurrentPage).PopAsync (); 
-		}
+        {
+            if (modal)
+                await Navigation.PopModalAsync ();
+            else
+                await ((NavigationPage)_tabbedNavigationPage.CurrentPage).PopAsync (); 
+        }
 
         public virtual async Task PopToRoot (bool animate = true)
         {

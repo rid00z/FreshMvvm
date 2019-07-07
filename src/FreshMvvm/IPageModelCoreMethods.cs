@@ -88,9 +88,9 @@ namespace FreshMvvm
 
         Task PopToRoot(bool animate);
 
-		void BatchBegin();
+        void BatchBegin();
 
-		void BatchCommit();
+        void BatchCommit();
         Task PushPageModel<T>(Action<T> setPageModel, bool modal = false, bool animate = true) where T : FreshBasePageModel;
     }
 }

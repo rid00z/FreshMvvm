@@ -13,7 +13,7 @@ namespace FreshMvvm
         public IEnumerable<Page> TabbedPages { get { return _tabs; } }
 
         public FreshTabbedNavigationContainer () : this(Constants.DefaultNavigationServiceName)
-        {				
+        {                
             
         }
 
@@ -54,14 +54,14 @@ namespace FreshMvvm
             return new NavigationPage (page);
         }
 
-		public System.Threading.Tasks.Task PushPage (Xamarin.Forms.Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
+        public System.Threading.Tasks.Task PushPage (Xamarin.Forms.Page page, FreshBasePageModel model, bool modal = false, bool animate = true)
         {
             if (modal)
                 return this.CurrentPage.Navigation.PushModalAsync (CreateContainerPageSafe (page));
             return this.CurrentPage.Navigation.PushAsync (page);
         }
 
-		public System.Threading.Tasks.Task PopPage (bool modal = false, bool animate = true)
+        public System.Threading.Tasks.Task PopPage (bool modal = false, bool animate = true)
         {
             if (modal)
                 return this.CurrentPage.Navigation.PopModalAsync (animate);

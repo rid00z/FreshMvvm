@@ -5,12 +5,12 @@ using Xamarin.Forms;
 
 namespace FreshMvvmApp
 {
-	public partial class ContactListPage : BasePage
-	{
-		public ContactListPage ()
-		{
-			InitializeComponent ();
-		}
-	}
+    public partial class ContactListPage : BasePage
+    {
+        public ContactListPage ()
+        {
+            InitializeComponent ();
+        }
+    }
 }
 

@@ -8,7 +8,7 @@ namespace FreshMvvm
     {
         Task PopToRoot(bool animate = true);
 
-		Task PushPage (Page page, FreshBasePageModel model, bool modal = false, bool animate = true);
+        Task PushPage (Page page, FreshBasePageModel model, bool modal = false, bool animate = true);
 
         Task PopPage (bool modal = false, bool animate = true);
 

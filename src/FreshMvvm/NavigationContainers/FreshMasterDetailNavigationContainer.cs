@@ -14,13 +14,13 @@ namespace FreshMvvm
         Dictionary<string, Page> _pages = new Dictionary<string, Page> ();
         ContentPage _menuPage;
         ObservableCollection<string> _pageNames = new ObservableCollection<string> ();
-	ListView _listView = new ListView ();
+    ListView _listView = new ListView ();
 
         public Dictionary<string, Page> Pages { get { return _pages; } }
         protected ObservableCollection<string> PageNames { get { return _pageNames; } }
 
         public FreshMasterDetailNavigationContainer () : this(Constants.DefaultNavigationServiceName)
-        {			
+        {            
         }
 
         public FreshMasterDetailNavigationContainer (string navigationServiceName)
@@ -81,7 +81,7 @@ namespace FreshMvvm
         {
             _menuPage = new ContentPage ();
             _menuPage.Title = menuPageTitle; 
-	    
+        
             _listView.ItemsSource = _pageNames;
 
             _listView.ItemSelected += (sender, args) => {
@@ -107,14 +107,14 @@ namespace FreshMvvm
             if (modal)
                 return Navigation.PushModalAsync (CreateContainerPageSafe(page));
             return (Detail as NavigationPage).PushAsync (page, animate); //TODO: make this better
-		}
+        }
 
-		public Task PopPage (bool modal = false, bool animate = true)
-		{
+        public Task PopPage (bool modal = false, bool animate = true)
+        {
             if (modal)
                 return Navigation.PopModalAsync (animate);
             return (Detail as NavigationPage).PopAsync (animate); //TODO: make this better            
-		}
+        }
 
         public Task PopToRoot (bool animate = true)
         {
