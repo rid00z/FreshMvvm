@@ -1,9 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Copyright>michaelridland</Copyright>
-    <ReleaseVersion>3.0.0</ReleaseVersion>
-    <Version>3.0.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.Reactive" Version="4.0.0" />

@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <Copyright>michaelridland</Copyright>
+    <Deterministic>false</Deterministic>
+    <Version>4.0.0</Version>
+  </PropertyGroup>
+</Project>
