@@ -9,34 +9,30 @@ namespace FreshMvvm.Tests
 {
     public class PageModelCoreMethodsTests
     {
-        PageModelCoreMethods _coreMethods;
-        IFreshNavigationService _navigationMock;
-        Page _page;
-        FreshBasePageModel _pageModel;
-
-        void SetupFirstNavigationAndPage()
+        public (PageModelCoreMethods, IFreshNavigationService) SetupFirstNavigationAndPage()
         {
-            _navigationMock = Substitute.For<IFreshNavigationService>();
-            FreshIoc.Container.Register<IFreshNavigationService>(_navigationMock, "firstNav");
+            var navigationMock = Substitute.For<IFreshNavigationService>();
+            FreshIoc.Container.Register<IFreshNavigationService>(navigationMock, "firstNav");
 
-            _page = FreshPageModelResolver.ResolvePageModel<MockContentPageModel>();
-            _pageModel = (MockContentPageModel)_page.BindingContext;
-            _pageModel.CurrentNavigationServiceName = "firstNav";
+            var page = FreshPageModelResolver.ResolvePageModel<MockContentPageModel>();
+            var pageModel = (MockContentPageModel)page.BindingContext;
+            pageModel.CurrentNavigationServiceName = "firstNav";
 
+            var coreMethods = new PageModelCoreMethods(page, pageModel);
 
-            _coreMethods = new PageModelCoreMethods(_page, _pageModel);
+            return (coreMethods, navigationMock);
         }
 
         [Fact]
 
         public async Task model_property_populated_by_action()
         {
-            SetupFirstNavigationAndPage();
+            var (coreMethods, navigationMock) = SetupFirstNavigationAndPage();
 
             const string item = "asj";
-            await _coreMethods.PushPageModel<MockItemPageModel>(pm => pm.Item = item);
+            await coreMethods.PushPageModel<MockItemPageModel>(pm => pm.Item = item);
 
-            await _navigationMock.Received().PushPage(Arg.Any<Page>(), Arg.Is<MockItemPageModel>(o => o.Item.Equals(item)), Arg.Any<bool>(), Arg.Any<bool>());
+            await navigationMock.Received().PushPage(Arg.Any<Page>(), Arg.Is<MockItemPageModel>(o => o.Item.Equals(item)), Arg.Any<bool>(), Arg.Any<bool>());
         }
     }
 }
