@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
-using FreshMvvm.TestHelpers.Mocks;
 using Xunit;
+using FluentAssertions;
+using FreshMvvm.TestHelpers.Mocks;
 
 namespace FreshMvvm.Tests
 {
@@ -11,7 +12,7 @@ namespace FreshMvvm.Tests
         {
             var viewModel = new MockFreshBasePageModel();
 
-            Assert.IsInstanceOf<INotifyPropertyChanged>(viewModel);
+            viewModel.Should().BeAssignableTo<INotifyPropertyChanged>();
         }
 
         [Theory]
@@ -27,9 +28,9 @@ namespace FreshMvvm.Tests
 
             viewModel.Name = name;
 
-            Assert.IsNotNull(actual);
-            Assert.AreEqual("Name", actual);
-            Assert.AreEqual(name, viewModel.Name);
+            actual.Should().NotBeNull();
+            actual.Should().Be("Name");
+            name.Should().BeSameAs(viewModel.Name);
         }
 
         [Theory]
@@ -40,7 +41,7 @@ namespace FreshMvvm.Tests
 
             viewModel.Init(newValue);
 
-            Assert.AreEqual(newValue, viewModel.Name);
+            newValue.Should().Be(viewModel.Name);
         }
 
         [Theory]
@@ -51,7 +52,7 @@ namespace FreshMvvm.Tests
 
             viewModel.ReverseInit(newValue);
 
-            Assert.AreEqual(newValue, viewModel.Name);
+            newValue.Should().Be(viewModel.Name);
         }
 
         [Fact]
@@ -63,8 +64,8 @@ namespace FreshMvvm.Tests
 
             viewModel.CurrentPage = page;
 
-            Assert.IsNotNull(viewModel.CurrentPage);
-            Assert.AreEqual(page, viewModel.CurrentPage);
+            viewModel.CurrentPage.Should().NotBeNull();
+            page.Should().Be(viewModel.CurrentPage);
         }
 
         [Fact]
@@ -75,8 +76,8 @@ namespace FreshMvvm.Tests
 
             viewModel.PreviousPageModel = prevViewModel;
 
-            Assert.IsNotNull(viewModel.PreviousPageModel);
-            Assert.AreEqual(prevViewModel, viewModel.PreviousPageModel);
+            viewModel.PreviousPageModel.Should().NotBeNull();
+            prevViewModel.Should().Be(viewModel.PreviousPageModel);
         }
 
         [Fact]
@@ -87,8 +88,8 @@ namespace FreshMvvm.Tests
 
             viewModel.CoreMethods = methods;
 
-            Assert.IsNotNull(viewModel.CoreMethods);
-            Assert.AreEqual(methods, viewModel.CoreMethods);
+            viewModel.CoreMethods.Should().NotBeNull();
+            methods.Should().Be(viewModel.CoreMethods);
         }
     }
 }
