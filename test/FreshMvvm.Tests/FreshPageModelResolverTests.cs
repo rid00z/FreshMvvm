@@ -1,13 +1,13 @@
 ﻿using System;
 using FreshMvvm.TestHelpers.Mocks;
 using Xunit;
+using FluentAssertions;
 
 namespace FreshMvvm.Tests
 {
     public class FreshPageModelResolverTests
     {
-        [Theory]
-        [InlineData]
+        [Fact]
         public void Test_ResolvePageModel_Not_Found()
         {
             Assert.Throws<Exception>(() =>
@@ -16,16 +16,15 @@ namespace FreshMvvm.Tests
             });
         }
 
-        [Theory]
-        [InlineData]
+        [Fact]
         public void Test_ResolvePageModel()
         {
             var page = FreshPageModelResolver.ResolvePageModel<MockContentPageModel>();
             var context = page.BindingContext as MockContentPageModel;
 
-            Assert.IsNotNull(context);
-            Assert.IsNotNull(context.CurrentPage);
-            Assert.IsNotNull(context.CoreMethods);
+            context.Should().NotBeNull();
+            context.CurrentPage.Should().NotBeNull();
+            context.CoreMethods.Should().NotBeNull();
         }
 
         [Theory]
@@ -35,10 +34,10 @@ namespace FreshMvvm.Tests
             var page = FreshPageModelResolver.ResolvePageModel<MockContentPageModel>(data);
             var context = page.BindingContext as MockContentPageModel;
 
-            Assert.IsNotNull(context);
-            Assert.IsNotNull(context.CurrentPage);
-            Assert.IsNotNull(context.CoreMethods);
-            Assert.AreSame(data, context.Data);
+            context.Should().NotBeNull();
+            context.CurrentPage.Should().NotBeNull();
+            context.CoreMethods.Should().NotBeNull();
+            data.Should().BeSameAs(context.Data);
         }
     }
 }

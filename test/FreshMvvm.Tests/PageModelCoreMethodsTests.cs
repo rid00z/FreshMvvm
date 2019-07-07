@@ -36,7 +36,7 @@ namespace FreshMvvm.Tests
             const string item = "asj";
             await _coreMethods.PushPageModel<MockItemPageModel>(pm => pm.Item = item);
 
-            _navigationMock.Received().PushPage(Arg.Any<Page>(), Arg.Is<MockItemPageModel>(o => o.Item == item), Arg.Any<bool>(), Arg.Any<bool>());
+            await _navigationMock.Received().PushPage(Arg.Any<Page>(), Arg.Is<MockItemPageModel>(o => o.Item == item), Arg.Any<bool>(), Arg.Any<bool>());
         }
     }
 }

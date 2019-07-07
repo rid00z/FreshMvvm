@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
+using FluentAssertions;
 using FreshMvvm.Ioc;
 using FreshMvvm.TestHelpers.Mocks;
 using Xunit;
@@ -17,8 +18,8 @@ namespace FreshMvvm.Tests
             var navigation = new FreshNavigationContainer(page);
             var navigationService = FreshIoc.Container.Resolve<IFreshNavigationService>(Constants.DefaultNavigationServiceName);
 
-            Assert.IsNotNull(navigationService);
-            Assert.AreEqual(navigation, navigationService);
+            navigationService.Should().NotBeNull();
+            navigation.Should().BeSameAs(navigationService);
         }
 
         [Fact]
@@ -37,8 +38,9 @@ namespace FreshMvvm.Tests
 
             var page = navigation.Navigation.NavigationStack.FirstOrDefault(p => p.Id.Equals(detailsPage.Id));
 
-            Assert.IsNotNull(page);
-            Assert.AreSame(detailsPage, page);
+            page.Should().NotBeNull();
+            detailsPage.Should().BeSameAs(page);
+
         }
 
         [Fact]
@@ -52,12 +54,10 @@ namespace FreshMvvm.Tests
             detailsPage.BindingContext = new MockContentPageModel();
 
             var navigation = new FreshNavigationContainer(mainPage);
-
-            Assert.That(navigation.Navigation.ModalStack.Count, Is.EqualTo(0));
+            navigation.Navigation.ModalStack.Count.Should().Be(0);
 
             await navigation.PushPage(detailsPage, mainPageViewModel, true);
-
-            Assert.That(navigation.Navigation.ModalStack.Count, Is.EqualTo(1));
+            navigation.Navigation.ModalStack.Count.Should().Be(1);
         }
 
         [Fact]
@@ -78,9 +78,9 @@ namespace FreshMvvm.Tests
             var page = navigation.Navigation.NavigationStack.FirstOrDefault(p => p.Id.Equals(detailsPage.Id));
             var firstPage = navigation.Navigation.NavigationStack.FirstOrDefault();
 
-            Assert.IsNull(page);
-            Assert.IsNotNull(firstPage);
-            Assert.AreSame(mainPage, firstPage);
+            page.Should().BeNull();
+            firstPage.Should().NotBeNull();
+            mainPage.Should().BeSameAs(firstPage);
         }
 
         [Fact]
@@ -96,12 +96,10 @@ namespace FreshMvvm.Tests
             var navigation = new FreshNavigationContainer(mainPage);
 
             await navigation.PushPage(detailsPage, mainPageViewModel, true);
-
-            Assert.That(navigation.Navigation.ModalStack.Count, Is.EqualTo(1));
+            navigation.Navigation.ModalStack.Count.Should().Be(1);
 
             await navigation.PopPage(true);
-
-            Assert.That(navigation.Navigation.ModalStack.Count, Is.EqualTo(0));
+            navigation.Navigation.ModalStack.Count.Should().Be(0);
         }
 
         [Fact]
@@ -117,8 +115,8 @@ namespace FreshMvvm.Tests
 
             var firstPage = navigation.Navigation.NavigationStack.FirstOrDefault();
 
-            Assert.IsNotNull(firstPage);
-            Assert.AreSame(mainPage, firstPage);
+            firstPage.Should().NotBeNull();
+            mainPage.Should().BeSameAs(firstPage);
         }
     }
 }

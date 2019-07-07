@@ -12,8 +12,8 @@ namespace FreshMvvm.Tests
         {
             var container = FreshIoc.Container;
 
-            Assert.That(container, Is.Not.Null);
-            Assert.That(container, Is.TypeOf<FreshTinyIocBuiltIn>());
+            container.Should().NotBeNull();
+            container.Should().BeAssignableTo<FreshTinyIocBuiltIn>();
         }
     }
 }
