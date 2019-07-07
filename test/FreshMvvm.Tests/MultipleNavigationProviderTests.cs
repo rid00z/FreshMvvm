@@ -17,10 +17,6 @@ namespace FreshMvvm.Tests
 
     public class MultipleNavigationProviderTests
     {
-        public MultipleNavigationProviderTests()
-        {
-        }
-
         /// <summary>
         /// This test ensures the first pagemodels are created with a link to the named navigation service
         /// </summary>
