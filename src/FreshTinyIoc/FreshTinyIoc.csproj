@@ -1,9 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>FreshIoc</AssemblyName>
-    <RootNamespace>Ioc</RootNamespace>
-    <AssemblyVersion>1.0.*</AssemblyVersion>
     <Copyright>michaelridland</Copyright>
     <Deterministic>false</Deterministic>
     <ReleaseVersion>2.2.0</ReleaseVersion>
