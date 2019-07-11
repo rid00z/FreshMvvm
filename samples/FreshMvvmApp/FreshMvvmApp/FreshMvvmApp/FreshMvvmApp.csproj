@@ -63,7 +63,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\src\FreshMvvm\FreshMvvm.csproj" />
     <ProjectReference Include="..\..\..\..\src\FreshIOC\IOC.csproj" />
+    <ProjectReference Include="..\..\..\..\src\FreshMvvm\FreshMvvm.csproj" />
   </ItemGroup>
 </Project>

@@ -3,13 +3,16 @@ using Xamarin.Forms;
 using System.Collections.Generic;
 using FreshMvvm;
 
+[assembly: Xamarin.Forms.Dependency(typeof(FreshMvvm.FreshShellNavigationService))]
+
 namespace FreshMvvmApp
 {
     public partial class App : Application
     {
         public App()
         {
-            Xamarin.Forms.DependencyService.Register<FreshShellNavigationService>();
+            //Xamarin.Forms.DependencyService.Register<FreshShellNavigationService>();
+
             FreshIOC.Container.Register<IDatabaseService, DatabaseService>();
 
             MainPage = new NavigationPage(new LaunchPage(this));

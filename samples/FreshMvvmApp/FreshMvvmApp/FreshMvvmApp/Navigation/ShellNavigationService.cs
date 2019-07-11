@@ -2,12 +2,9 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using FreshMvvm;
-using FreshMvvmApp;
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(FreshShellNavigationService))]
-
-namespace FreshMvvmApp
+namespace FreshMvvm
 {
     public class FreshShellNavigationService : ShellNavigationService, IFreshNavigationService
     {

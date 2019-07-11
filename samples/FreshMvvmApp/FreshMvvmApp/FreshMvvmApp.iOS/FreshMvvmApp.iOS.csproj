@@ -153,6 +153,10 @@
       <Project>{2042ECC6-98FA-4D4F-A924-F9A8924C0E63}</Project>
       <Name>FreshMvvmApp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\src\FreshIOC\IOC.csproj">
+      <Project>{CE6AA8F2-BD67-4051-8AE6-9FFCA9E663FE}</Project>
+      <Name>IOC</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\src\FreshMvvm\FreshMvvm.csproj">
       <Project>{ACBA1111-2C39-4126-B60A-51EE9D0C734B}</Project>
       <Name>FreshMvvm</Name>
