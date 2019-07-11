@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using FreshMvvm;
 using PropertyChanged;
 using System.Diagnostics;
+using System;
 
 namespace FreshMvvmApp
 {
@@ -63,13 +64,10 @@ namespace FreshMvvmApp
             }
         }
 
-        public Command<Quote> QuoteSelected {
-            get {
-                return new Command<Quote> (async (quote) => {
-                    await CoreMethods.PushPageModel<QuotePageModel> (pm => pm.Quote = quote);
-                });
-            }
-        }
+        public Command<Quote> QuoteSelected => new Command<Quote>(async (quote) =>
+        {
+            await CoreMethods.PushPageModel<QuotePageModel>(vm => vm.Quote = quote);
+        });
     }
 }
 
