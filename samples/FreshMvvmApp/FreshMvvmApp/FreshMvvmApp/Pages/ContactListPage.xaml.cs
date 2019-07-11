@@ -18,7 +18,7 @@ namespace FreshMvvmApp
 
         async void Handle_Clicked(object sender, System.EventArgs e)
         {
-            await Shell.Current.GoToAsync("//bottomtabs/contacts/contacts2/contactpage");
+            await Shell.Current.GoToAsync("//bottomtabs/contacts/contacts2/contactpage?test=1");
         }
     }
 }

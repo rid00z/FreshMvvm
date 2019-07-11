@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using FreshMvvm;
 using FreshMvvmApp;
@@ -13,22 +14,17 @@ namespace FreshMvvmApp
         static string NavServiceName = "FreshShellNavigationService";
         string IFreshNavigationService.NavigationServiceName => NavServiceName;
 
-        // this needs work but it's a thing for now
-        //static ViewModelBase _navigatingViewModel;
-
         public FreshShellNavigationService()
         {
             FreshIOC.Container.Register<IFreshNavigationService>(this, NavServiceName);
         }
 
-        //public async Task GotoAsync(ViewModelBase viewModelBase)
-        //{
-        //    _navigatingViewModel = viewModelBase;
-        //    await Shell.Current.GoToAsync($"//{viewModelBase.GetType().Name}", true);
-        //}
-
         public override void ApplyParameters(ShellLifecycleArgs args)
         {
+            if (args?.PathPart?.NavigationParameters?.Count > 0)
+                Debugger.Break();
+
+            Debug.WriteLine($"ApplyParams {args?.PathPart?.Path}");
             base.ApplyParameters(args);
         }
 
@@ -39,7 +35,8 @@ namespace FreshMvvmApp
 
         public override Task AppearingAsync(ShellLifecycleArgs args)
         {
-            var test = args.RoutePath.PathParts;
+            Debug.WriteLine($"AppearingAsync {args?.PathPart?.Path}");
+            var test = args.PathPart;
             return base.AppearingAsync(args);
         }
 
@@ -48,7 +45,7 @@ namespace FreshMvvmApp
             var content = base.Create(args);
 
             if (content.BindingContext == null)
-            {
+                            {
                 string pageModelName = content.GetType().FullName + "Model";
                 var pageModel = FreshIOC.Container.Resolve(Type.GetType(pageModelName)) as FreshBasePageModel;
                 pageModel.PreviousNavigationServiceName = NavServiceName;
@@ -56,13 +53,6 @@ namespace FreshMvvmApp
                 FreshPageModelResolver.BindingPageModel(null, content, pageModel);
                 content.BindingContext = pageModel;
             }
-
-            //if (args.Content.Route == "QuoteList")
-            //    content.BindingContext = _navigatingViewModel as QuoteListPageModel ?? new QuoteListPageModel();
-            //else if (args.Content.Route == "LoginPageViewModel")
-            //    content.BindingContext = _navigatingViewModel as ContactListPageModel ?? new LoginPageViewModel();
-
-            //_navigatingViewModel = null;
 
             return content;
         }

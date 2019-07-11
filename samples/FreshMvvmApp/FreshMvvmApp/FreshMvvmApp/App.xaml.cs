@@ -9,6 +9,7 @@ namespace FreshMvvmApp
     {
         public App()
         {
+            Xamarin.Forms.DependencyService.Register<FreshShellNavigationService>();
             FreshIOC.Container.Register<IDatabaseService, DatabaseService>();
 
             MainPage = new NavigationPage(new LaunchPage(this));
