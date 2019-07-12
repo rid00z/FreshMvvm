@@ -444,7 +444,37 @@ And then set the IOC container in the System.
 FreshIOC.OverrideContainer(myContainer);
 ```
 
-### Other Features
+### Other Features/Tips
+
+#### Customise Navigation Pages
+
+Wondering how to customize the navigation bar in pages, eg control the NavigationPage that's created. 
+
+In some instances FreshMvvm creates container NavigationPage's for your sub pages. The NavigationContainer's have an override that allows you to control the creation of this NavigationPage. In the sample below we inherit from FreshTabbedNavigationContainer and override the CreateContainerPage and set the NavigationPage BarBackgroundColor to Blue.
+
+```csharp
+using System;
+using Xamarin.Forms;
+
+namespace FreshMvvmApp
+{
+    public class NavigationBarCustom : FreshMvvm.FreshTabbedNavigationContainer
+    {
+        public NavigationBarCustom()
+        {
+        }
+
+        protected override Page CreateContainerPage(Page page)
+        {
+            var container = new NavigationPage(page);
+
+            container.BarBackgroundColor = Color.Blue;
+
+            return container;
+        }
+    }
+}
+```
 
 #### WhenAny
 
