@@ -15,8 +15,8 @@
     <None Remove="backup-2019-01-17-093112\**" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="System.Reactive" Version="4.0.0" />
-    <PackageReference Include="Xamarin.Forms" Version="3.4.0.1009999" />
+    <PackageReference Include="System.Reactive" Version="4.4.1" />
+    <PackageReference Include="Xamarin.Forms" Version="4.6.0.772" />
   </ItemGroup>
   
   <ItemGroup>
