@@ -48,13 +48,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.0.0" />
-    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.1.0" />
-    <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0" />
-    <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0" />
-    <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.1.0" />
-  <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.6" />  <PackageReference Include="Xamarin.Forms">
-    <Version>4.6.0.772</Version>
+    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.2.1.1" />
+    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.2.0.6" />
+    <PackageReference Include="Xamarin.AndroidX.Legacy.Support.V4" Version="1.0.0.6" />
+    <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0.6" />
+    <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.2.0.1" />
+  <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.8" />  <PackageReference Include="Xamarin.Forms">
+    <Version>4.8.0.1821</Version>
   </PackageReference>
 </ItemGroup>
   <ItemGroup>
