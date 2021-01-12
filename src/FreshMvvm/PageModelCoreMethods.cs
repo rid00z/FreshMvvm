@@ -56,7 +56,7 @@ namespace FreshMvvm
         {
             T pageModel = FreshIOC.Container.Resolve<T> ();
 			TPage page = FreshIOC.Container.Resolve<TPage>();
-			FreshPageModelResolver.BindingPageModel(data, page, pageModel);
+			await FreshPageModelResolver.BindingPageModel(data, page, pageModel);
             await PushPageModelWithPage(page, pageModel, data, modal, animate);
         }
 
@@ -74,7 +74,7 @@ namespace FreshMvvm
 
         async Task PushPageModel(FreshBasePageModel pageModel, object data, bool modal = false, bool animate = true)
         {
-            var page = FreshPageModelResolver.ResolvePageModel(data, pageModel);
+            var page = await FreshPageModelResolver.ResolvePageModel(data, pageModel);
             await PushPageModelWithPage(page, pageModel, data, modal, animate);
         }
 
@@ -133,14 +133,14 @@ namespace FreshMvvm
             await PopPageModel (modal, animate);
         }
 
-        public Task PushPageModel<T> (bool animate = true) where T : FreshBasePageModel
+        public async Task PushPageModel<T>(bool animate = true) where T : FreshBasePageModel
         {
-            return PushPageModel<T> (null, false, animate);
+            await PushPageModel<T>(null, false, animate);
         }
 
-        public Task PushPageModel<T, TPage> (bool animate = true) where T : FreshBasePageModel where TPage : Page
+        public async Task PushPageModel<T, TPage>(bool animate = true) where T : FreshBasePageModel where TPage : Page
         {
-            return PushPageModel<T, TPage> (null, animate);
+            await PushPageModel<T, TPage>(null, animate);
         }
 
         public Task PushNewNavigationServiceModal (FreshTabbedNavigationContainer tabbedNavigationContainer, FreshBasePageModel basePageModel = null, bool animate = true)
@@ -167,9 +167,9 @@ namespace FreshMvvm
             return PushNewNavigationServiceModal (masterDetailContainer, models.ToArray(), animate);
         }
 
-        public Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel basePageModels, bool animate = true)
+        public async Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel basePageModels, bool animate = true)
         {
-            return PushNewNavigationServiceModal (newNavigationService, new FreshBasePageModel[] { basePageModels }, animate);
+            await PushNewNavigationServiceModal (newNavigationService, new FreshBasePageModel[] { basePageModels }, animate);
         }
 
         public async Task PushNewNavigationServiceModal (IFreshNavigationService newNavigationService, FreshBasePageModel[] basePageModels, bool animate = true)
@@ -195,7 +195,7 @@ namespace FreshMvvm
             if (!(rootNavigation is Page))
                 throw new Exception("Navigation service is not a page");
             
-            Xamarin.Forms.Application.Current.MainPage = rootNavigation as Page;
+            Application.Current.MainPage = rootNavigation as Page;
         }
 
         public async Task PopModalNavigationService(bool animate = true)
@@ -238,7 +238,7 @@ namespace FreshMvvm
 
         public async Task<string> PushPageModelWithNewNavigation<T> (object data, bool animate = true) where T : FreshBasePageModel
         {
-            var page = FreshPageModelResolver.ResolvePageModel<T>(data);
+            var page = await FreshPageModelResolver.ResolvePageModel<T>(data);
             var navigationName = Guid.NewGuid().ToString();
             var naviationContainer = new FreshNavigationContainer(page, navigationName);
             await PushNewNavigationServiceModal(naviationContainer, page.GetModel(), animate);

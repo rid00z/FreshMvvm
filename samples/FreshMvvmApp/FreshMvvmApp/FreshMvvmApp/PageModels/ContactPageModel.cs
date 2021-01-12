@@ -2,6 +2,7 @@
 using PropertyChanged;
 using FreshMvvm;
 using System;
+using System.Threading.Tasks;
 
 namespace FreshMvvmApp
 {
@@ -24,13 +25,15 @@ namespace FreshMvvmApp
 
         public Contact Contact { get; set; }
 
-        public override void Init (object initData)
+        public override Task InitAsync(object initData)
         {
             if (initData != null) {
                 Contact = (Contact)initData;
             } else {
                 Contact = new Contact ();
             }
+
+            return base.InitAsync(initData);
         }
 
         public Command SaveCommand {
@@ -55,7 +58,7 @@ namespace FreshMvvmApp
             get {
                 return new Command (async () => {
 
-                    var page = FreshPageModelResolver.ResolvePageModel<MainMenuPageModel> ();
+                    var page = await FreshPageModelResolver.ResolvePageModel<MainMenuPageModel> ();
                     var basicNavContainer = new FreshNavigationContainer (page, Guid.NewGuid ().ToString ());
                     await CoreMethods.PushNewNavigationServiceModal(basicNavContainer, new FreshBasePageModel[] { page.GetModel() }); 
                 });

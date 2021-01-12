@@ -2,6 +2,7 @@
 using FreshMvvm;
 using Xamarin.Forms;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Threading.Tasks;
 
 namespace FreshMvvmApp
@@ -14,19 +15,31 @@ namespace FreshMvvmApp
 		FreshTabbedNavigationContainer _tabbedNavigationPage;
 		Page _contactsPage, _quotesPage;
 
-		public CustomImplementedNav ()
+		private CustomImplementedNav ()
 		{	
             NavigationServiceName = "CustomImplementedNav";
-			SetupTabbedPage ();
-			CreateMenuPage ("Menu");
-			RegisterNavigation ();
 		}
 
-		void SetupTabbedPage()
+		public static async Task<CustomImplementedNav> Create()
+		{
+			var newInstance = new CustomImplementedNav();
+			return await newInstance.InitialiseAsync();
+		}
+
+		private async Task<CustomImplementedNav> InitialiseAsync()
+		{
+			NavigationServiceName = "CustomImplementedNav";
+			await SetupTabbedPage ();
+			CreateMenuPage ("Menu");
+			RegisterNavigation ();
+			return this;
+		}
+
+		async Task SetupTabbedPage()
 		{
 			_tabbedNavigationPage = new FreshTabbedNavigationContainer ();
-			_contactsPage = _tabbedNavigationPage.AddTab<ContactListPageModel> ("Contacts", "contacts.png");
-			_quotesPage = _tabbedNavigationPage.AddTab<QuoteListPageModel> ("Quotes", "document.png");
+			_contactsPage = await _tabbedNavigationPage.AddTab<ContactListPageModel> ("Contacts", "contacts.png");
+			_quotesPage = await _tabbedNavigationPage.AddTab<QuoteListPageModel> ("Quotes", "document.png");
 			this.Detail = _tabbedNavigationPage;
 		}
 
@@ -54,7 +67,7 @@ namespace FreshMvvmApp
 					_tabbedNavigationPage.CurrentPage = _quotesPage;
 					break;
 				case "Modal Demo":
-                    var modalPage = FreshPageModelResolver.ResolvePageModel<ModalPageModel>();
+                    var modalPage = await FreshPageModelResolver.ResolvePageModel<ModalPageModel>();
 					await PushPage(modalPage, null, true);
 					break;
 				default:

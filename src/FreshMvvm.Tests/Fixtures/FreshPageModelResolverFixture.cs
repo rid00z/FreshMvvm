@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using FreshMvvm.Tests.Mocks;
 using NUnit.Framework;
 
@@ -10,16 +11,16 @@ namespace FreshMvvm.Tests.Fixtures
 		[TestCase]
 		public void Test_ResolvePageModel_Not_Found()
 		{
-			Assert.Throws<Exception>(() =>
+			Assert.ThrowsAsync<Exception>(async () =>
 			{
-				FreshPageModelResolver.ResolvePageModel<MockFreshBasePageModel>();
+				await FreshPageModelResolver.ResolvePageModel<MockFreshBasePageModel>();
 			});
 		}
 
 		[TestCase]
-		public void Test_ResolvePageModel()
+		public async Task Test_ResolvePageModel()
 		{
-			var page = FreshPageModelResolver.ResolvePageModel<MockContentPageModel>();
+			var page = await  FreshPageModelResolver.ResolvePageModel<MockContentPageModel>();
 			var context = page.BindingContext as MockContentPageModel;
 
 			Assert.IsNotNull(context);
@@ -28,9 +29,9 @@ namespace FreshMvvm.Tests.Fixtures
 		}
 
 		[TestCase("test data")]
-		public void Test_ResolvePageModel_With_Init(object data)
+		public async Task Test_ResolvePageModel_With_Init(object data)
 		{
-			var page = FreshPageModelResolver.ResolvePageModel<MockContentPageModel>(data);
+			var page = await FreshPageModelResolver.ResolvePageModel<MockContentPageModel>(data);
 			var context = page.BindingContext as MockContentPageModel;
 
 			Assert.IsNotNull(context);

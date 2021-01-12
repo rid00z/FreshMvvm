@@ -18,9 +18,9 @@ namespace FreshMvvmApp
                 "Tabbed (FO) Navigation",
                 "Multiple Navigation"
             };
-            list.ItemTapped += (object sender, ItemTappedEventArgs e) => {
+            list.ItemTapped += async (object sender, ItemTappedEventArgs e) => {
                 if ((string)e.Item == "Basic Navigation")
-                    app.LoadBasicNav ();
+                    await app.LoadBasicNav ();
                 else if ((string)e.Item == "Master Detail")
                     app.LoadMasterDetail ();
                 else if ((string)e.Item == "Tabbed Navigation")
@@ -28,9 +28,9 @@ namespace FreshMvvmApp
                 else if ((string)e.Item == "Tabbed (FO) Navigation")
                     app.LoadFOTabbedNav ();
                 else if ((string)e.Item == "Custom Navigation")
-                    app.LoadCustomNav ();
+                    await app.LoadCustomNav ();
                 else if ((string)e.Item == "Multiple Navigation")
-                    app.LoadMultipleNavigation ();
+                    await app.LoadMultipleNavigation ();
             };
             this.Content = list;
         }

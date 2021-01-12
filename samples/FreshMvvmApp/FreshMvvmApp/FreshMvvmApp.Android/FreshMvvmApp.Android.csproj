@@ -54,7 +54,7 @@
     <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0" />
     <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.1.0" />
   <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.6" />  <PackageReference Include="Xamarin.Forms">
-    <Version>4.6.0.772</Version>
+    <Version>4.6.0.1180</Version>
   </PackageReference>
 </ItemGroup>
   <ItemGroup>

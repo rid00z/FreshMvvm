@@ -57,6 +57,15 @@ namespace FreshMvvm
         {            
         }
 
+        /// <summary>
+        /// This method is called when the PageModel is loaded, the initData is the data that's sent from pagemodel before
+        /// </summary>
+        /// <param name="initData">Data that's sent to this PageModel from the pusher</param>
+        public virtual Task InitAsync (object initData)
+        {
+            return Task.CompletedTask;
+        }
+
         protected void RaisePropertyChanged ([CallerMemberName] string propertyName = null)
         {
             var handler = PropertyChanged;

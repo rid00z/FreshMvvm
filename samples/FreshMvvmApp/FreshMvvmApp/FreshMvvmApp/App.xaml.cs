@@ -1,6 +1,7 @@
 using System;
 using Xamarin.Forms;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using FreshMvvm;
 
 namespace FreshMvvmApp
@@ -14,9 +15,9 @@ namespace FreshMvvmApp
             MainPage = new NavigationPage(new LaunchPage(this));
         }
 
-        public void LoadBasicNav()
+        public async Task LoadBasicNav()
         {
-            var page = FreshPageModelResolver.ResolvePageModel<MainMenuPageModel>();
+            var page = await FreshPageModelResolver.ResolvePageModel<MainMenuPageModel>();
             var basicNavContainer = new FreshNavigationContainer(page);
             MainPage = basicNavContainer;
         }
@@ -46,17 +47,17 @@ namespace FreshMvvmApp
             MainPage = tabbedNavigation;
         }
 
-        public void LoadCustomNav()
+        public async Task LoadCustomNav()
         {
-            MainPage = new CustomImplementedNav();
+            MainPage =  await CustomImplementedNav.Create();
         }
 
-        public void LoadMultipleNavigation()
+        public async Task LoadMultipleNavigation()
         {
             var masterDetailsMultiple = new MasterDetailPage(); //generic master detail page
 
             //we setup the first navigation container with ContactList
-            var contactListPage = FreshPageModelResolver.ResolvePageModel<ContactListPageModel>();
+            var contactListPage = await  FreshPageModelResolver.ResolvePageModel<ContactListPageModel>();
             contactListPage.Title = "Contact List";
             //we setup the first navigation container with name MasterPageArea
             var masterPageArea = new FreshNavigationContainer(contactListPage, "MasterPageArea");
@@ -65,7 +66,7 @@ namespace FreshMvvmApp
             masterDetailsMultiple.Master = masterPageArea; //set the first navigation container to the Master
 
             //we setup the second navigation container with the QuoteList 
-            var quoteListPage = FreshPageModelResolver.ResolvePageModel<QuoteListPageModel>();
+            var quoteListPage = await FreshPageModelResolver.ResolvePageModel<QuoteListPageModel>();
             quoteListPage.Title = "Quote List";
             //we setup the second navigation container with name DetailPageArea
             var detailPageArea = new FreshNavigationContainer(quoteListPage, "DetailPageArea");
