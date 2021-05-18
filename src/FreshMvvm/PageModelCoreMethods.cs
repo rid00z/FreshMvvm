@@ -207,7 +207,7 @@ namespace FreshMvvm
 
             var navServiceName = _currentPageModel.PreviousNavigationServiceName;
             IFreshNavigationService rootNavigation = FreshIOC.Container.Resolve<IFreshNavigationService> (navServiceName);
-            await rootNavigation.PopPage (animate);
+            await rootNavigation.PopPage (true, animate);
         }
 
         /// <summary>
