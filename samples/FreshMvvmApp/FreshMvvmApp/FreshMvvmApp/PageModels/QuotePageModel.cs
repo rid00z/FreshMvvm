@@ -15,6 +15,18 @@ namespace FreshMvvmApp
             _databaseService = databaseService;
         }
 
+        public override void Init(object initData)
+        {
+            if (initData != null)
+            {
+                Quote = (Quote)initData;
+            }
+            else
+            {
+                Quote = new Quote();
+            }
+        }
+
         public Command SaveCommand {
             get {
                 return new Command (async () => {
