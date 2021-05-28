@@ -29,6 +29,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
+<AndroidDexTool>dx</AndroidDexTool>
+<EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,7 +56,7 @@
     <PackageReference Include="Xamarin.AndroidX.CardView" Version="1.0.0" />
     <PackageReference Include="Xamarin.AndroidX.MediaRouter" Version="1.1.0" />
   <PackageReference Include="Xamarin.AndroidX.Migration" Version="1.0.6" />  <PackageReference Include="Xamarin.Forms">
-    <Version>4.6.0.772</Version>
+    <Version>5.0.0.2012</Version>
   </PackageReference>
 </ItemGroup>
   <ItemGroup>
