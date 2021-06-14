@@ -20,8 +20,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>MinimumOSVersion</key>
-	<string>8.0</string>
 	<key>CFBundleDisplayName</key>
 	<string>FreshMvvmApp</string>
 	<key>CFBundleIdentifier</key>
@@ -34,5 +32,7 @@
 	<string>FreshMvvmApp</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>MinimumOSVersion</key>
+	<string>14.5</string>
 </dict>
 </plist>
