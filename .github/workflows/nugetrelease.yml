@@ -1,0 +1,46 @@
+name: .NET Core
+
+on:
+  push:
+    branches: [ release ]
+  pull_request:
+    branches: [ release ]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1.7.2
+      with:
+        dotnet-version: 3.1.301
+        # Authenticates packages to push to GPR
+        source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+      env:
+        NUGET_AUTH_TOKEN: '%NUGET_AUTH_TOKEN%'
+    
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.2
+    
+    - name: Install dependencies
+      run: msbuild /t:Restore
+      env:
+        NUGET_AUTH_TOKEN: ${{ github.token }}
+    
+    - name: Build
+      run: |
+        msbuild /t:Pack /p:Configuration=Debug Library/MintPlayer.MVVM/MintPlayer.MVVM.csproj
+        dotnet pack Library\MintPlayer.MVVM.BaseModel\MintPlayer.MVVM.BaseModel.csproj --configuration=Release
+    
+    - name: PushNuget
+      run: dotnet nuget push "**/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.PUBLISH_TO_NUGET_ORG }} --skip-duplicate
+    
+    - name: PushGithub
+      run: nuget.exe push "**/*.nupkg" -NoSymbols -SkipDuplicate
+      env:
+        NUGET_AUTH_TOKEN: ${{ github.token }}

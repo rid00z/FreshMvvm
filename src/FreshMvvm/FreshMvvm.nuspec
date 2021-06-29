@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>FreshMvvm</id>
-    <version>3.0.0</version>
+    <version>4.0.0</version>
     <title>FreshMvvm</title>
     <authors>Michael Ridland</authors>
     <owners>rid00z</owners>
@@ -11,11 +11,14 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <dependencies>
       <dependency id="System.Reactive" version="4.0.0"/>
-      <dependency id="Xamarin.Forms" version="3.4.0.1009999"/>
+      <dependency id="Xamarin.Forms" version="5.0.0.2012"/>
     </dependencies>
     <description>FreshMvvm is a super light Mvvm Framework designed specifically for Xamarin.Forms. Its designed to be Easy, Simple and Flexible.</description>    
     <tags>Mvvm, Xamarin.Forms, FreshMvvm</tags>
     <releaseNotes>
+    4.0.0
+    Using the latest Xamarin forms nuget 5.0.0.2012.
+    
     3.0.0
     Using the latest Xamarin forms nuget 3.4.0, updated the solution to be .net standard, fixed all the unit test errors.
     

@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7C3C4F2E-ECEF-4984-853C-88D1C71AD185}"
 	ProjectSection(SolutionItems) = preProject
 		FreshMvvm.sln = FreshMvvm.sln
+		..\.github\workflows\nugetrelease.yml = ..\.github\workflows\nugetrelease.yml
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreshMvvmApp", "..\samples\FreshMvvmApp\FreshMvvmApp\FreshMvvmApp\FreshMvvmApp.csproj", "{2042ECC6-98FA-4D4F-A924-F9A8924C0E63}"
