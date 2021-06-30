@@ -35,7 +35,7 @@ jobs:
     - name: Build
       run: |
         msbuild /t:Pack /p:Configuration=Debug src/FreshMvvm/FreshMvvm.csproj
-        dotnet pack src/FreshMvvm/FreshMvvm.csproj --configuration=Release
+        dotnet pack src/FreshMvvm/FreshMvvm.csproj --configuration=Release -IncludeReferencedProjects
     
     - name: PushNuget
       run: dotnet nuget push "**/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.PUBLISH_TO_NUGET_ORG }} --skip-duplicate
