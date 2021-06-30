@@ -28,7 +28,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.0.2
     
     - name: Install dependencies
-      run: msbuild /t:Restore
+      run: msbuild /t:Restore src/FreshMvvm
       env:
         NUGET_AUTH_TOKEN: ${{ github.token }}
     
