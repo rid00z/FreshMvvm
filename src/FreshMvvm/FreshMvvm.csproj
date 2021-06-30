@@ -5,11 +5,11 @@
     <RootNamespace>FreshMvvm</RootNamespace>
     <Company>FreshMvvm</Company>
     <Authors>Michael Ridland</Authors>
-    <AssemblyVersion>3.0.*</AssemblyVersion>
+    <AssemblyVersion>4.0.1</AssemblyVersion>
     <Copyright>michaelridland</Copyright>
     <Deterministic>false</Deterministic>
-    <ReleaseVersion>4.0.0</ReleaseVersion>
-    <Version>4.0.0</Version>
+    <ReleaseVersion>4.0.1</ReleaseVersion>
+    <Version>4.0.1</Version>
 
     <Description>FreshMvvm is a super light Mvvm Framework designed specifically for Xamarin.Forms. Its designed to be Easy, Simple and Flexible.</Description>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
