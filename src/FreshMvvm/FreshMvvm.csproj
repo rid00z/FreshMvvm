@@ -25,9 +25,16 @@
   <ItemGroup>
     <PackageReference Include="System.Reactive" Version="4.4.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="Teronis.MSBuild.Packaging.ProjectBuildInPackage" Version="0.1.7">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="../FreshIOC/IOC.csproj" />
+    <ProjectReference Include="../FreshIOC/IOC.csproj" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Teronis.MSBuild.Packaging.ProjectBuildInPackage" />
   </ItemGroup>
 </Project>
