@@ -1,3 +1,7 @@
+# FreshMvvm.Maui
+
+If you're looking for .NET MAUI version of FreshMvvm, aka FreshMvvm.Maui then please visit: https://github.com/XAM-Consulting/FreshMvvm.Maui
+
 # FreshMvvm for Xamarin.Forms
 
 FreshMvvm is a super light Mvvm Framework designed specifically for Xamarin.Forms. It's designed to be Easy, Simple and Flexible. 
