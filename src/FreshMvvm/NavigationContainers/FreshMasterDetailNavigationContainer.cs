@@ -39,9 +39,9 @@ namespace FreshMvvm
             FreshIOC.Container.Register<IFreshNavigationService> (this, NavigationServiceName);
         }
 
-        public virtual void AddPage<T> (string title, object data = null) where T : FreshBasePageModel
+        public virtual async Task AddPage<T>(string title, object data = null) where T : FreshBasePageModel
         {
-            var page = FreshPageModelResolver.ResolvePageModel<T> (data);
+            var page = await FreshPageModelResolver.ResolvePageModel<T> (data);
             page.GetModel ().CurrentNavigationServiceName = NavigationServiceName;
             _pagesInner.Add(page);
             var navigationContainer = CreateContainerPage (page);
@@ -50,10 +50,10 @@ namespace FreshMvvm
             if (_pages.Count == 1)
                 Detail = navigationContainer;
         }
-        public virtual void AddPage(string modelName, string title, object data = null)
+        public virtual async Task AddPage(string modelName, string title, object data = null)
         {
             var pageModelType = Type.GetType(modelName);
-            var page = FreshPageModelResolver.ResolvePageModel(pageModelType, null);
+            var page = await FreshPageModelResolver.ResolvePageModel(pageModelType, null);
             page.GetModel().CurrentNavigationServiceName = NavigationServiceName;
             _pagesInner.Add(page);
             var navigationContainer = CreateContainerPage(page);

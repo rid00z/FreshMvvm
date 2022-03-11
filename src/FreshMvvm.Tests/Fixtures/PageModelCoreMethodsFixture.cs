@@ -14,12 +14,12 @@ namespace FreshMvvm.Tests.Fixtures
 	    Page _page;
 	    FreshBasePageModel _pageModel;
 
-        void SetupFirstNavigationAndPage()
+	    async Task SetupFirstNavigationAndPage()
 	    {
 	        _navigationMock = Substitute.For<IFreshNavigationService>();
 	        FreshIOC.Container.Register<IFreshNavigationService>(_navigationMock, "firstNav");
 
-	        _page = FreshPageModelResolver.ResolvePageModel<MockContentPageModel>();
+	        _page = await FreshPageModelResolver.ResolvePageModel<MockContentPageModel>();
 	        _pageModel = _page.BindingContext as MockContentPageModel;
 	        _pageModel.CurrentNavigationServiceName = "firstNav";
 
@@ -30,12 +30,12 @@ namespace FreshMvvm.Tests.Fixtures
         [Test]
 	    public async Task model_property_populated_by_action()
 	    {
-            SetupFirstNavigationAndPage();
+            await SetupFirstNavigationAndPage();
 
 	        const string item = "asj";
 	        await _coreMethods.PushPageModel<MockItemPageModel>(pm => pm.Item = item);
 
-	        _navigationMock.Received().PushPage(Arg.Any<Page>(), Arg.Is<MockItemPageModel>(o => o.Item == item), Arg.Any<bool>(), Arg.Any<bool>());
+	        await _navigationMock.Received().PushPage(Arg.Any<Page>(), Arg.Is<MockItemPageModel>(o => o.Item == item), Arg.Any<bool>(), Arg.Any<bool>());
         }
     }
 }
