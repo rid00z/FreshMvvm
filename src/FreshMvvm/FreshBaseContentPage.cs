@@ -16,7 +16,7 @@ namespace FreshMvvm
 
             var pageModel = BindingContext as FreshBasePageModel;
 
-            if (pageModel != null && pageModel.ToolbarItems != null && pageModel.ToolbarItems.Count > 0) {
+            if (pageModel != null && pageModel.ToolbarItems != null) {
 
                 pageModel.ToolbarItems.CollectionChanged += PageModel_ToolbarItems_CollectionChanged;
 
